@@ -1,0 +1,14 @@
+node_modules/
+.agents/skills/
+.astro/
+dist/
+coverage/
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+
+.idea/
+.vscode/
