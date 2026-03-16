@@ -193,12 +193,16 @@ Each project entry must support:
 - `description`
 - `featured`
 - `coverImage`
+- `icon`
 - `sourceLink`
 
 Usage:
 - featured grid uses `coverImage`, `title`, and optionally `description`
-- all-projects list uses a small image/icon, `title`, and optionally
-  `description`
+- all-projects list uses `icon`, `title`, and optionally `description`
+
+`coverImage` and `icon` are distinct assets. `coverImage` is larger
+(intended for the featured grid at ~640×360). `icon` is smaller
+(intended for compact list rows at ~48×48).
 
 MVP does not require:
 - tags,

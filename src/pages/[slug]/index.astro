@@ -1,0 +1,55 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { getProjects } from '../../lib/projects/registry';
+import type { ProjectMeta } from '../../lib/projects/types';
+
+// Route-local demo imports — only this page loads these
+import SudokuDemo from '../../projects/sudoku/Demo';
+import ConwayDemo from '../../projects/conway/Demo';
+import TowerOfHanoiDemo from '../../projects/tower-of-hanoi/Demo';
+import ElementaryCellularAutomataDemo from '../../projects/elementary-cellular-automata/Demo';
+
+export function getStaticPaths() {
+  return getProjects().map((p) => ({
+    params: { slug: p.slug },
+    props: { project: p },
+  }));
+}
+
+interface Props {
+  project: ProjectMeta;
+}
+
+const { project } = Astro.props;
+---
+
+<ProjectLayout project={project} page="demo">
+  <div class="demo-page">
+    <div class="demo-container">
+      {project.slug === 'sudoku' && <SudokuDemo client:load />}
+      {project.slug === 'conway' && <ConwayDemo client:load />}
+      {project.slug === 'tower-of-hanoi' && <TowerOfHanoiDemo client:load />}
+      {project.slug === 'elementary-cellular-automata' && <ElementaryCellularAutomataDemo client:load />}
+    </div>
+  </div>
+</ProjectLayout>
+
+<style>
+  .demo-page {
+    padding: var(--space-8) 0 var(--space-16);
+  }
+
+  .demo-container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+  }
+
+  .demo-missing {
+    padding: var(--space-16) 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+</style>

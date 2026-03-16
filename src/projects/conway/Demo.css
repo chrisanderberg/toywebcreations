@@ -1,0 +1,233 @@
+/* ===================================================================
+   Conway's Game of Life — Styles
+   =================================================================== */
+
+.conway-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* --- Bars --- */
+.conway-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+}
+
+/* --- Stats --- */
+.conway-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--phosphor);
+  text-shadow: var(--glow-text-sm);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  min-width: 5ch;
+}
+
+/* --- Playback --- */
+.conway-playback {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--phosphor-dim);
+  background: var(--bg-raised);
+  color: var(--phosphor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 150ms, background 150ms, border-color 150ms;
+  flex-shrink: 0;
+}
+.play-btn:hover {
+  box-shadow: var(--glow-md);
+  background: rgba(57, 255, 20, 0.08);
+  border-color: var(--phosphor);
+}
+.play-btn.running {
+  border-color: var(--phosphor);
+  box-shadow: var(--glow-sm);
+  animation: play-pulse 2s ease-in-out infinite;
+}
+@keyframes play-pulse {
+  0%, 100% { box-shadow: var(--glow-sm); }
+  50%       { box-shadow: var(--glow-md); }
+}
+
+.ctrl-btn-sm {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  color: var(--text-dim);
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 150ms, border-color 150ms;
+}
+.ctrl-btn-sm:hover:not(:disabled) {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+}
+.ctrl-btn-sm:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.ctrl-btn-sm--danger:hover {
+  color: #ff9999 !important;
+  border-color: rgba(255, 100, 100, 0.3) !important;
+}
+
+.fps-control {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.25rem;
+}
+
+.fps-slider {
+  width: 72px;
+  accent-color: var(--phosphor);
+  cursor: pointer;
+}
+
+.fps-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--phosphor-muted);
+  min-width: 2ch;
+  text-align: right;
+}
+
+/* --- Tool buttons --- */
+.conway-tool-btns {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.tool-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: color 150ms, border-color 150ms, background 150ms;
+}
+.tool-btn:hover {
+  color: var(--text);
+  border-color: var(--border-bright);
+}
+.tool-btn.active {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.07);
+}
+
+/* --- Canvas --- */
+.canvas-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  background: #0c130c;
+  box-shadow: var(--glow-md);
+  line-height: 0;
+}
+
+.conway-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* --- Pattern bar --- */
+.conway-bar--bottom {
+  justify-content: flex-start;
+}
+
+.patterns-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.pattern-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pattern-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: 4px 10px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: color 150ms, border-color 150ms, background 150ms;
+}
+.pattern-btn:hover {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.06);
+}
+
+@media (max-width: 600px) {
+  .conway-bar--top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .conway-tool-btns {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,566 @@
+/* ===================================================================
+   Tower of Hanoi — Demo Styles
+   Phosphor / CRT aesthetic
+   =================================================================== */
+
+/* ── Wrapper ────────────────────────────────────────────────────────── */
+
+.hanoi-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0.5rem 0 1.5rem;
+}
+
+/* ── Status bar ─────────────────────────────────────────────────────── */
+
+.hanoi-topbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.hanoi-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-block {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.13em;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--phosphor);
+  text-shadow: var(--glow-text-sm);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  min-width: 3ch;
+}
+
+.stat-num--dim {
+  color: var(--phosphor-dim);
+  text-shadow: none;
+}
+
+.stat-sep {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* Status badge */
+.status-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  margin-left: auto;
+}
+
+.status-badge--ready {
+  color: var(--text-muted);
+  border-color: var(--border);
+  background: transparent;
+}
+
+.status-badge--playing {
+  color: var(--phosphor-muted);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.05);
+}
+
+.status-badge--solving {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.08);
+  animation: badge-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: none; }
+  50%       { box-shadow: 0 0 8px rgba(57, 255, 20, 0.3); }
+}
+
+.status-badge--paused {
+  color: var(--phosphor-dim);
+  border-color: var(--border-bright);
+  background: transparent;
+}
+
+.status-badge--solved {
+  color: var(--phosphor);
+  border-color: var(--phosphor-muted);
+  background: rgba(57, 255, 20, 0.1);
+  text-shadow: var(--glow-text-sm);
+}
+
+/* Progress track (below topbar content) */
+.solve-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--bg-overlay);
+}
+
+.solve-fill {
+  height: 100%;
+  background: var(--phosphor-dim);
+  transition: width 200ms linear;
+  box-shadow: 0 0 6px rgba(57, 255, 20, 0.5);
+}
+
+/* ── Hint text ──────────────────────────────────────────────────────── */
+
+.hanoi-hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: center;
+  letter-spacing: 0.04em;
+  margin: 0;
+  padding: 0.35rem 0;
+}
+
+/* ── Stage ──────────────────────────────────────────────────────────── */
+
+.hanoi-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glow-sm);
+  overflow: visible; /* allow lifted disc to extend above */
+  position: relative;
+}
+
+/* Subtle vertical dividers */
+.peg-zone:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+/* ── Peg zone ───────────────────────────────────────────────────────── */
+
+.peg-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 0;
+  cursor: default;
+  outline: none;
+  position: relative;
+  transition: background var(--transition-fast);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.peg-zone--selectable {
+  cursor: pointer;
+}
+
+.peg-zone--selectable:hover {
+  background: rgba(57, 255, 20, 0.04);
+}
+
+.peg-zone--target {
+  cursor: pointer;
+  background: rgba(57, 255, 20, 0.06);
+}
+
+.peg-zone--target .peg-stem {
+  background: linear-gradient(to bottom, var(--phosphor-muted), var(--phosphor-dim));
+  box-shadow: 0 0 14px rgba(57, 255, 20, 0.45);
+}
+
+.peg-zone--selected {
+  cursor: default;
+}
+
+.peg-zone--selected .peg-stem {
+  background: var(--phosphor);
+  box-shadow: 0 0 16px rgba(57, 255, 20, 0.6);
+}
+
+.peg-zone--invalid {
+  animation: peg-shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes peg-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-7px); }
+  40%       { transform: translateX(7px); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* ── Disc area ──────────────────────────────────────────────────────── */
+
+.disc-area {
+  position: relative;
+  width: 100%;
+  /* Height: 8 discs × 20px + 7 gaps × 3px + 46px top clearance for lift */
+  height: 230px;
+}
+
+/* Peg stem — sits behind discs via z-index */
+.peg-stem {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--phosphor-dim), #0d3a0a);
+  border-radius: 2px 2px 0 0;
+  z-index: 0;
+  box-shadow: 0 0 7px rgba(57, 255, 20, 0.2);
+}
+
+/* Disc stack — anchored to bottom of disc-area, grows upward */
+.disc-stack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column-reverse; /* first child = visual bottom */
+  align-items: center;
+  gap: 3px;
+  z-index: 1;
+  padding-bottom: 2px;
+}
+
+/* ── Disc ───────────────────────────────────────────────────────────── */
+
+.disc {
+  height: 20px;
+  border-radius: 3px;
+  border: 1.5px solid;
+  flex-shrink: 0;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease;
+  /* Mount animation: discs fall into place when they appear */
+  animation: disc-land 0.3s ease-out;
+}
+
+@keyframes disc-land {
+  from {
+    transform: translateY(-22px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.disc--lifted {
+  /* translateY: negative = moves upward (away from base) */
+  transform: translateY(-32px) !important;
+  z-index: 3;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease;
+}
+
+/* ── Peg base ───────────────────────────────────────────────────────── */
+
+.peg-base {
+  width: 72%;
+  height: 7px;
+  background: linear-gradient(to right, transparent, var(--phosphor-dim), transparent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.25);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Peg label ──────────────────────────────────────────────────────── */
+
+.peg-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  padding: 6px 0 8px;
+}
+
+/* ── Win banner ─────────────────────────────────────────────────────── */
+
+.hanoi-win-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: rgba(57, 255, 20, 0.07);
+  border: 1px solid var(--phosphor-dim);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glow-sm);
+  animation: banner-appear 0.4s ease-out;
+}
+
+@keyframes banner-appear {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.win-icon {
+  color: var(--phosphor);
+  font-size: var(--text-xl);
+  text-shadow: var(--glow-text-md);
+  line-height: 1;
+}
+
+.win-text {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  color: var(--phosphor);
+  text-shadow: var(--glow-text-md);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.win-detail {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--phosphor-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── Controls ───────────────────────────────────────────────────────── */
+
+.hanoi-controls {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-md);
+}
+
+.controls-col {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ctrl-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+/* Disc count buttons */
+.disc-count-row {
+  display: flex;
+  gap: 2px;
+}
+
+.disc-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.disc-btn:hover {
+  color: var(--text);
+  border-color: var(--border-bright);
+}
+
+.disc-btn--active {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.08);
+  box-shadow: var(--glow-sm);
+}
+
+/* Speed buttons */
+.speed-row {
+  display: flex;
+  gap: 2px;
+}
+
+.speed-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: 4px 8px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.speed-btn:hover {
+  color: var(--text);
+  border-color: var(--border-bright);
+}
+
+.speed-btn--active {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.07);
+}
+
+/* Action buttons */
+.action-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  padding: 5px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast),
+              background var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.action-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.action-btn--reset {
+  background: var(--bg-raised);
+  color: var(--text-dim);
+  border-color: var(--border-bright);
+}
+
+.action-btn--reset:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--phosphor-dim);
+}
+
+.action-btn--solve {
+  background: rgba(57, 255, 20, 0.07);
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+}
+
+.action-btn--solve:hover:not(:disabled) {
+  background: rgba(57, 255, 20, 0.13);
+  border-color: var(--phosphor);
+  box-shadow: var(--glow-sm);
+}
+
+.action-btn--pause {
+  background: var(--bg-raised);
+  color: var(--phosphor-muted);
+  border-color: var(--border-bright);
+}
+
+.action-btn--pause:hover {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+}
+
+.action-btn--pause.active {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.07);
+}
+
+.action-btn--step {
+  background: var(--bg-raised);
+  color: var(--text-dim);
+  border-color: var(--border-bright);
+}
+
+.action-btn--step:hover:not(:disabled) {
+  color: var(--phosphor-muted);
+  border-color: var(--border-bright);
+}
+
+.action-btn--stop {
+  background: var(--bg-raised);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.action-btn--stop:hover {
+  color: #ff9999;
+  border-color: rgba(255, 100, 100, 0.35);
+}
+
+.solve-btn-group {
+  display: flex;
+  gap: 4px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+
+@media (max-width: 520px) {
+  .hanoi-controls {
+    flex-direction: column;
+  }
+
+  .controls-col {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .controls-col--right {
+    flex-wrap: wrap;
+  }
+
+  .hanoi-topbar {
+    gap: 0.5rem;
+  }
+
+  .status-badge {
+    margin-left: 0;
+  }
+
+  .disc-area {
+    height: 195px;
+  }
+}

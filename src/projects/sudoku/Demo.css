@@ -1,0 +1,371 @@
+/* ===================================================================
+   Sudoku Demo — Styles
+   =================================================================== */
+
+.sudoku-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 1rem;
+  outline: none;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* --- Loading --- */
+.sudoku-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--phosphor-dim);
+  letter-spacing: 0.12em;
+  animation: sudoku-blink 1s step-end infinite;
+}
+@keyframes sudoku-blink {
+  50% { opacity: 0.4; }
+}
+
+/* --- Header --- */
+.sudoku-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.sudoku-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.diff-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--phosphor-muted);
+  letter-spacing: 0.14em;
+  padding: 2px 8px;
+  border: 1px solid var(--border-bright);
+  border-radius: 3px;
+  background: var(--bg-raised);
+}
+
+.timer {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--phosphor);
+  letter-spacing: 0.06em;
+  text-shadow: var(--glow-text-sm);
+  line-height: 1;
+  min-width: 4.5ch;
+  text-align: right;
+}
+
+.sudoku-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.diff-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.diff-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: color 150ms, border-color 150ms, background 150ms;
+}
+.diff-btn:hover {
+  color: var(--text);
+  border-color: var(--border-bright);
+  background: var(--bg-raised);
+}
+.diff-btn.active {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: var(--bg-raised);
+  text-shadow: var(--glow-text-sm);
+}
+
+.ctrl-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  padding: 5px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  color: var(--text-dim);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: color 150ms, border-color 150ms, box-shadow 150ms;
+}
+.ctrl-btn:hover {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  box-shadow: var(--glow-sm);
+}
+
+/* --- Solved banner --- */
+.solved-banner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.6rem;
+  background: rgba(57, 255, 20, 0.08);
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 4px;
+  animation: banner-fade 0.4s ease;
+}
+@keyframes banner-fade {
+  from { opacity: 0; transform: scaleY(0.8); }
+  to   { opacity: 1; transform: scaleY(1); }
+}
+.solved-banner span {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--phosphor);
+  text-shadow: var(--glow-text-md);
+  letter-spacing: 0.1em;
+}
+.solved-time {
+  font-size: var(--text-xl) !important;
+  color: var(--phosphor-muted) !important;
+  text-shadow: none !important;
+}
+
+/* --- Board --- */
+.sudoku-board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  width: 100%;
+  max-width: 468px;
+  aspect-ratio: 1;
+  border: 2px solid var(--phosphor-dim);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--glow-md);
+  background: var(--bg-surface);
+}
+
+/* --- Cell base --- */
+.sudoku-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: background 120ms;
+  background: var(--bg-surface);
+  aspect-ratio: 1;
+}
+
+/* Thick box borders — right side of cols 3, 6 */
+.sudoku-cell[data-col="2"],
+.sudoku-cell[data-col="5"] {
+  border-right: 2px solid var(--border-active);
+}
+/* Thick box borders — bottom side of rows 3, 6 */
+.sudoku-cell[data-row="2"],
+.sudoku-cell[data-row="5"] {
+  border-bottom: 2px solid var(--border-active);
+}
+/* Remove outer right/bottom borders */
+.sudoku-cell[data-col="8"] { border-right: none; }
+.sudoku-cell[data-row="8"] { border-bottom: none; }
+
+/* --- Cell states --- */
+.sudoku-cell.peer {
+  background: var(--bg-overlay);
+}
+.sudoku-cell.same-value {
+  background: rgba(29, 140, 18, 0.14);
+}
+.sudoku-cell.selected {
+  background: rgba(57, 255, 20, 0.12);
+  box-shadow: inset 0 0 0 2px var(--phosphor);
+  z-index: 1;
+}
+.sudoku-cell.conflict {
+  background: rgba(255, 60, 60, 0.12);
+}
+.sudoku-cell.conflict .cell-value {
+  color: #ff5555;
+  text-shadow: 0 0 8px rgba(255, 60, 60, 0.6);
+}
+.sudoku-cell:hover:not(.selected) {
+  background: var(--bg-raised);
+}
+
+/* --- Cell value text --- */
+.cell-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 4.5vw, 1.8rem);
+  line-height: 1;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+.sudoku-cell.given .cell-value {
+  color: var(--phosphor);
+  text-shadow: var(--glow-text-sm);
+}
+.sudoku-cell.selected .cell-value {
+  text-shadow: var(--glow-text-md);
+}
+.sudoku-cell.same-value .cell-value {
+  color: var(--phosphor-muted);
+}
+
+/* --- Notes grid --- */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 90%;
+  height: 90%;
+  pointer-events: none;
+}
+.note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: clamp(0.35rem, 1.2vw, 0.55rem);
+  color: transparent;
+  line-height: 1;
+}
+.note.visible {
+  color: var(--phosphor-dim);
+}
+
+/* --- Numpad --- */
+.sudoku-actions {
+  width: 100%;
+  max-width: 468px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+}
+
+.num-btn {
+  aspect-ratio: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: var(--phosphor-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 120ms, border-color 120ms, background 120ms, box-shadow 120ms;
+  line-height: 1;
+  padding: 0;
+}
+.num-btn:hover {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: var(--bg-raised);
+  box-shadow: var(--glow-sm);
+}
+.num-btn:active {
+  transform: scale(0.93);
+}
+
+.erase-btn {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+.erase-btn:hover {
+  color: var(--text);
+  border-color: var(--border-bright);
+  box-shadow: none;
+}
+
+/* --- Action buttons --- */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.action-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  color: var(--text-dim);
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 150ms, border-color 150ms, background 150ms;
+}
+.action-btn:hover:not(:disabled) {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: var(--bg-raised);
+}
+.action-btn.active {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: rgba(57, 255, 20, 0.07);
+}
+.action-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.action-btn--danger {
+  color: var(--text-muted);
+  margin-left: auto;
+}
+.action-btn--danger:hover {
+  color: #ff9999 !important;
+  border-color: rgba(255, 100, 100, 0.4) !important;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .sudoku-wrap {
+    padding: 1rem 0.5rem;
+  }
+  .sudoku-board {
+    max-width: 100%;
+  }
+  .numpad {
+    gap: 3px;
+  }
+}

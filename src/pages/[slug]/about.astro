@@ -1,0 +1,183 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { getProjects } from '../../lib/projects/registry';
+import type { ProjectMeta } from '../../lib/projects/types';
+
+// Route-local about content imports
+import SudokuAbout from '../../projects/sudoku/about.mdx';
+import ConwayAbout from '../../projects/conway/about.mdx';
+import TowerOfHanoiAbout from '../../projects/tower-of-hanoi/about.mdx';
+import ElementaryCellularAutomataAbout from '../../projects/elementary-cellular-automata/about.mdx';
+
+export function getStaticPaths() {
+  return getProjects().map((p) => ({
+    params: { slug: p.slug },
+    props: { project: p },
+  }));
+}
+
+interface Props {
+  project: ProjectMeta;
+}
+
+const { project } = Astro.props;
+---
+
+<ProjectLayout project={project} page="about">
+  <div class="about-page">
+    <div class="container">
+      <div class="about-content prose">
+        {project.slug === 'sudoku' && <SudokuAbout />}
+        {project.slug === 'conway' && <ConwayAbout />}
+        {project.slug === 'tower-of-hanoi' && <TowerOfHanoiAbout />}
+        {project.slug === 'elementary-cellular-automata' && <ElementaryCellularAutomataAbout />}
+      </div>
+      <div class="about-source-link">
+        <a
+          href={project.sourceLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="source-btn"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          View source on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</ProjectLayout>
+
+<style>
+  .about-page {
+    padding: var(--space-10) 0 var(--space-20);
+  }
+
+  /* Prose styles for MDX content */
+  .prose {
+    max-width: 720px;
+    color: var(--text);
+  }
+
+  .prose :global(h1) {
+    font-family: var(--font-display);
+    font-size: var(--text-6xl);
+    color: var(--phosphor);
+    text-shadow: var(--glow-text-md);
+    letter-spacing: 0.03em;
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    color: var(--phosphor-muted);
+    letter-spacing: 0.04em;
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-5);
+  }
+
+  .prose :global(h3) {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--phosphor-dim);
+    letter-spacing: 0.04em;
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .prose :global(p) {
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: var(--space-5);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-5);
+  }
+
+  .prose :global(li) {
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: var(--space-2);
+  }
+
+  .prose :global(li::marker) {
+    color: var(--phosphor-dim);
+  }
+
+  .prose :global(a) {
+    color: var(--phosphor);
+    text-decoration: underline;
+    text-decoration-color: var(--phosphor-dim);
+    text-underline-offset: 3px;
+    transition: text-shadow var(--transition-fast);
+  }
+
+  .prose :global(a:hover) {
+    text-shadow: var(--glow-text-sm);
+    text-decoration-color: var(--phosphor);
+  }
+
+  .prose :global(strong) {
+    color: var(--phosphor-bright);
+    font-weight: 600;
+  }
+
+  .prose :global(em) {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--phosphor-dim);
+    padding-left: var(--space-5);
+    margin: var(--space-6) 0;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .about-missing {
+    padding: var(--space-16) 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  .about-source-link {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border);
+  }
+
+  .source-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-5);
+    border: 1px solid var(--border-bright);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    letter-spacing: 0.05em;
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .source-btn:hover {
+    color: var(--phosphor);
+    border-color: var(--phosphor-dim);
+    box-shadow: var(--glow-sm);
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+import { REPO_ROOT } from '../../lib/github';
+
+interface Props {
+  githubLink?: string;
+}
+
+const { githubLink = REPO_ROOT } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href={`${base}`} class="banner" aria-label="ToyWebCreations — Home">
+      <span class="banner-prefix">&gt;_</span><span class="banner-name">ToyWebCreations</span>
+    </a>
+    <nav class="header-nav" aria-label="Site navigation">
+      <a href={`${base}`} class="nav-link">Home</a>
+      <a href={`${base}about/`} class="nav-link">About</a>
+      <a
+        href={githubLink}
+        class="nav-link nav-link--github"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View source on GitHub (opens in new tab)"
+      >
+        <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--header-height);
+    background: rgba(7, 12, 7, 0.92);
+    border-bottom: 1px solid var(--border-bright);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .header-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .banner {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--phosphor);
+    text-decoration: none;
+    white-space: nowrap;
+    letter-spacing: 0.06em;
+    transition: text-shadow var(--transition-fast);
+    line-height: 1;
+  }
+
+  .banner:hover {
+    text-shadow: var(--glow-text-md);
+    color: var(--phosphor);
+  }
+
+  .banner-prefix {
+    color: var(--phosphor-dim);
+    margin-right: 0.2em;
+  }
+
+  .banner:hover .banner-prefix {
+    color: var(--phosphor-muted);
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      text-shadow var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .nav-link:hover {
+    color: var(--phosphor);
+    border-color: var(--border-bright);
+    background: var(--bg-raised);
+    text-shadow: var(--glow-text-sm);
+  }
+
+  .nav-link--github {
+    color: var(--text-dim);
+    border-color: var(--border);
+    background: var(--bg-surface);
+  }
+
+  .nav-link--github:hover {
+    color: var(--phosphor);
+    border-color: var(--phosphor-dim);
+    box-shadow: var(--glow-sm);
+  }
+
+  .github-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Responsive: collapse nav labels on very small screens */
+  @media (max-width: 480px) {
+    .banner {
+      font-size: var(--text-xl);
+    }
+
+    .nav-link {
+      padding: var(--space-2);
+      font-size: var(--text-xs);
+    }
+  }
+</style>

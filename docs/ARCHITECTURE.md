@@ -66,15 +66,14 @@ is a clear need.
 │  │     └─ about.astro
 │  ├─ projects/
 │  │  └─ <slug>/
-│  │     ├─ Demo.(ts|tsx|astro|vue|svelte)
+│  │     ├─ Demo.tsx          (React island)
+│  │     ├─ Demo.css          (component styles)
 │  │     ├─ about.mdx
 │  │     ├─ meta.ts
-│  │     ├─ styles.css
-│  │     └─ assets/
+│  │     └─ <slug>.ts         (game logic, if large enough to split out)
 │  └─ styles/
 │     ├─ global.css
-│     ├─ theme.css
-│     └─ project-header.css
-├─ astro.config.mjs
+│     └─ theme.css
+├─ astro.config.ts
 ├─ package.json
 └─ tsconfig.json

@@ -1,0 +1,54 @@
+# Conway's Game of Life
+
+A cellular automaton simulation running in the browser. Draw cells, load classic patterns, and watch emergent behavior unfold generation by generation.
+
+## How to play
+
+The grid is a 2D world of cells, each either alive or dead. Time moves in discrete steps (generations). At each step, every cell applies the same four rules simultaneously.
+
+**Controls:**
+- **Click and drag** on the canvas to draw live cells
+- Switch to **Erase** mode to remove cells
+- Press **Play** to start the simulation
+- Adjust **FPS** (frames per second) to control simulation speed
+- Press **Step** to advance one generation at a time
+- Load a **Pattern** to place a classic configuration at the center
+- **Random** fills the grid with a random state (~30% density)
+- **Clear** removes all live cells
+
+## What is Conway's Game of Life?
+
+Conway's Game of Life is a *cellular automaton* devised by mathematician John Horton Conway in 1970. It's a zero-player game: you set up the initial state, then watch the system evolve on its own.
+
+Despite having only four simple rules, the Game of Life produces extraordinary complexity — stable structures, oscillators, gliders that move across the grid, and even configurations that generate new gliders indefinitely (like the Gosper Glider Gun).
+
+It was one of the first demonstrations that surprisingly complex behavior can emerge from very simple rules. This idea — *emergence* — is foundational in complexity theory, artificial life, and even philosophy of mind.
+
+## The four rules
+
+Each cell has eight neighbors (including diagonals). At every generation:
+
+1. A live cell with **fewer than 2** live neighbors **dies** (underpopulation)
+2. A live cell with **2 or 3** live neighbors **survives**
+3. A live cell with **more than 3** live neighbors **dies** (overpopulation)
+4. A dead cell with **exactly 3** live neighbors **becomes alive** (reproduction)
+
+That's it. No exceptions, no special cases.
+
+## Classic patterns
+
+- **Blinker** — the simplest oscillator: three cells in a line that flip between horizontal and vertical every generation.
+- **Glider** — a pattern of 5 cells that moves diagonally across the grid, returning to its original shape every 4 generations.
+- **Pulsar** — a large oscillator with period 3; one of the most visually striking stable patterns.
+- **Gosper Glider Gun** — the first discovered *gun* pattern, which periodically generates new gliders, producing an infinite stream.
+- **R-pentomino** — a deceptively chaotic five-cell seed that takes over 1,000 generations to stabilize.
+
+## How it's implemented
+
+The simulation runs on a **60×40 grid** of boolean cells. Each generation, every cell independently applies the four rules based on its current neighbor count. The grid uses **toroidal wrapping** — cells on the edge treat the opposite edge as their neighbor, so the world has no boundary.
+
+Rendering uses an **HTML5 Canvas** element, drawn from scratch each frame. Live cells are drawn as phosphor-green squares with a CSS `shadowBlur` glow effect.
+
+The simulation loop uses `requestAnimationFrame` throttled to the selected FPS, rather than running uncapped, to keep the speed controllable.
+
+One simplification: the cell state is stored in a JavaScript array. For very large grids, more efficient representations (typed arrays, bitfields, Hashlife) could handle millions of cells. At this scale, the simple approach works well.
