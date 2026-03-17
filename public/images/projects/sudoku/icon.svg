@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="36" fill="#07150d" />
+  <g stroke="#7bffb6" stroke-width="3" stroke-opacity=".4">
+    <path d="M43 44v168M99 44v168M157 44v168M212 44v168" />
+    <path d="M44 43h168M44 99h168M44 157h168M44 212h168" />
+  </g>
+  <g fill="#dcffea" font-family="Georgia, serif" font-size="58">
+    <text x="59" y="92">5</text>
+    <text x="118" y="150">7</text>
+    <text x="176" y="208">1</text>
+  </g>
+</svg>

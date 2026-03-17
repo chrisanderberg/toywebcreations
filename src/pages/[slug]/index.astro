@@ -1,0 +1,26 @@
+---
+import ConwayDemo from "../../projects/conway/Demo";
+import ElementaryCellularAutomataDemo from "../../projects/elementary-cellular-automata/Demo";
+import SudokuDemo from "../../projects/sudoku/Demo";
+import TowerOfHanoiDemo from "../../projects/tower-of-hanoi/Demo";
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import { getProjectRecords } from "../../lib/projects/registry";
+
+export function getStaticPaths() {
+  return getProjectRecords().map((record) => ({
+    params: { slug: record.meta.slug },
+    props: { project: record.meta }
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<ProjectLayout project={project}>
+  <section class="demo-shell">
+    {project.slug === "sudoku" && <SudokuDemo client:load />}
+    {project.slug === "conway" && <ConwayDemo client:load />}
+    {project.slug === "elementary-cellular-automata" && <ElementaryCellularAutomataDemo client:load />}
+    {project.slug === "tower-of-hanoi" && <TowerOfHanoiDemo client:load />}
+  </section>
+</ProjectLayout>

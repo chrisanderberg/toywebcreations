@@ -1,0 +1,19 @@
+---
+import AllProjects from "../components/home/AllProjects.astro";
+import FeaturedProjects from "../components/home/FeaturedProjects.astro";
+import SiteIntro from "../components/home/SiteIntro.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { getProjects } from "../lib/projects/registry";
+
+const projects = getProjects();
+const featuredProjects = projects.filter((project) => project.featured);
+---
+
+<SiteLayout
+  title="ToyWebCreations"
+  description="A static portfolio of playable puzzles, simulations, and generators."
+>
+  <SiteIntro />
+  <FeaturedProjects projects={featuredProjects} />
+  <AllProjects projects={projects} />
+</SiteLayout>

@@ -5,10 +5,16 @@ ToyWebCreations is a static portfolio site for small interactive web projects:
 puzzles, simulations, generators, visual experiments, and other focused toy-like
 experiences.
 
+Current MVP projects:
+- Sudoku
+- Conway's Game of Life
+- 1D Cellular Automata Explorer
+- Tower of Hanoi
+
 The site is not a blog. It is a hub for playable demos, plus a short About page
 for the site itself and a short About page for each individual project.
 
-Primary domain: `https://toywebcreations.dev`
+Deployed to GitHub Pages. Site URL derived from `GITHUB_OWNER` in `src/lib/site.ts`.
 
 ## 2. Purpose
 ToyWebCreations exists to:

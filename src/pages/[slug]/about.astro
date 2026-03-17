@@ -1,0 +1,32 @@
+---
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import { withBase } from "../../lib/paths";
+import { getProjectRecords } from "../../lib/projects/registry";
+
+export function getStaticPaths() {
+  return getProjectRecords().map((record) => ({
+    params: { slug: record.meta.slug },
+    props: { project: record.meta, about: record.about }
+  }));
+}
+
+const { project, about } = Astro.props;
+---
+
+<ProjectLayout project={project} description={about.intro}>
+  <article class="copy-panel copy-panel--project">
+    <p class="copy-panel__eyebrow">Project about page</p>
+    <h2>{about.intro}</h2>
+    {
+      about.sections.map((section) => (
+        <section>
+          <h3>{section.title}</h3>
+          {section.body.map((paragraph) => <p>{paragraph}</p>)}
+        </section>
+      ))
+    }
+    <p>
+      <a href={withBase(`/${project.slug}/`)}>Return to the demo</a>
+    </p>
+  </article>
+</ProjectLayout>
