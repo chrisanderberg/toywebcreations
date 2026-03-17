@@ -29,6 +29,11 @@ export function createInitialState(discCount: number): Pegs {
 
 export function optimalMoveCount(discCount: number): number {
   assertDiscCount(discCount, 0);
+
+  if (discCount > 53) {
+    throw new RangeError(`discCount must be 53 or less for a safe integer move count. Received: ${discCount}`);
+  }
+
   return 2 ** discCount - 1;
 }
 

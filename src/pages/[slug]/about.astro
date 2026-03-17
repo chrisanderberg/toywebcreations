@@ -5,7 +5,17 @@ import { getProjectRecords } from "../../lib/projects/registry";
 
 export function getStaticPaths() {
   return getProjectRecords()
-    .filter((record) => record.about?.intro && record.about.sections)
+    .filter(
+      (record) =>
+        typeof record.about?.intro === "string" &&
+        Array.isArray(record.about.sections) &&
+        record.about.sections.every(
+          (section) =>
+            !!section &&
+            typeof section.title === "string" &&
+            Array.isArray(section.body)
+        )
+    )
     .map((record) => ({
       params: { slug: record.meta.slug },
       props: { project: record.meta, about: record.about }

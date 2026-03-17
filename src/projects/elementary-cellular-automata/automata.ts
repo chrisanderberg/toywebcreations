@@ -38,7 +38,7 @@ export function evolveRow(row: number[], rule: number): number[] {
 
 export function generatePattern(initialRow: number[], rule: number, numRows: number): number[][] {
   const safeRows = Math.max(1, Math.floor(numRows));
-  const pattern: number[][] = [initialRow];
+  const pattern: number[][] = [[...initialRow]];
 
   while (pattern.length < safeRows) {
     pattern.push(evolveRow(pattern[pattern.length - 1], rule));
@@ -60,4 +60,3 @@ export function createRandomSeed(width: number, density: number = 0.5): number[]
 
   return Array.from({ length: safeWidth }, () => (Math.random() < safeDensity ? 1 : 0));
 }
-

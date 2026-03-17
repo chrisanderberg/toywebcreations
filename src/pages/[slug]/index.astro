@@ -14,13 +14,17 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const demoComponents = {
+  sudoku: SudokuDemo,
+  conway: ConwayDemo,
+  "elementary-cellular-automata": ElementaryCellularAutomataDemo,
+  "tower-of-hanoi": TowerOfHanoiDemo
+} as const;
+const DemoComponent = demoComponents[project.slug as keyof typeof demoComponents];
 ---
 
 <ProjectLayout project={project}>
   <section class="demo-shell">
-    {project.slug === "sudoku" && <SudokuDemo client:load />}
-    {project.slug === "conway" && <ConwayDemo client:load />}
-    {project.slug === "elementary-cellular-automata" && <ElementaryCellularAutomataDemo client:load />}
-    {project.slug === "tower-of-hanoi" && <TowerOfHanoiDemo client:load />}
+    {DemoComponent ? <DemoComponent client:load /> : <p>Demo unavailable for this project.</p>}
   </section>
 </ProjectLayout>

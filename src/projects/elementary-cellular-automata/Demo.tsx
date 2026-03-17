@@ -45,6 +45,7 @@ export default function ElementaryCellularAutomataDemo() {
   const [rule, setRule] = useState(DEFAULT_RULE);
   const [seedMode, setSeedMode] = useState<SeedMode>("centered");
   const [seedVersion, setSeedVersion] = useState(0);
+  const [dpr, setDpr] = useState(1);
   const [density, setDensity] = useState(0.36);
   const [columns, setColumns] = useState(101);
   const [rows, setRows] = useState(144);
@@ -80,6 +81,23 @@ export default function ElementaryCellularAutomataDemo() {
     setInitialRow(makeSeed(columns, seedMode, density));
   }, [columns, seedMode, density, seedVersion]);
 
+  useEffect(() => {
+    const updateDpr = () => {
+      setDpr(window.devicePixelRatio || 1);
+    };
+
+    updateDpr();
+
+    const mediaQuery = window.matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`);
+    mediaQuery.addEventListener("change", updateDpr);
+    window.addEventListener("resize", updateDpr);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateDpr);
+      window.removeEventListener("resize", updateDpr);
+    };
+  }, [dpr]);
+
   const pattern = useMemo(
     () => generatePattern(initialRow, rule, rows),
     [initialRow, rule, rows]
@@ -96,7 +114,6 @@ export default function ElementaryCellularAutomataDemo() {
       return;
     }
 
-    const dpr = window.devicePixelRatio || 1;
     const width = pattern[0].length;
     const height = pattern.length;
 
@@ -124,7 +141,7 @@ export default function ElementaryCellularAutomataDemo() {
         context.fillRect(columnIndex, rowIndex, 1, 1);
       });
     });
-  }, [pattern]);
+  }, [pattern, dpr]);
 
   function regenerateSeed() {
     setInitialRow(makeSeed(columns, seedMode, density));
