@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#b4ffd5" />
+      <stop offset="55%" stop-color="#4bff9f" stop-opacity=".45" />
+      <stop offset="100%" stop-color="#021009" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#05100b" />
+  <g stroke="#7bffb6" stroke-opacity=".12">
+    <path d="M150 100h900M150 170h900M150 240h900M150 310h900M150 380h900M150 450h900M150 520h900M150 590h900M150 660h900" />
+    <path d="M150 100v560M220 100v560M290 100v560M360 100v560M430 100v560M500 100v560M570 100v560M640 100v560M710 100v560M780 100v560M850 100v560M920 100v560M990 100v560" />
+  </g>
+  <g fill="url(#glow)">
+    <rect x="290" y="240" width="70" height="70" rx="18" />
+    <rect x="360" y="310" width="70" height="70" rx="18" />
+    <rect x="220" y="380" width="70" height="70" rx="18" />
+    <rect x="290" y="380" width="70" height="70" rx="18" />
+    <rect x="360" y="380" width="70" height="70" rx="18" />
+    <rect x="710" y="240" width="70" height="70" rx="18" />
+    <rect x="780" y="240" width="70" height="70" rx="18" />
+    <rect x="850" y="240" width="70" height="70" rx="18" />
+    <rect x="710" y="450" width="70" height="70" rx="18" />
+    <rect x="780" y="450" width="70" height="70" rx="18" />
+    <rect x="850" y="450" width="70" height="70" rx="18" />
+  </g>
+  <text x="120" y="88" fill="#7bffb6" font-family="Courier New, monospace" font-size="34" letter-spacing="8">CONWAY'S GAME OF LIFE</text>
+</svg>

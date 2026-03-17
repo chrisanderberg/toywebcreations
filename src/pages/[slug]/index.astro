@@ -1,0 +1,37 @@
+---
+import ConwayDemo from "../../projects/conway/Demo";
+import ElementaryCellularAutomataDemo from "../../projects/elementary-cellular-automata/Demo";
+import SudokuDemo from "../../projects/sudoku/Demo";
+import TowerOfHanoiDemo from "../../projects/tower-of-hanoi/Demo";
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import type { ProjectMeta } from "../../lib/projects/types";
+import { getProjectRecords, type ProjectSlug } from "../../lib/projects/registry";
+
+export function getStaticPaths() {
+  return getProjectRecords().map((record) => ({
+    params: { slug: record.meta.slug },
+    props: { project: record.meta }
+  }));
+}
+
+interface Props {
+  project: ProjectMeta & { slug: ProjectSlug };
+}
+
+const { project } = Astro.props as Props;
+type DemoComponent = typeof SudokuDemo;
+
+const demoComponents: Record<ProjectSlug, DemoComponent> = {
+  sudoku: SudokuDemo,
+  conway: ConwayDemo,
+  "elementary-cellular-automata": ElementaryCellularAutomataDemo,
+  "tower-of-hanoi": TowerOfHanoiDemo
+};
+const DemoComponent = demoComponents[project.slug];
+---
+
+<ProjectLayout project={project}>
+  <section class="demo-shell">
+    <DemoComponent client:load />
+  </section>
+</ProjectLayout>

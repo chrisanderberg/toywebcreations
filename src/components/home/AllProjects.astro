@@ -1,0 +1,32 @@
+---
+import type { ProjectMeta } from "../../lib/projects/types";
+import { withBase } from "../../lib/paths";
+
+interface Props {
+  projects: ProjectMeta[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section class="section-block">
+  <div class="section-heading">
+    <p>All projects</p>
+    <h2>Everything currently on the site.</h2>
+  </div>
+  <ul class="project-list">
+    {
+      projects.map((project) => (
+        <li class="project-list__item">
+          <a href={withBase(`/${project.slug}/`)}>
+            <img src={withBase(project.icon)} alt="" loading="lazy" />
+            <div>
+              <strong>{project.title}</strong>
+              <span>{project.description}</span>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

@@ -1,0 +1,27 @@
+---
+import SiteLayout from "./SiteLayout.astro";
+import { withBase } from "../lib/paths";
+import type { ProjectMeta } from "../lib/projects/types";
+
+interface Props {
+  project: ProjectMeta;
+  description?: string;
+}
+
+const { project, description = project.description } = Astro.props;
+---
+
+<SiteLayout title={`${project.title} | ToyWebCreations`} description={description} githubHref={project.sourceLink}>
+  <section class="project-hero">
+    <div class="project-hero__copy">
+      <p>{project.eyebrow}</p>
+      <h1>{project.title}</h1>
+      <span>{description}</span>
+    </div>
+    <div class="project-hero__actions">
+      <a href={withBase(`/${project.slug}/about/`)}>About this project</a>
+      <a href={project.sourceLink} target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+    </div>
+  </section>
+  <slot />
+</SiteLayout>

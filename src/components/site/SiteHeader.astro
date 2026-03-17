@@ -1,0 +1,51 @@
+---
+import { withBase } from "../../lib/paths";
+
+interface Props {
+  githubHref: string;
+}
+
+const { githubHref } = Astro.props;
+const currentPath = Astro.url.pathname;
+const normalizePath = (path: string) => (path.endsWith("/") ? path : `${path}/`);
+
+const navItems = [
+  { href: withBase("/"), label: "Home" },
+  { href: withBase("/about/"), label: "About" }
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href={withBase("/")}>
+      <span class="site-header__brand-mark" aria-hidden="true">TW</span>
+      <span class="site-header__brand-copy">
+        <strong>ToyWebCreations</strong>
+        <small>playable experiments</small>
+      </span>
+    </a>
+    <nav class="site-header__nav" aria-label="Primary">
+      {
+        navItems.map((item) => {
+          const isActive = normalizePath(currentPath) === normalizePath(item.href);
+
+          return (
+            <a
+              href={item.href}
+              aria-current={isActive ? "page" : undefined}
+              class:list={[
+                "site-header__link",
+                isActive ? "is-active" : undefined
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+      <a class="site-header__link" href={githubHref} target="_blank" rel="noreferrer">
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>

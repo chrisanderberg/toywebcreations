@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c2418" />
+      <stop offset="100%" stop-color="#030806" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <g stroke="#7bffb6" stroke-opacity=".3">
+    <path d="M280 120v560M420 120v560M560 120v560M700 120v560M840 120v560M920 120v560" />
+    <path d="M200 200h800M200 340h800M200 480h800M200 620h800" />
+  </g>
+  <g stroke="#b8ffd8" stroke-width="5">
+    <path d="M200 120v560M600 120v560M1000 120v560" />
+    <path d="M200 120h800M200 520h800M200 680h800" />
+  </g>
+  <g fill="#dcffea" font-family="Georgia, serif">
+    <text x="258" y="280" font-size="130">5</text>
+    <text x="505" y="280" font-size="130">7</text>
+    <text x="760" y="280" font-size="130">1</text>
+    <text x="258" y="555" font-size="130">4</text>
+    <text x="640" y="555" font-size="130">3</text>
+    <text x="875" y="555" font-size="130">1</text>
+  </g>
+  <text x="120" y="88" fill="#7bffb6" font-family="Courier New, monospace" font-size="34" letter-spacing="8">SUDOKU</text>
+</svg>

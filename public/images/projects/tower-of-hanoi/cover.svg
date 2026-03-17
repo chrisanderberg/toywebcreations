@@ -1,0 +1,35 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#040806"/>
+  <rect x="26" y="26" width="1148" height="668" rx="34" stroke="#7FFFC0" stroke-opacity="0.12" stroke-width="2"/>
+  <g opacity="0.22" filter="url(#glow)">
+    <ellipse cx="802" cy="514" rx="292" ry="132" fill="#79FFB3"/>
+  </g>
+  <path d="M176 562H1024" stroke="#7FFFC0" stroke-opacity="0.6" stroke-width="18" stroke-linecap="round"/>
+  <path d="M332 562V182" stroke="#DBFFE8" stroke-width="14" stroke-linecap="round"/>
+  <path d="M598 562V136" stroke="#DBFFE8" stroke-width="14" stroke-linecap="round"/>
+  <path d="M864 562V226" stroke="#DBFFE8" stroke-width="14" stroke-linecap="round"/>
+  <g filter="url(#discGlow)">
+    <rect x="220" y="500" width="224" height="24" rx="12" fill="#76FFB3"/>
+    <rect x="252" y="462" width="160" height="22" rx="11" fill="#95FFC8"/>
+    <rect x="280" y="426" width="104" height="20" rx="10" fill="#C9FFE1"/>
+  </g>
+  <rect x="508" y="514" width="180" height="20" rx="10" fill="#7FFFC0" fill-opacity="0.82"/>
+  <rect x="778" y="516" width="138" height="18" rx="9" fill="#7FFFC0" fill-opacity="0.68"/>
+  <path d="M117 96H396" stroke="#7FFFC0" stroke-opacity="0.5" stroke-width="3"/>
+  <text x="120" y="82" fill="#7FFFC0" font-size="24" font-family="Courier New, monospace" letter-spacing="5">TOYWEBCREATIONS</text>
+  <text x="118" y="188" fill="#E8FFF0" font-size="84" font-family="Georgia, serif">Tower of Hanoi</text>
+  <text x="118" y="250" fill="#9ABFA8" font-size="32" font-family="Georgia, serif">Recursive puzzle. Visible rules. Optimal replay.</text>
+  <text x="120" y="632" fill="#7FFFC0" font-size="24" font-family="Courier New, monospace" letter-spacing="4">MOVE ONE DISC AT A TIME</text>
+  <defs>
+    <filter id="glow" x="430" y="302" width="744" height="424" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="40" result="effect1_foregroundBlur_1_2"/>
+    </filter>
+    <filter id="discGlow" x="192" y="398" width="280" height="154" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="14" result="effect1_foregroundBlur_1_2"/>
+    </filter>
+  </defs>
+</svg>

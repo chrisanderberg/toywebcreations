@@ -1,0 +1,34 @@
+---
+import SiteHeader from "../components/site/SiteHeader.astro";
+import { getRepoRootUrl } from "../lib/github";
+import { withBase } from "../lib/paths";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  githubHref?: string;
+}
+
+const { title, description, githubHref = getRepoRootUrl() } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon/favicon.svg")} />
+  </head>
+  <body>
+    <div class="screen-shell">
+      <div class="screen-shell__noise" aria-hidden="true"></div>
+      <SiteHeader githubHref={githubHref} />
+      <main class="page-shell">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

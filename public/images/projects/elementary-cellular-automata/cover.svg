@@ -1,0 +1,38 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="36" fill="#030805"/>
+  <rect x="24" y="24" width="1152" height="652" rx="28" fill="url(#bg)" stroke="#91FFC8" stroke-opacity="0.18"/>
+  <g opacity="0.35">
+    <path d="M90 120H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 170H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 220H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 270H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 320H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 370H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 420H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 470H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 520H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+    <path d="M90 570H1110" stroke="#7BFFB7" stroke-opacity="0.18"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M600 110L610 110L610 120L620 120L620 130L630 130L630 140L640 140L640 150L650 150L650 160L660 160L660 170L670 170L670 180L680 180L680 190L690 190L690 200L700 200L700 210L710 210L710 220L720 220L720 230L730 230L730 240L740 240L740 250L750 250L750 260L760 260L760 270L770 270L770 280L780 280L780 290L790 290L790 300L800 300L800 310L810 310L810 320L820 320L820 330L830 330L830 340L840 340L840 350L850 350L850 360L860 360L860 370L870 370L870 380L880 380L880 390L890 390L890 400L900 400L900 410L910 410L910 420L920 420L920 430L930 430L930 440L940 440L940 450L950 450L950 460L960 460" stroke="#96FFCA" stroke-width="8" stroke-linecap="square"/>
+    <path d="M600 110L590 110L590 120L580 120L580 130L570 130L570 140L560 140L560 150L550 150L550 160L540 160L540 170L530 170L530 180L520 180L520 190L510 190L510 200L500 200L500 210L490 210L490 220L480 220L480 230L470 230L470 240L460 240L460 250L450 250L450 260L440 260L440 270L430 270L430 280L420 280L420 290L410 290L410 300L400 300L400 310L390 310L390 320L380 320L380 330L370 330L370 340L360 340L360 350L350 350L350 360L340 360L340 370L330 370L330 380L320 380L320 390L310 390L310 400L300 400L300 410L290 410L290 420L280 420L280 430L270 430L270 440L260 440L260 450L250 450L250 460L240 460" stroke="#7BFFB7" stroke-width="8" stroke-linecap="square"/>
+    <path d="M600 110L600 120L590 120L590 130L600 130L600 140L610 140L610 150L610 160L620 160L620 170L630 170L630 180L620 180L620 190L610 190L610 200L620 200L620 210L630 210L630 220L640 220L640 230L650 230L650 240L640 240L640 250L630 250L630 260L640 260L640 270L650 270L650 280L660 280L660 290L670 290L670 300L680 300L680 310L690 310L690 320L680 320L680 330L670 330L670 340L660 340L660 350L650 350L650 360L640 360L640 370L630 370L630 380L620 380L620 390L610 390L610 400L600 400L600 410L590 410L590 420L580 420L580 430L570 430L570 440L560 440L560 450L550 450L550 460" stroke="#D7FFEA" stroke-width="8" stroke-linecap="square"/>
+  </g>
+  <rect x="92" y="78" width="168" height="44" rx="22" fill="#08140D" stroke="#204630"/>
+  <text x="116" y="106" fill="#8FFFC5" font-family="'Courier New', monospace" font-size="20" letter-spacing="2.5">RULE 110</text>
+  <text x="92" y="625" fill="#DFFFF0" font-family="Georgia, serif" font-size="54">1D Cellular Automata Explorer</text>
+  <text x="92" y="659" fill="#8AAE96" font-family="'Courier New', monospace" font-size="20" letter-spacing="2">SIMPLE NEIGHBORHOODS, COMPLEX HISTORIES</text>
+  <defs>
+    <linearGradient id="bg" x1="600" y1="24" x2="600" y2="676" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1F15"/>
+      <stop offset="1" stop-color="#04100B"/>
+    </linearGradient>
+    <filter id="glow" x="180" y="50" width="840" height="470" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
