@@ -2,6 +2,10 @@ const MIN_RULE = 0;
 const MAX_RULE = 255;
 
 function clampRule(rule: number): number {
+  if (Number.isNaN(rule)) {
+    return MIN_RULE;
+  }
+
   return Math.min(MAX_RULE, Math.max(MIN_RULE, Math.floor(rule)));
 }
 

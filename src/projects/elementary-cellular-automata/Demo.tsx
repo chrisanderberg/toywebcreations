@@ -88,7 +88,7 @@ export default function ElementaryCellularAutomataDemo() {
 
     updateDpr();
 
-    const mediaQuery = window.matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`);
+    const mediaQuery = window.matchMedia(`(resolution: ${dpr}dppx)`);
     mediaQuery.addEventListener("change", updateDpr);
     window.addEventListener("resize", updateDpr);
 
@@ -96,7 +96,7 @@ export default function ElementaryCellularAutomataDemo() {
       mediaQuery.removeEventListener("change", updateDpr);
       window.removeEventListener("resize", updateDpr);
     };
-  }, []);
+  }, [dpr]);
 
   const pattern = useMemo(
     () => generatePattern(initialRow, rule, rows),
@@ -257,13 +257,12 @@ export default function ElementaryCellularAutomataDemo() {
             <p className="eca-demo__eyebrow">Neighborhood mapping</p>
             <span>Binary triplets read left-to-right, top-to-bottom.</span>
           </div>
-          <div className="eca-demo__mapping-grid" role="list" aria-label={`Rule ${rule} neighborhood outcomes`}>
+          <div className="eca-demo__mapping-grid" role="group" aria-label={`Rule ${rule} neighborhood outcomes`}>
             {mapping.map(([neighborhood, output]) => (
               <button
                 key={neighborhood}
                 type="button"
                 className="eca-demo__mapping-cell"
-                role="listitem"
                 data-active={output === 1}
                 onClick={() => setRule((current) => toggleNeighborhood(current, neighborhood))}
                 aria-pressed={output === 1}

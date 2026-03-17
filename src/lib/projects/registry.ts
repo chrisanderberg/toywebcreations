@@ -26,10 +26,21 @@ function cloneProjectMeta(meta: ProjectMeta): ProjectMeta {
   return { ...meta };
 }
 
+function cloneProjectAbout(about: ProjectAboutContent): ProjectAboutContent {
+  return {
+    ...about,
+    sections: about.sections.map((section) => ({
+      ...section,
+      body: [...section.body]
+    }))
+  };
+}
+
 function cloneProjectRecord(record: ProjectRecord): ProjectRecord {
   return {
     ...record,
-    meta: cloneProjectMeta(record.meta)
+    meta: cloneProjectMeta(record.meta),
+    about: cloneProjectAbout(record.about)
   };
 }
 

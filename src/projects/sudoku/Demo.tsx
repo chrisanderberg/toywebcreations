@@ -75,6 +75,31 @@ function getConflicts(board: Cell[]): Set<number> {
   return conflicts;
 }
 
+function getCellAriaLabel(index: number, cell: Cell, options: { conflict: boolean; showAsNote: boolean; cellNumber: number | null }): string {
+  const row = Math.floor(index / 9) + 1;
+  const column = (index % 9) + 1;
+  const status: string[] = [];
+  let content = "empty";
+
+  if (options.showAsNote) {
+    content = `notes ${cell.notes.join(" ")}`;
+  } else if (options.cellNumber !== null) {
+    content = String(options.cellNumber);
+  } else if (cell.notes.length > 0) {
+    content = `notes ${cell.notes.join(" ")}`;
+  }
+
+  if (cell.given) {
+    status.push("given");
+  }
+
+  if (options.conflict) {
+    status.push("conflict");
+  }
+
+  return `Row ${row} Column ${column}: ${content}${status.length > 0 ? ` (${status.join(", ")})` : ""}`;
+}
+
 export default function SudokuDemo() {
   const cellRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [board, setBoard] = useState<Cell[]>(() => makeBoard());
@@ -210,6 +235,7 @@ export default function SudokuDemo() {
           const isSelected = selectedIndex === index;
           const cellNumber = getCellNumber(cell);
           const showAsNote = noteMode && !cell.given && cellNumber !== null;
+          const hasConflict = conflicts.has(index);
           const related =
             Math.floor(selectedIndex / 9) === row ||
             selectedIndex % 9 === column ||
@@ -228,8 +254,9 @@ export default function SudokuDemo() {
               data-selected={isSelected}
               data-related={related && !isSelected}
               data-given={cell.given}
-              data-conflict={conflicts.has(index)}
+              data-conflict={hasConflict}
               data-note={showAsNote}
+              aria-label={getCellAriaLabel(index, cell, { conflict: hasConflict, showAsNote, cellNumber })}
               onClick={() => setSelectedIndex(index)}
               onKeyDown={(event) => {
                 if (event.key.startsWith("Arrow")) {

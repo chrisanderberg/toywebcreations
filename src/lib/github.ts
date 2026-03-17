@@ -10,5 +10,11 @@ export function getRepoRootUrl(): string {
 }
 
 export function getProjectSourceUrl(slug: string): string {
-  return `${getRepoRootUrl()}/tree/${GITHUB_BRANCH}/src/projects/${slug}`;
+  const repoRoot = getRepoRootUrl();
+
+  if (!repoRoot || repoRoot === "#") {
+    return repoRoot;
+  }
+
+  return `${repoRoot}/tree/${GITHUB_BRANCH}/src/projects/${slug}`;
 }
