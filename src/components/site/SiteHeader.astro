@@ -7,6 +7,7 @@ interface Props {
 
 const { githubHref } = Astro.props;
 const currentPath = Astro.url.pathname;
+const normalizePath = (path: string) => (path.endsWith("/") ? path : `${path}/`);
 
 const navItems = [
   { href: withBase("/"), label: "Home" },
@@ -30,7 +31,7 @@ const navItems = [
             href={item.href}
             class:list={[
               "site-header__link",
-              currentPath === item.href ? "is-active" : undefined
+              normalizePath(currentPath) === normalizePath(item.href) ? "is-active" : undefined
             ]}
           >
             {item.label}

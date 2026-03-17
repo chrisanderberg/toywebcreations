@@ -543,6 +543,11 @@ input {
   color: var(--danger);
 }
 
+.sudoku-cell:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: -2px;
+}
+
 .sudoku-cell small {
   color: var(--text-soft);
   font-size: clamp(0.48rem, 1.7cqi, 0.72rem);
@@ -594,4 +599,9 @@ input {
   box-shadow:
     0 0 12px rgba(104, 255, 169, 0.32),
     inset 0 0 18px rgba(210, 255, 231, 0.3);
+}
+
+.conway-cell:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
 }

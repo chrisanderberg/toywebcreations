@@ -163,7 +163,7 @@ export default function SudokuDemo() {
   return (
     <div className="sudoku-demo">
       <div className="sudoku-toolbar">
-        <button type="button" onClick={toggleNoteMode} data-active={noteMode}>
+        <button type="button" onClick={toggleNoteMode} data-active={noteMode} aria-pressed={noteMode}>
           Notes {noteMode ? "On" : "Off"}
         </button>
         <button type="button" onClick={resetBoard}>

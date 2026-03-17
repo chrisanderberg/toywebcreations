@@ -10,10 +10,15 @@ function asPegIndex(value: number): PegIndex {
   return value;
 }
 
-export function createInitialState(discCount: number): Pegs {
-  if (!Number.isInteger(discCount) || discCount < 1) {
-    throw new RangeError(`discCount must be a positive integer. Received: ${discCount}`);
+function assertDiscCount(discCount: number, minimum: number): void {
+  if (!Number.isFinite(discCount) || !Number.isInteger(discCount) || discCount < minimum) {
+    const requirement = minimum === 0 ? "a non-negative integer" : "a positive integer";
+    throw new RangeError(`discCount must be ${requirement}. Received: ${discCount}`);
   }
+}
+
+export function createInitialState(discCount: number): Pegs {
+  assertDiscCount(discCount, 1);
 
   return [
     Array.from({ length: discCount }, (_, index) => discCount - index),
@@ -23,11 +28,20 @@ export function createInitialState(discCount: number): Pegs {
 }
 
 export function optimalMoveCount(discCount: number): number {
+  assertDiscCount(discCount, 0);
   return 2 ** discCount - 1;
 }
 
 export function isValidMove(pegs: Pegs, from: number, to: number): boolean {
-  if (from === to || from < 0 || from > 2 || to < 0 || to > 2) {
+  if (
+    from === to ||
+    !Number.isInteger(from) ||
+    from < 0 ||
+    from > 2 ||
+    !Number.isInteger(to) ||
+    to < 0 ||
+    to > 2
+  ) {
     return false;
   }
 
@@ -92,5 +106,15 @@ export function solveHanoi(
   to: number = 2,
   aux: number = 1
 ): Move[] {
-  return solveRecursive(discCount, asPegIndex(from), asPegIndex(to), asPegIndex(aux));
+  assertDiscCount(discCount, 0);
+
+  const fromPeg = asPegIndex(from);
+  const toPeg = asPegIndex(to);
+  const auxPeg = asPegIndex(aux);
+
+  if (new Set([fromPeg, toPeg, auxPeg]).size !== 3) {
+    throw new Error("from, to, and aux peg indices must all be distinct");
+  }
+
+  return solveRecursive(discCount, fromPeg, toPeg, auxPeg);
 }

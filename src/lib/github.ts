@@ -1,6 +1,4 @@
-import { GITHUB_OWNER } from "./site";
-
-const GITHUB_REPO = "toywebcreations";
+import { GITHUB_OWNER, GITHUB_REPO } from "./site";
 const GITHUB_BRANCH = "main";
 
 export function getRepoRootUrl(): string {

@@ -3,6 +3,7 @@
  * Configure this via the GITHUB_OWNER environment variable.
  */
 const PLACEHOLDER_GITHUB_OWNER = "YOUR_GITHUB_USERNAME";
+export const GITHUB_REPO = "toywebcreations";
 
 function readGithubOwner(): string {
   const processEnv = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;

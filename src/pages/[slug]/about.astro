@@ -4,10 +4,12 @@ import { withBase } from "../../lib/paths";
 import { getProjectRecords } from "../../lib/projects/registry";
 
 export function getStaticPaths() {
-  return getProjectRecords().map((record) => ({
-    params: { slug: record.meta.slug },
-    props: { project: record.meta, about: record.about }
-  }));
+  return getProjectRecords()
+    .filter((record) => record.about?.intro && record.about.sections)
+    .map((record) => ({
+      params: { slug: record.meta.slug },
+      props: { project: record.meta, about: record.about }
+    }));
 }
 
 const { project, about } = Astro.props;
