@@ -13,21 +13,35 @@ export interface ProjectRecord {
   about: ProjectAboutContent;
 }
 
-const projectRecords: ProjectRecord[] = [
+const projectRecords = [
   { meta: sudokuMeta, about: sudokuAbout },
   { meta: conwayMeta, about: conwayAbout },
   { meta: elementaryCellularAutomataMeta, about: elementaryCellularAutomataAbout },
   { meta: towerOfHanoiMeta, about: towerOfHanoiAbout }
-];
+] as const satisfies readonly ProjectRecord[];
+
+export type ProjectSlug = (typeof projectRecords)[number]["meta"]["slug"];
+
+function cloneProjectMeta(meta: ProjectMeta): ProjectMeta {
+  return { ...meta };
+}
+
+function cloneProjectRecord(record: ProjectRecord): ProjectRecord {
+  return {
+    ...record,
+    meta: cloneProjectMeta(record.meta)
+  };
+}
 
 export function getProjectRecords(): ProjectRecord[] {
-  return projectRecords;
+  return projectRecords.map((record) => cloneProjectRecord(record));
 }
 
 export function getProjects(): ProjectMeta[] {
-  return projectRecords.map((record) => record.meta);
+  return projectRecords.map((record) => cloneProjectMeta(record.meta));
 }
 
 export function getProject(slug: string): ProjectRecord | undefined {
-  return projectRecords.find((record) => record.meta.slug === slug);
+  const record = projectRecords.find((projectRecord) => projectRecord.meta.slug === slug);
+  return record ? cloneProjectRecord(record) : undefined;
 }

@@ -5,6 +5,7 @@ import { applyMove, createInitialState, isSolved, isValidMove, optimalMoveCount,
 type DemoStatus = "ready" | "playing" | "solving" | "solved";
 
 const DISC_OPTIONS = [3, 4, 5, 6, 7, 8];
+const DEFAULT_DISC_COUNT = 5;
 const SOLVE_DELAY_MS = 420;
 
 function getStatusText(status: DemoStatus): string {
@@ -21,8 +22,8 @@ function getStatusText(status: DemoStatus): string {
 }
 
 export default function TowerOfHanoiDemo() {
-  const [discCount, setDiscCount] = useState(5);
-  const [pegs, setPegs] = useState<Pegs>(() => createInitialState(5));
+  const [discCount, setDiscCount] = useState(DEFAULT_DISC_COUNT);
+  const [pegs, setPegs] = useState<Pegs>(() => createInitialState(DEFAULT_DISC_COUNT));
   const [selectedPeg, setSelectedPeg] = useState<number | null>(null);
   const [moveCount, setMoveCount] = useState(0);
   const [status, setStatus] = useState<DemoStatus>("ready");

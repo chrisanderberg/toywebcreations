@@ -96,7 +96,7 @@ export default function ElementaryCellularAutomataDemo() {
       mediaQuery.removeEventListener("change", updateDpr);
       window.removeEventListener("resize", updateDpr);
     };
-  }, [dpr]);
+  }, []);
 
   const pattern = useMemo(
     () => generatePattern(initialRow, rule, rows),
@@ -144,7 +144,7 @@ export default function ElementaryCellularAutomataDemo() {
   }, [pattern, dpr]);
 
   function regenerateSeed() {
-    setInitialRow(makeSeed(columns, seedMode, density));
+    setSeedVersion((current) => current + 1);
   }
 
   function randomizeSeed() {

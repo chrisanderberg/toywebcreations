@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Cell = {
   value: number | null;
@@ -76,8 +76,9 @@ function getConflicts(board: Cell[]): Set<number> {
 }
 
 export default function SudokuDemo() {
+  const cellRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [board, setBoard] = useState<Cell[]>(() => makeBoard());
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [noteMode, setNoteMode] = useState(false);
 
   const conflicts = useMemo(() => getConflicts(board), [board]);
@@ -87,7 +88,7 @@ export default function SudokuDemo() {
   );
 
   function setCellValue(nextValue: number | null) {
-    if (selectedIndex === null || board[selectedIndex].given) {
+    if (board[selectedIndex].given) {
       return;
     }
 
@@ -156,8 +157,38 @@ export default function SudokuDemo() {
 
   function resetBoard() {
     setBoard(makeBoard());
-    setSelectedIndex(null);
+    setSelectedIndex(0);
     setNoteMode(false);
+  }
+
+  useEffect(() => {
+    cellRefs.current[selectedIndex]?.focus();
+  }, [selectedIndex]);
+
+  function getNextSelectedIndex(index: number, key: string): number {
+    const row = Math.floor(index / 9);
+    const column = index % 9;
+
+    switch (key) {
+      case "ArrowLeft":
+        return column > 0 ? index - 1 : index;
+      case "ArrowRight":
+        return column < 8 ? index + 1 : index;
+      case "ArrowUp":
+        return row > 0 ? index - 9 : index;
+      case "ArrowDown":
+        return row < 8 ? index + 9 : index;
+      default:
+        return index;
+    }
+  }
+
+  function handleCellKeyDown(index: number, key: string) {
+    const nextIndex = getNextSelectedIndex(index, key);
+
+    if (nextIndex !== index) {
+      setSelectedIndex(nextIndex);
+    }
   }
 
   return (
@@ -180,23 +211,32 @@ export default function SudokuDemo() {
           const cellNumber = getCellNumber(cell);
           const showAsNote = noteMode && !cell.given && cellNumber !== null;
           const related =
-            selectedIndex !== null &&
-            (Math.floor(selectedIndex / 9) === row ||
-              selectedIndex % 9 === column ||
-              (Math.floor(selectedIndex / 27) === Math.floor(index / 27) &&
-                Math.floor((selectedIndex % 9) / 3) === Math.floor(column / 3)));
+            Math.floor(selectedIndex / 9) === row ||
+            selectedIndex % 9 === column ||
+            (Math.floor(selectedIndex / 27) === Math.floor(index / 27) &&
+              Math.floor((selectedIndex % 9) / 3) === Math.floor(column / 3));
 
           return (
             <button
               key={index}
               type="button"
+              ref={(element) => {
+                cellRefs.current[index] = element;
+              }}
               className="sudoku-cell"
+              tabIndex={isSelected ? 0 : -1}
               data-selected={isSelected}
               data-related={related && !isSelected}
               data-given={cell.given}
               data-conflict={conflicts.has(index)}
               data-note={showAsNote}
               onClick={() => setSelectedIndex(index)}
+              onKeyDown={(event) => {
+                if (event.key.startsWith("Arrow")) {
+                  event.preventDefault();
+                  handleCellKeyDown(index, event.key);
+                }
+              }}
             >
               {cellNumber !== null ? (
                 showAsNote ? <small>{cellNumber}</small> : <span>{cellNumber}</span>

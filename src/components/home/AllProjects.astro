@@ -14,17 +14,19 @@ const { projects } = Astro.props;
     <p>All projects</p>
     <h2>Everything currently on the site.</h2>
   </div>
-  <div class="project-list">
+  <ul class="project-list">
     {
       projects.map((project) => (
-        <a class="project-list__item" href={withBase(`/${project.slug}/`)}>
-          <img src={withBase(project.icon)} alt="" loading="lazy" />
-          <div>
-            <strong>{project.title}</strong>
-            <span>{project.description}</span>
-          </div>
-        </a>
+        <li class="project-list__item">
+          <a href={withBase(`/${project.slug}/`)}>
+            <img src={withBase(project.icon)} alt="" loading="lazy" />
+            <div>
+              <strong>{project.title}</strong>
+              <span>{project.description}</span>
+            </div>
+          </a>
+        </li>
       ))
     }
-  </div>
+  </ul>
 </section>

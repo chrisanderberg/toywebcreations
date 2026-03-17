@@ -160,14 +160,24 @@
   transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 
-.eca-demo__controls button:hover,
 .eca-demo__controls button:focus-visible,
 .eca-demo__controls input:focus-visible,
-.eca-demo__presets button:hover,
 .eca-demo__presets button:focus-visible {
-  outline: none;
   border-color: var(--eca-line-strong);
   box-shadow: 0 0 18px rgba(121, 255, 179, 0.12);
+}
+
+.eca-demo__controls button:hover,
+.eca-demo__presets button:hover {
+  border-color: var(--eca-line-strong);
+  box-shadow: 0 0 18px rgba(121, 255, 179, 0.12);
+}
+
+.eca-demo__controls button:focus-visible,
+.eca-demo__controls input:focus-visible,
+.eca-demo__presets button:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
 }
 
 .eca-demo__controls button[data-emphasis="true"],
@@ -243,12 +253,21 @@
   line-height: 1;
 }
 
-.eca-demo__mapping-cell:hover,
 .eca-demo__mapping-cell:focus-visible {
-  outline: none;
   transform: translateY(-1px);
   border-color: var(--eca-line-strong);
   box-shadow: 0 0 18px rgba(121, 255, 179, 0.12);
+}
+
+.eca-demo__mapping-cell:hover {
+  transform: translateY(-1px);
+  border-color: var(--eca-line-strong);
+  box-shadow: 0 0 18px rgba(121, 255, 179, 0.12);
+}
+
+.eca-demo__mapping-cell:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
 }
 
 .eca-demo__mapping-cell[data-active="true"] {

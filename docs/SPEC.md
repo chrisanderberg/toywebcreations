@@ -14,7 +14,11 @@ Current MVP projects:
 The site is not a blog. It is a hub for playable demos, plus a short About page
 for the site itself and a short About page for each individual project.
 
-Deployed to GitHub Pages. Site URL derived from `GITHUB_OWNER` in `src/lib/site.ts`.
+Deployed to GitHub Pages. Site URL is derived in `src/lib/site.ts` from both
+`GITHUB_OWNER` and `GITHUB_REPO`: it resolves to
+`https://owner.github.io/` for user or organization pages when
+`GITHUB_REPO === "${GITHUB_OWNER}.github.io"`, and to
+`https://owner.github.io/repo/` for project pages otherwise.
 
 ## 2. Purpose
 ToyWebCreations exists to:

@@ -28,7 +28,7 @@ export function evolveRow(row: number[], rule: number): number[] {
 
   return row.map((_, index) => {
     const left = index > 0 ? row[index - 1] : 0;
-    const self = row[index] ?? 0;
+    const self = row[index];
     const right = index < row.length - 1 ? row[index + 1] : 0;
     const neighborhood = (left << 2) | (self << 1) | right;
 

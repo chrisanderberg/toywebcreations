@@ -15,7 +15,7 @@ export const about: ProjectAboutContent = {
       title: "Why There Are 256 Rules",
       body: [
         "A cell only inspects three inputs: left, center, and right. That gives eight possible neighborhoods, from 111 down to 000.",
-        "Each of those eight neighborhoods can map to either 0 or 1 in the next row. Eight independent yes-or-no choices means 2^8 possible rules, which is 256 total."
+        "Each of those eight neighborhoods can map to either 0 or 1 in the next row. Eight independent yes-or-no choices mean 2^8 possible rules, which is 256 total."
       ]
     },
     {
@@ -41,4 +41,3 @@ export const about: ProjectAboutContent = {
     }
   ]
 };
-

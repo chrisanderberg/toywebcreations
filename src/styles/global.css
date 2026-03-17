@@ -18,7 +18,7 @@
   --site-width: min(72rem, calc(100vw - 32px));
   --sudoku-width: 42rem;
   --conway-width: 52rem;
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 }
 
 * {
@@ -338,9 +338,12 @@ input {
 .project-list {
   display: grid;
   gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.project-list__item {
+.project-list__item > a {
   display: grid;
   grid-template-columns: clamp(4rem, 8vw, 5.25rem) minmax(0, 1fr);
   gap: 18px;
@@ -350,16 +353,17 @@ input {
   background: var(--bg-elevated);
   border-radius: var(--radius-md);
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  text-decoration: none;
 }
 
-.project-list__item:hover,
-.project-list__item:focus-visible {
+.project-list__item > a:hover,
+.project-list__item > a:focus-visible {
   transform: translateY(-1px);
   border-color: var(--line-strong);
   background: var(--panel);
 }
 
-.project-list__item img {
+.project-list__item > a img {
   width: clamp(4rem, 8vw, 5.25rem);
   aspect-ratio: 1;
   border-radius: 14px;
@@ -367,16 +371,16 @@ input {
   border: 1px solid var(--line);
 }
 
-.project-list__item div {
+.project-list__item > a div {
   display: grid;
   gap: 8px;
 }
 
-.project-list__item strong {
+.project-list__item > a strong {
   font-size: 1.3rem;
 }
 
-.project-list__item span {
+.project-list__item > a span {
   color: var(--text-soft);
   line-height: 1.55;
 }

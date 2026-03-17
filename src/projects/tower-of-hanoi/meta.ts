@@ -1,7 +1,7 @@
 import { getProjectSourceUrl } from "../../lib/github";
 import type { ProjectMeta } from "../../lib/projects/types";
 
-export const meta: ProjectMeta = {
+export const meta = {
   slug: "tower-of-hanoi",
   title: "Tower of Hanoi Solver",
   description: "A phosphor-lit Tower of Hanoi puzzle with manual play, move counting, and an animated optimal solver.",
@@ -10,4 +10,4 @@ export const meta: ProjectMeta = {
   icon: "images/projects/tower-of-hanoi/icon.svg",
   sourceLink: getProjectSourceUrl("tower-of-hanoi"),
   eyebrow: "Recursive puzzle"
-};
+} satisfies ProjectMeta;

@@ -4,7 +4,8 @@ import ElementaryCellularAutomataDemo from "../../projects/elementary-cellular-a
 import SudokuDemo from "../../projects/sudoku/Demo";
 import TowerOfHanoiDemo from "../../projects/tower-of-hanoi/Demo";
 import ProjectLayout from "../../layouts/ProjectLayout.astro";
-import { getProjectRecords } from "../../lib/projects/registry";
+import type { ProjectMeta } from "../../lib/projects/types";
+import { getProjectRecords, type ProjectSlug } from "../../lib/projects/registry";
 
 export function getStaticPaths() {
   return getProjectRecords().map((record) => ({
@@ -13,18 +14,24 @@ export function getStaticPaths() {
   }));
 }
 
-const { project } = Astro.props;
-const demoComponents = {
+interface Props {
+  project: ProjectMeta & { slug: ProjectSlug };
+}
+
+const { project } = Astro.props as Props;
+type DemoComponent = typeof SudokuDemo;
+
+const demoComponents: Record<ProjectSlug, DemoComponent> = {
   sudoku: SudokuDemo,
   conway: ConwayDemo,
   "elementary-cellular-automata": ElementaryCellularAutomataDemo,
   "tower-of-hanoi": TowerOfHanoiDemo
-} as const;
-const DemoComponent = demoComponents[project.slug as keyof typeof demoComponents];
+};
+const DemoComponent = demoComponents[project.slug];
 ---
 
 <ProjectLayout project={project}>
   <section class="demo-shell">
-    {DemoComponent ? <DemoComponent client:load /> : <p>Demo unavailable for this project.</p>}
+    <DemoComponent client:load />
   </section>
 </ProjectLayout>

@@ -20,7 +20,7 @@ const { project, description = project.description } = Astro.props;
     </div>
     <div class="project-hero__actions">
       <a href={withBase(`/${project.slug}/about/`)}>About this project</a>
-      <a href={project.sourceLink} target="_blank" rel="noreferrer">Source on GitHub</a>
+      <a href={project.sourceLink} target="_blank" rel="noopener noreferrer">Source on GitHub</a>
     </div>
   </section>
   <slot />

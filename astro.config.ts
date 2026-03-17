@@ -1,10 +1,12 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
-import { GITHUB_OWNER, GITHUB_REPO } from "./src/lib/site";
+import { getBasePath, getSiteOrigin } from "./src/lib/site";
+
+const siteOrigin = getSiteOrigin();
 
 export default defineConfig({
-  site: `https://${GITHUB_OWNER}.github.io`,
-  base: `/${GITHUB_REPO}/`,
+  ...(siteOrigin ? { site: siteOrigin } : {}),
+  base: getBasePath(),
   output: "static",
   integrations: [react()],
 });
