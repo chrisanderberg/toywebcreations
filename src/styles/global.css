@@ -188,3 +188,19 @@ hr {
 .flicker {
   animation: flicker 0.15s ease-in-out 1;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation: none !important;
+    animation-name: none !important;
+    transition: none !important;
+  }
+
+  .flicker {
+    animation: none !important;
+  }
+}

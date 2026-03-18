@@ -127,6 +127,10 @@ export default function TowerOfHanoiDemo() {
       clearInterval(intervalIdRef.current);
       intervalIdRef.current = null;
     }
+    if (lastMovedTimeoutRef.current !== null) {
+      clearTimeout(lastMovedTimeoutRef.current);
+      lastMovedTimeoutRef.current = null;
+    }
     solutionRef.current = [];
     solveIdxRef.current = 0;
     setPegs(createInitialState(n));
@@ -160,6 +164,10 @@ export default function TowerOfHanoiDemo() {
   }
 
   function handleAutoSolve() {
+    if (lastMovedTimeoutRef.current !== null) {
+      clearTimeout(lastMovedTimeoutRef.current);
+      lastMovedTimeoutRef.current = null;
+    }
     const solution = solveHanoi(discCount);
     solutionRef.current = solution;
     solveIdxRef.current = 0;
@@ -188,6 +196,7 @@ export default function TowerOfHanoiDemo() {
     }
     if (lastMovedTimeoutRef.current !== null) {
       clearTimeout(lastMovedTimeoutRef.current);
+      lastMovedTimeoutRef.current = null;
     }
     if (status === 'solving') setStatus('paused');
     // Apply move on next tick so paused status takes effect first

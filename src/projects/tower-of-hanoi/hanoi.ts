@@ -1,5 +1,6 @@
 /** Pegs[i] = array of disc sizes on peg i, index 0 = bottom disc (largest), last = top disc (smallest) */
 export type Pegs = number[][];
+const DEFAULT_PEGS: Pegs = [[], [], []];
 
 function validateDiscCount(n: number): void {
   if (!Number.isInteger(n) || n < 0) {
@@ -75,6 +76,13 @@ export function isSolved(pegs: Pegs, n: number, targetPeg = 2): boolean {
  */
 export function solveHanoi(n: number, from = 0, to = 2, aux = 1): [number, number][] {
   validateDiscCount(n);
+  validatePegIndex(DEFAULT_PEGS, from);
+  validatePegIndex(DEFAULT_PEGS, to);
+  validatePegIndex(DEFAULT_PEGS, aux);
+  if (from === to || from === aux || to === aux) {
+    throw new RangeError('Source, target, and auxiliary pegs must be distinct.');
+  }
+
   const moves: [number, number][] = [];
   function recurse(k: number, f: number, t: number, a: number) {
     if (k === 0) return;
