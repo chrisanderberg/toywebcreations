@@ -49,13 +49,23 @@ export function applyMove(pegs: Pegs, from: number, to: number): Pegs {
 
   const next = pegs.map((p) => [...p]);
   const disc = next[from].pop()!;
+  const topDestinationDisc = next[to][next[to].length - 1];
+  if (topDestinationDisc !== undefined && disc > topDestinationDisc) {
+    throw new RangeError('Cannot place a larger disc onto a smaller disc.');
+  }
   next[to].push(disc);
   return next;
 }
 
 /** True when all n discs are on targetPeg in valid order */
 export function isSolved(pegs: Pegs, n: number, targetPeg = 2): boolean {
-  return pegs[targetPeg].length === n;
+  validateDiscCount(n);
+  validatePegIndex(pegs, targetPeg);
+
+  if (pegs.some((peg, index) => index !== targetPeg && peg.length !== 0)) return false;
+  if (pegs[targetPeg].length !== n) return false;
+
+  return pegs[targetPeg].every((disc, index, peg) => index === 0 || peg[index - 1] > disc);
 }
 
 /**

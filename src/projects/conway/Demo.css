@@ -185,6 +185,24 @@
   image-rendering: crisp-edges;
 }
 
+.conway-canvas:focus-visible {
+  outline: 2px solid var(--phosphor-dim);
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 1px var(--phosphor-dim), var(--glow-sm);
+}
+
+.conway-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* --- Pattern bar --- */
 .conway-bar--bottom {
   justify-content: flex-start;

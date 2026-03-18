@@ -16,6 +16,8 @@
   --bg-surface:       #0c130c;
   --bg-raised:        #111a11;
   --bg-overlay:       #162116;
+  --phosphor-bg-subtle: rgba(57, 255, 20, 0.06);
+  --phosphor-bg-light:  rgba(57, 255, 20, 0.1);
 
   /* --- Color: Text --- */
   --text:             #c8e8c9;
@@ -34,6 +36,8 @@
   --glow-lg:          0 0 24px rgba(57, 255, 20, 0.5), 0 0 48px rgba(57, 255, 20, 0.2), 0 0 80px rgba(57, 255, 20, 0.1);
   --glow-text-sm:     0 0 6px rgba(57, 255, 20, 0.6);
   --glow-text-md:     0 0 10px rgba(57, 255, 20, 0.7), 0 0 20px rgba(57, 255, 20, 0.3);
+  --glow-cell-sm:     0 0 4px rgba(57, 255, 20, 0.4);
+  --glow-cell-md:     0 0 8px rgba(57, 255, 20, 0.7);
 
   /* --- Typography --- */
   --font-display:     'VT323', monospace;

@@ -55,7 +55,7 @@ For 3 discs: **7 moves**. For 8 discs: **255 moves**.
 
 The recursive algorithm mirrors the intuition exactly:
 
-```typescript
+```text
 function solve(n, from, to, aux):
   if n === 0: return
   solve(n - 1, from, aux, to)   // move n-1 discs to auxiliary

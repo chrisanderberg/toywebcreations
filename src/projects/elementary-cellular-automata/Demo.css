@@ -102,12 +102,12 @@
 .preset-btn:hover {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.06);
+  background: var(--phosphor-bg-subtle);
 }
 .preset-btn.active {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.1);
+  background: var(--phosphor-bg-light);
   text-shadow: var(--glow-text-sm);
 }
 .preset-btn:focus-visible {
@@ -154,7 +154,7 @@
 }
 .seed-tab.active {
   color: var(--phosphor);
-  background: rgba(57, 255, 20, 0.08);
+  background: color-mix(in srgb, var(--phosphor) 8%, transparent);
 }
 .seed-tab:focus-visible {
   outline: none;
@@ -198,7 +198,7 @@
 .ctrl-btn:hover {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.06);
+  background: var(--phosphor-bg-subtle);
 }
 .ctrl-btn--primary {
   border-color: var(--phosphor-dim);
@@ -295,7 +295,7 @@
 .eca-nb-cell.on {
   background: var(--phosphor-dim);
   border-color: var(--phosphor-dim);
-  box-shadow: 0 0 4px rgba(57, 255, 20, 0.4);
+  box-shadow: var(--glow-cell-sm);
 }
 
 .eca-nb-arrow {
@@ -320,7 +320,7 @@
   background: var(--phosphor);
   border-color: var(--phosphor);
   color: var(--bg);
-  box-shadow: 0 0 8px rgba(57, 255, 20, 0.7);
+  box-shadow: var(--glow-cell-md);
   font-weight: 700;
 }
 .eca-nb-output.off {
@@ -334,7 +334,7 @@
   overflow-x: auto;
   border: 1px solid var(--border-bright);
   border-radius: 4px;
-  background: #070c07;
+  background: var(--bg);
   box-shadow: var(--glow-md);
   line-height: 0;
   position: relative;

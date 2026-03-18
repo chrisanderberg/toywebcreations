@@ -171,7 +171,13 @@ export default function TowerOfHanoiDemo() {
   }
 
   function handlePauseResume() {
-    if (status === 'solving') setStatus('paused');
+    if (status === 'solving') {
+      if (intervalIdRef.current !== null) {
+        clearInterval(intervalIdRef.current);
+        intervalIdRef.current = null;
+      }
+      setStatus('paused');
+    }
     else if (status === 'paused') setStatus('solving');
   }
 
@@ -302,9 +308,10 @@ export default function TowerOfHanoiDemo() {
                 }
               }}
               role="button"
-              tabIndex={0}
+              tabIndex={isInteractive ? 0 : -1}
               aria-label={`Peg ${PEG_LABELS[pegIdx]}: ${pegDiscCount === 0 ? 'empty' : `${pegDiscCount} disc${pegDiscCount !== 1 ? 's' : ''}`}${isSelected ? ', selected' : ''}`}
               aria-pressed={isSelected}
+              aria-disabled={!isInteractive}
             >
               <div className="disc-area">
                 <div className="peg-stem" />

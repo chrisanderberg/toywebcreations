@@ -21,6 +21,16 @@ function cloneGrid(g: Grid): Grid {
   return g.map((row) => [...row]);
 }
 
+function isValidGridShape(grid: unknown): grid is Grid {
+  return Array.isArray(grid)
+    && grid.length === 9
+    && grid.every((row) =>
+      Array.isArray(row)
+      && row.length === 9
+      && row.every((cell) => Number.isInteger(cell) && cell >= 0 && cell <= 9)
+    );
+}
+
 function isValidPlacement(grid: Grid, row: number, col: number, num: number): boolean {
   // Row check
   if (grid[row].includes(num)) return false;
@@ -142,6 +152,8 @@ export function generatePuzzle(difficulty: Difficulty = 'medium'): {
  * Returns the solved grid or null if no solution.
  */
 export function solvePuzzle(puzzle: Grid): Grid | null {
+  if (!isValidGridShape(puzzle)) return null;
+
   const grid = cloneGrid(puzzle);
 
   for (let row = 0; row < 9; row++) {
@@ -181,6 +193,8 @@ export function solvePuzzle(puzzle: Grid): Grid | null {
 
 /** Return a set of conflict cells as "row,col" strings. */
 export function findConflicts(grid: Grid): Set<string> {
+  if (!isValidGridShape(grid)) return new Set();
+
   const conflicts = new Set<string>();
 
   for (let row = 0; row < 9; row++) {
@@ -221,6 +235,8 @@ export function findConflicts(grid: Grid): Set<string> {
 
 /** Return true if grid is completely and correctly filled. */
 export function isSolved(grid: Grid, solution: Grid): boolean {
+  if (!isValidGridShape(grid) || !isValidGridShape(solution)) return false;
+
   for (let r = 0; r < 9; r++) {
     for (let c = 0; c < 9; c++) {
       if (grid[r][c] !== solution[r][c]) return false;

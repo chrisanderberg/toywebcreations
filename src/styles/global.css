@@ -88,9 +88,12 @@ a:hover {
   text-shadow: var(--glow-text-sm);
 }
 
-a:focus-visible {
+:focus-visible {
   outline: 2px solid var(--phosphor);
   outline-offset: 3px;
+}
+
+a:focus-visible {
   border-radius: var(--radius-sm);
 }
 
@@ -140,12 +143,6 @@ hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: var(--space-8) 0;
-}
-
-/* --- Focus styles --- */
-:focus-visible {
-  outline: 2px solid var(--phosphor);
-  outline-offset: 2px;
 }
 
 /* --- Scrollbar --- */

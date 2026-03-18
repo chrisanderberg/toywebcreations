@@ -20,9 +20,9 @@ The grid is a 2D world of cells, each either alive or dead. Time moves in discre
 
 Conway's Game of Life is a *cellular automaton* devised by mathematician John Horton Conway in 1970. It's a zero-player game: you set up the initial state, then watch the system evolve on its own.
 
-Despite having only four simple rules, the Game of Life produces extraordinary complexity — stable structures, oscillators, gliders that move across the grid, and even configurations that generate new gliders indefinitely (like the Gosper Glider Gun).
+Despite having only four simple deterministic rules, the Game of Life produces extraordinary complexity — stable structures, oscillators, gliders that move across the grid, and even configurations that generate new gliders indefinitely (like the Gosper Glider Gun).
 
-It was one of the first demonstrations that surprisingly complex behavior can emerge from very simple rules. This idea — *emergence* — is foundational in complexity theory, artificial life, and even philosophy of mind.
+It was one of the first demonstrations that surprisingly complex behavior can emerge from minimal local rules. This idea — *emergence* — is foundational in complexity theory, artificial life, and even philosophy of mind.
 
 ## The four rules
 
@@ -39,7 +39,7 @@ That's it. No exceptions, no special cases.
 
 - **Blinker** — the simplest oscillator: three cells in a line that flip between horizontal and vertical every generation.
 - **Glider** — a pattern of 5 cells that moves diagonally across the grid, returning to its original shape every 4 generations.
-- **Pulsar** — a large oscillator with period 3; one of the most visually striking stable patterns.
+- **Pulsar** — a large period-3 oscillator; one of the most visually striking oscillators.
 - **Gosper Glider Gun** — the first discovered *gun* pattern, which periodically generates new gliders, producing an infinite stream.
 - **R-pentomino** — a deceptively chaotic five-cell seed that takes over 1,000 generations to stabilize.
 

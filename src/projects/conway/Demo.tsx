@@ -125,6 +125,7 @@ export default function ConwayDemo() {
   const [fps, setFps] = useState(DEFAULT_FPS);
   const [drawMode, setDrawMode] = useState<'draw' | 'erase'>('draw');
   const [isPointerDown, setIsPointerDown] = useState(false);
+  const [focusedCell, setFocusedCell] = useState<[number, number]>([0, 0]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gridRef = useRef<Grid>(grid);
   const animRef = useRef<number>(0);
@@ -233,6 +234,7 @@ export default function ConwayDemo() {
       const cell = getCellFromEvent(e);
       if (!cell) return;
       const [row, col] = cell;
+      setFocusedCell([row, col]);
       setGrid((prev) => {
         const next = prev.map((r) => [...r]);
         next[row][col] = drawMode === 'draw';
@@ -242,15 +244,65 @@ export default function ConwayDemo() {
     [getCellFromEvent, drawMode]
   );
 
+  const paintCellAt = useCallback((row: number, col: number) => {
+    setGrid((prev) => {
+      const next = prev.map((r) => [...r]);
+      next[row][col] = drawMode === 'draw';
+      return next;
+    });
+  }, [drawMode]);
+
+  const releasePointerCapture = (target: EventTarget | null, pointerId: number) => {
+    if (!(target instanceof HTMLElement)) return;
+    if (target.hasPointerCapture(pointerId)) {
+      target.releasePointerCapture(pointerId);
+    }
+  };
+
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    e.currentTarget.setPointerCapture(e.pointerId);
     setIsPointerDown(true);
     paintCell(e);
   };
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (isPointerDown) paintCell(e);
   };
-  const handlePointerUp = () => setIsPointerDown(false);
+  const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    setIsPointerDown(false);
+    releasePointerCapture(e.currentTarget, e.pointerId);
+  };
+  const handlePointerCancel = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    setIsPointerDown(false);
+    releasePointerCapture(e.currentTarget, e.pointerId);
+  };
+  const handlePointerLeave = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    setIsPointerDown(false);
+    releasePointerCapture(e.currentTarget, e.pointerId);
+  };
+
+  const handleCanvasKeyDown = (e: React.KeyboardEvent<HTMLCanvasElement>) => {
+    const [row, col] = focusedCell;
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setFocusedCell([Math.max(0, row - 1), col]);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setFocusedCell([Math.min(DEFAULT_ROWS - 1, row + 1), col]);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setFocusedCell([row, Math.max(0, col - 1)]);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      setFocusedCell([row, Math.min(DEFAULT_COLS - 1, col + 1)]);
+    } else if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      paintCellAt(row, col);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      e.currentTarget.blur();
+    }
+  };
 
   // --- Controls ---
   const handleClear = () => {
@@ -353,17 +405,26 @@ export default function ConwayDemo() {
 
       {/* Canvas */}
       <div className="canvas-wrapper">
+        <div className="conway-status" aria-live="polite">
+          Focused cell: row {focusedCell[0] + 1}, column {focusedCell[1] + 1}. Mode: {drawMode}.
+        </div>
         <canvas
           ref={canvasRef}
           width={canvasWidth}
           height={canvasHeight}
           className="conway-canvas"
+          tabIndex={0}
+          role="grid"
+          aria-rowcount={DEFAULT_ROWS}
+          aria-colcount={DEFAULT_COLS}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
+          onPointerLeave={handlePointerLeave}
+          onKeyDown={handleCanvasKeyDown}
           style={{ cursor: drawMode === 'erase' ? 'cell' : 'crosshair' }}
-          aria-label="Conway's Game of Life grid"
+          aria-label={`Conway's Game of Life grid. Focused row ${focusedCell[0] + 1}, column ${focusedCell[1] + 1}. Press arrow keys to move and ${drawMode === 'erase' ? 'Space or Enter to erase' : 'Space or Enter to draw'}.`}
         />
       </div>
 
