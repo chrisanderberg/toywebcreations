@@ -526,7 +526,7 @@
   border-color: var(--border-bright);
 }
 
-.action-btn--pause:hover {
+.action-btn--pause:hover:not(:disabled) {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
 }
@@ -554,7 +554,7 @@
   border-color: var(--border);
 }
 
-.action-btn--stop:hover {
+.action-btn--stop:hover:not(:disabled) {
   color: #ff9999;
   border-color: rgba(255, 100, 100, 0.35);
 }

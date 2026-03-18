@@ -80,18 +80,13 @@ export default function TowerOfHanoiDemo() {
       const idx = solveIdxRef.current;
       const solution = solutionRef.current;
 
-      if (idx >= solution.length) {
-        clearInterval(intervalIdRef.current!);
-        intervalIdRef.current = null;
-        setStatus('solved');
-        return;
+      if (idx < solution.length) {
+        const [from, to] = solution[idx];
+        setPegs((prev) => applyMove(prev, from, to));
+        setMoveCount(idx + 1);
+        setSolveProgress(idx + 1);
+        solveIdxRef.current = idx + 1;
       }
-
-      const [from, to] = solution[idx];
-      setPegs((prev) => applyMove(prev, from, to));
-      setMoveCount(idx + 1);
-      setSolveProgress(idx + 1);
-      solveIdxRef.current = idx + 1;
 
       if (idx + 1 === solution.length) {
         if (intervalIdRef.current !== null) {
@@ -130,6 +125,10 @@ export default function TowerOfHanoiDemo() {
     if (lastMovedTimeoutRef.current !== null) {
       clearTimeout(lastMovedTimeoutRef.current);
       lastMovedTimeoutRef.current = null;
+    }
+    if (shakeTimeoutRef.current !== null) {
+      clearTimeout(shakeTimeoutRef.current);
+      shakeTimeoutRef.current = null;
     }
     solutionRef.current = [];
     solveIdxRef.current = 0;

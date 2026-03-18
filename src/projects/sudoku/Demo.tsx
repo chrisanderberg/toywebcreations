@@ -88,6 +88,13 @@ export default function SudokuDemo() {
     }
   }, [board, solution]);
 
+  useEffect(() => {
+    if (!selected) return;
+    const [row, col] = selected;
+    const cell = gridRef.current?.querySelector<HTMLElement>(`[data-row="${row}"][data-col="${col}"]`);
+    cell?.focus();
+  }, [selected]);
+
   const formatTime = (s: number) => {
     const m = Math.floor(s / 60).toString().padStart(2, '0');
     const sec = (s % 60).toString().padStart(2, '0');
@@ -122,6 +129,7 @@ export default function SudokuDemo() {
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
+      if (!gridRef.current?.contains(e.target as Node)) return;
       if (!selected) return;
       const [row, col] = selected;
 
@@ -147,7 +155,7 @@ export default function SudokuDemo() {
         setNotesMode((m) => !m);
       }
     },
-    [selected, setCell]
+    [selected, setCell, setSelected]
   );
 
   const handleReveal = () => {
@@ -218,7 +226,7 @@ export default function SudokuDemo() {
       )}
 
       {/* Grid */}
-      <div className="sudoku-board" role="grid" aria-label="Sudoku grid">
+      <div className="sudoku-board" role="grid" aria-label="Sudoku grid" ref={gridRef}>
         {board.map((row, r) =>
           row.map((cell, c) => {
             const key = `${r},${c}`;
@@ -293,6 +301,7 @@ export default function SudokuDemo() {
             className={`action-btn${notesMode ? ' active' : ''}`}
             onClick={() => setNotesMode((m) => !m)}
             title="Toggle notes mode (N)"
+            aria-pressed={notesMode}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
               <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>

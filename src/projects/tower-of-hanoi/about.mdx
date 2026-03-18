@@ -47,7 +47,7 @@ T(0) = 0
 T(n) = 2 × T(n-1) + 1
 ```
 
-Expanding it: `T(n) = 2 + 2² + 2³ + ... + 2ⁿ⁻¹ + 1 = 2ⁿ - 1`.
+In closed form: `T(n) = ∑_{i=0}^{n-1} 2^i = 2^n - 1`.
 
 For 3 discs: **7 moves**. For 8 discs: **255 moves**.
 
@@ -63,7 +63,7 @@ function solve(n, from, to, aux):
   solve(n - 1, aux, to, from)   // move n-1 discs from auxiliary to target
 ```
 
-The solver pre-computes the full list of moves before animation begins, then applies them one by one. This keeps the solver logic completely separate from the rendering logic.
+The solver pre-computes the full list of moves before animation begins, then applies them one by one. This keeps the solver logic completely separate from the rendering logic, but it also means the move list itself uses `O(2ⁿ)` space. The UI caps the puzzle at **8 discs**, which keeps the precomputed list practical for interactive use.
 
 The solver runs in `O(2ⁿ)` time, which is unavoidable — you simply can't produce the optimal solution faster than writing it down.
 
@@ -75,4 +75,4 @@ The solver runs in `O(2ⁿ)` time, which is unavoidable — you simply can't pro
 
 **Animation** uses React state transitions with a CSS `animation` triggered on disc mount. Each time a disc moves to a new peg, React unmounts it from the source and mounts it on the target, triggering the landing animation. The interval-based playback is managed via `useRef` to avoid stale closure issues with `setInterval`.
 
-**Pause and step** work by simply stopping and restarting the `setInterval`. The current position in the solution array is tracked in a ref, so resuming always continues from exactly where it left off.
+**Pause and step** work by simply stopping and restarting the `setInterval`. The current position in the solution array is tracked in a ref, so resuming always continues from exactly where it left off. That approach keeps playback simple, but it still carries the same exponential `O(2ⁿ)` move-list space cost, which is why the UI enforces the 8-disc maximum.
