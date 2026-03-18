@@ -41,12 +41,14 @@ const title = page === 'about'
         <a
           href={withBasePath(base, `${project.slug}/`)}
           class:list={['page-tab', { 'page-tab--active': page === 'demo' }]}
+          aria-current={page === 'demo' ? 'page' : undefined}
         >
           Play
         </a>
         <a
           href={withBasePath(base, `${project.slug}/about/`)}
           class:list={['page-tab', { 'page-tab--active': page === 'about' }]}
+          aria-current={page === 'about' ? 'page' : undefined}
         >
           About
         </a>

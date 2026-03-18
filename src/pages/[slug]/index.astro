@@ -21,6 +21,13 @@ interface Props {
 }
 
 const { project } = Astro.props;
+const demoComponents = {
+  sudoku: SudokuDemo,
+  conway: ConwayDemo,
+  'tower-of-hanoi': TowerOfHanoiDemo,
+  'elementary-cellular-automata': ElementaryCellularAutomataDemo,
+};
+const hasDemo = project.slug in demoComponents;
 ---
 
 <ProjectLayout project={project} page="demo">
@@ -30,6 +37,7 @@ const { project } = Astro.props;
       {project.slug === 'conway' && <ConwayDemo client:load />}
       {project.slug === 'tower-of-hanoi' && <TowerOfHanoiDemo client:load />}
       {project.slug === 'elementary-cellular-automata' && <ElementaryCellularAutomataDemo client:load />}
+      {!hasDemo && <p class="demo-missing">No demo available yet.</p>}
     </div>
   </div>
 </ProjectLayout>

@@ -49,7 +49,9 @@ export function generatePattern(
   rule: number,
   numRows: number
 ): number[][] {
-  const grid: number[][] = [initialRow];
+  if (numRows === 0) return [];
+
+  const grid: number[][] = [initialRow.slice()];
   for (let i = 1; i < numRows; i++) {
     grid.push(evolveRow(grid[i - 1], rule));
   }
@@ -58,7 +60,9 @@ export function generatePattern(
 
 /** Create a seed row with a single live cell at the center. */
 export function createCenteredSeed(width: number): number[] {
-  const row = new Array(width).fill(0);
+  if (width === 0) return [];
+
+  const row = Array.from({ length: width }, () => 0);
   row[Math.floor(width / 2)] = 1;
   return row;
 }

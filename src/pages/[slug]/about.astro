@@ -21,16 +21,20 @@ interface Props {
 }
 
 const { project } = Astro.props;
+const aboutComponents = {
+  sudoku: SudokuAbout,
+  conway: ConwayAbout,
+  'tower-of-hanoi': TowerOfHanoiAbout,
+  'elementary-cellular-automata': ElementaryCellularAutomataAbout,
+};
+const AboutComponent = aboutComponents[project.slug as keyof typeof aboutComponents];
 ---
 
 <ProjectLayout project={project} page="about">
   <div class="about-page">
     <div class="container">
       <div class="about-content prose">
-        {project.slug === 'sudoku' && <SudokuAbout />}
-        {project.slug === 'conway' && <ConwayAbout />}
-        {project.slug === 'tower-of-hanoi' && <TowerOfHanoiAbout />}
-        {project.slug === 'elementary-cellular-automata' && <ElementaryCellularAutomataAbout />}
+        {AboutComponent ? <AboutComponent /> : <p class="about-missing">No about page available yet.</p>}
       </div>
       <div class="about-source-link">
         <a

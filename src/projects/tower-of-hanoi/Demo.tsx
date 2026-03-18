@@ -92,6 +92,14 @@ export default function TowerOfHanoiDemo() {
       setMoveCount(idx + 1);
       setSolveProgress(idx + 1);
       solveIdxRef.current = idx + 1;
+
+      if (idx + 1 === solution.length) {
+        if (intervalIdRef.current !== null) {
+          clearInterval(intervalIdRef.current);
+          intervalIdRef.current = null;
+        }
+        setStatus('solved');
+      }
     }, SPEEDS[speedIdx].ms);
 
     return () => {
@@ -106,6 +114,7 @@ export default function TowerOfHanoiDemo() {
 
   useEffect(() => {
     return () => {
+      if (intervalIdRef.current !== null) clearInterval(intervalIdRef.current);
       if (lastMovedTimeoutRef.current !== null) clearTimeout(lastMovedTimeoutRef.current);
       if (shakeTimeoutRef.current !== null) clearTimeout(shakeTimeoutRef.current);
     };
@@ -167,13 +176,23 @@ export default function TowerOfHanoiDemo() {
   }
 
   function handleStep() {
+    if (intervalIdRef.current !== null) {
+      clearInterval(intervalIdRef.current);
+      intervalIdRef.current = null;
+    }
+    if (lastMovedTimeoutRef.current !== null) {
+      clearTimeout(lastMovedTimeoutRef.current);
+    }
     if (status === 'solving') setStatus('paused');
     // Apply move on next tick so paused status takes effect first
-    setTimeout(applyStepFromSolution, 0);
+    lastMovedTimeoutRef.current = setTimeout(() => {
+      applyStepFromSolution();
+      lastMovedTimeoutRef.current = null;
+    }, 0);
   }
 
   function handlePegClick(pegIdx: number) {
-    if (status === 'solving' || status === 'solved') return;
+    if (status === 'paused' || status === 'solving' || status === 'solved') return;
 
     if (selectedPeg === null) {
       if (pegs[pegIdx].length > 0) setSelectedPeg(pegIdx);
@@ -202,7 +221,7 @@ export default function TowerOfHanoiDemo() {
   const optimal = optimalMoveCount(discCount);
   const solveTotal = solutionRef.current.length;
   const isSolveActive = status === 'solving' || status === 'paused';
-  const isInteractive = status !== 'solving' && status !== 'solved';
+  const isInteractive = status === 'ready' || status === 'playing';
 
   // ── Render ───────────────────────────────────────────────────────────────────
 

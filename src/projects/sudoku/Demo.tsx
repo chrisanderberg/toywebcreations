@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { generatePuzzle, findConflicts, isSolved, solvePuzzle } from './sudoku';
+import { generatePuzzle, findConflicts, isSolved } from './sudoku';
 import type { Grid, Difficulty } from './sudoku';
 import './Demo.css';
 
@@ -181,7 +181,7 @@ export default function SudokuDemo() {
   const selectedValue = selected ? board[selRow][selCol].value : 0;
 
   return (
-    <div className="sudoku-wrap" onKeyDown={handleKeyDown} tabIndex={-1} ref={gridRef}>
+    <div className="sudoku-wrap" onKeyDown={handleKeyDown} tabIndex={0} ref={gridRef}>
       {/* Header bar */}
       <div className="sudoku-header">
         <div className="sudoku-meta">
@@ -218,7 +218,7 @@ export default function SudokuDemo() {
       )}
 
       {/* Grid */}
-      <div className="sudoku-board" aria-label="Sudoku grid">
+      <div className="sudoku-board" role="grid" aria-label="Sudoku grid">
         {board.map((row, r) =>
           row.map((cell, c) => {
             const key = `${r},${c}`;
@@ -243,10 +243,11 @@ export default function SudokuDemo() {
                 data-col={c}
                 data-box={`${Math.floor(r / 3)}-${Math.floor(c / 3)}`}
                 onClick={() => setSelected([r, c])}
+                onFocus={() => setSelected([r, c])}
                 role="gridcell"
                 aria-selected={isSelected}
                 aria-label={`Row ${r + 1}, Column ${c + 1}: ${cell.value || 'empty'}`}
-                tabIndex={isSelected ? 0 : -1}
+                tabIndex={isSelected || (!selected && r === 0 && c === 0) ? 0 : -1}
               >
                 {cell.value !== 0 ? (
                   <span className="cell-value">{cell.value}</span>

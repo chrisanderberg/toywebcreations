@@ -129,8 +129,6 @@ export default function ConwayDemo() {
   const gridRef = useRef<Grid>(grid);
   const animRef = useRef<number>(0);
   const lastTickRef = useRef<number>(0);
-  const rowsRef = useRef(DEFAULT_ROWS);
-  const colsRef = useRef(DEFAULT_COLS);
 
   // Keep gridRef in sync
   useEffect(() => {

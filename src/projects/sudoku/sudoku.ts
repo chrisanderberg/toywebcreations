@@ -86,22 +86,30 @@ function countSolutions(grid: Grid, limit = 2): number {
 /** Remove numbers from a complete grid to create a puzzle with a unique solution. */
 function digHoles(solved: Grid, clues: number): Grid {
   const puzzle = cloneGrid(solved);
-  const positions = shuffled(
-    Array.from({ length: 81 }, (_, i) => [Math.floor(i / 9), i % 9] as [number, number])
-  );
-
   let removed = 0;
   const target = 81 - clues;
 
-  for (const [row, col] of positions) {
-    if (removed >= target) break;
-    const backup = puzzle[row][col];
-    puzzle[row][col] = 0;
-    if (countSolutions(puzzle) === 1) {
-      removed++;
-    } else {
-      puzzle[row][col] = backup;
+  while (removed < target) {
+    let madeProgress = false;
+    const positions = shuffled(
+      Array.from({ length: 81 }, (_, i) => [Math.floor(i / 9), i % 9] as [number, number])
+    );
+
+    for (const [row, col] of positions) {
+      if (removed >= target) break;
+      if (puzzle[row][col] === 0) continue;
+
+      const backup = puzzle[row][col];
+      puzzle[row][col] = 0;
+      if (countSolutions(puzzle) === 1) {
+        removed++;
+        madeProgress = true;
+      } else {
+        puzzle[row][col] = backup;
+      }
     }
+
+    if (!madeProgress) break;
   }
 
   return puzzle;
@@ -135,6 +143,22 @@ export function generatePuzzle(difficulty: Difficulty = 'medium'): {
  */
 export function solvePuzzle(puzzle: Grid): Grid | null {
   const grid = cloneGrid(puzzle);
+
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      const value = grid[row][col];
+      if (value === 0) continue;
+
+      grid[row][col] = 0;
+      const isValidGiven = isValidPlacement(grid, row, col, value);
+      grid[row][col] = value;
+
+      if (!isValidGiven) {
+        return null;
+      }
+    }
+  }
+
   function backtrack(): boolean {
     for (let row = 0; row < 9; row++) {
       for (let col = 0; col < 9; col++) {

@@ -180,6 +180,12 @@
   -webkit-user-select: none;
 }
 
+.peg-zone:focus-visible {
+  outline: 2px solid var(--phosphor-dim);
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 1px var(--phosphor-dim), var(--glow-sm);
+}
+
 .peg-zone--selectable {
   cursor: pointer;
 }
@@ -418,6 +424,28 @@
   border-color: var(--phosphor-dim);
   background: rgba(57, 255, 20, 0.08);
   box-shadow: var(--glow-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-badge--solving,
+  .peg-zone--invalid,
+  .disc,
+  .disc--lifted,
+  .hanoi-win-banner,
+  .solve-fill {
+    animation: none;
+    transition: none;
+  }
+
+  .status-badge--solving {
+    box-shadow: none;
+  }
+
+  .peg-zone--invalid,
+  .disc--lifted,
+  .hanoi-win-banner {
+    transform: none;
+  }
 }
 
 /* Speed buttons */

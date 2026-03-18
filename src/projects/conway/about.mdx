@@ -47,7 +47,7 @@ That's it. No exceptions, no special cases.
 
 The simulation runs on a **60×40 grid** of boolean cells. Each generation, every cell independently applies the four rules based on its current neighbor count. The grid uses **toroidal wrapping** — cells on the edge treat the opposite edge as their neighbor, so the world has no boundary.
 
-Rendering uses an **HTML5 Canvas** element, drawn from scratch each frame. Live cells are drawn as phosphor-green squares with a CSS `shadowBlur` glow effect.
+Rendering uses an **HTML5 Canvas** element, drawn from scratch each frame. Live cells are drawn as phosphor-green squares with a canvas `shadowBlur` glow effect.
 
 The simulation loop uses `requestAnimationFrame` throttled to the selected FPS, rather than running uncapped, to keep the speed controllable.
 

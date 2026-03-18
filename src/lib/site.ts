@@ -1,12 +1,16 @@
 /**
  * Site-wide identity config. Single source of truth for GitHub owner and URLs.
- * Replace YOUR_GITHUB_USERNAME with your actual GitHub username.
  */
-export const GITHUB_OWNER = 'YOUR_GITHUB_USERNAME';
+export const GITHUB_OWNER = 'chrisanderberg';
+export const SITE_BASE_PATH = '/toywebcreations';
 
 export function withBasePath(base: string, path = ''): string {
   const normalizedBase = base === '/' ? '' : base.replace(/\/+$/, '');
   const normalizedPath = path.replace(/^\/+/, '');
 
   return normalizedPath ? `${normalizedBase}/${normalizedPath}` : `${normalizedBase}/`;
+}
+
+export function assetPath(path: string): string {
+  return withBasePath(SITE_BASE_PATH, path);
 }

@@ -6,8 +6,8 @@ import { meta as elementaryCellularAutomataMeta } from '../../projects/elementar
 
 export const projects: ProjectMeta[] = [sudokuMeta, conwayMeta, towerOfHanoiMeta, elementaryCellularAutomataMeta];
 
-export function getProjects(): ProjectMeta[] {
-  return projects;
+export function getProjects(): ReadonlyArray<ProjectMeta> {
+  return projects.slice();
 }
 
 export function getProject(slug: string): ProjectMeta | undefined {
