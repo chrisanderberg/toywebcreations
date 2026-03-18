@@ -49,7 +49,8 @@ export default function SudokuDemo() {
   const [solved, setSolved] = useState(false);
   const [timer, setTimer] = useState(0);
   const [running, setRunning] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const boardRef = useRef<HTMLDivElement>(null);
 
   const newGame = useCallback((diff: Difficulty) => {
     const { puzzle, solution: sol } = generatePuzzle(diff);
@@ -91,7 +92,7 @@ export default function SudokuDemo() {
   useEffect(() => {
     if (!selected) return;
     const [row, col] = selected;
-    const cell = gridRef.current?.querySelector<HTMLElement>(`[data-row="${row}"][data-col="${col}"]`);
+    const cell = boardRef.current?.querySelector<HTMLElement>(`[data-row="${row}"][data-col="${col}"]`);
     cell?.focus();
   }, [selected]);
 
@@ -129,7 +130,7 @@ export default function SudokuDemo() {
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (!gridRef.current?.contains(e.target as Node)) return;
+      if (!wrapperRef.current?.contains(e.target as Node)) return;
       if (!selected) return;
       const [row, col] = selected;
 
@@ -139,18 +140,18 @@ export default function SudokuDemo() {
       } else if (e.key === '0' || e.key === 'Backspace' || e.key === 'Delete') {
         e.preventDefault();
         setCell(row, col, 0);
-      } else if (e.key === 'ArrowUp' && row > 0) {
+      } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        setSelected([row - 1, col]);
-      } else if (e.key === 'ArrowDown' && row < 8) {
+        setSelected([Math.max(row - 1, 0), col]);
+      } else if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setSelected([row + 1, col]);
-      } else if (e.key === 'ArrowLeft' && col > 0) {
+        setSelected([Math.min(row + 1, 8), col]);
+      } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        setSelected([row, col - 1]);
-      } else if (e.key === 'ArrowRight' && col < 8) {
+        setSelected([row, Math.max(col - 1, 0)]);
+      } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        setSelected([row, col + 1]);
+        setSelected([row, Math.min(col + 1, 8)]);
       } else if (e.key === 'n' || e.key === 'N') {
         setNotesMode((m) => !m);
       }
@@ -189,7 +190,7 @@ export default function SudokuDemo() {
   const selectedValue = selected ? board[selRow][selCol].value : 0;
 
   return (
-    <div className="sudoku-wrap" onKeyDown={handleKeyDown} tabIndex={0} ref={gridRef}>
+    <div className="sudoku-wrap" onKeyDown={handleKeyDown} tabIndex={0} ref={wrapperRef}>
       {/* Header bar */}
       <div className="sudoku-header">
         <div className="sudoku-meta">
@@ -226,7 +227,7 @@ export default function SudokuDemo() {
       )}
 
       {/* Grid */}
-      <div className="sudoku-board" role="grid" aria-label="Sudoku grid" ref={gridRef}>
+      <div className="sudoku-board" role="grid" aria-label="Sudoku grid" ref={boardRef}>
         {board.map((row, r) =>
           row.map((cell, c) => {
             const key = `${r},${c}`;

@@ -63,7 +63,7 @@ function solve(n, from, to, aux):
   solve(n - 1, aux, to, from)   // move n-1 discs from auxiliary to target
 ```
 
-The solver pre-computes the full list of moves before animation begins, then applies them one by one. This keeps the solver logic completely separate from the rendering logic, but it also means the move list itself uses `O(2ⁿ)` space. The UI caps the puzzle at **8 discs**, which keeps the precomputed list practical for interactive use.
+The solver precomputes the full list of moves before animation begins, then applies them one by one. This keeps the solver logic completely separate from the rendering logic, but it also means the move list itself uses `O(2ⁿ)` space. The UI caps the puzzle at **8 discs**, which keeps the precomputed list practical for interactive use.
 
 The solver runs in `O(2ⁿ)` time, which is unavoidable — you simply can't produce the optimal solution faster than writing it down.
 
