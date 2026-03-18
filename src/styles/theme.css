@@ -3,7 +3,7 @@
    Phosphor / CRT aesthetic
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=VT323&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap';
 
 :root {
   /* --- Color: Phosphor Green Palette --- */

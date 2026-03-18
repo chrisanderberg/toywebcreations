@@ -1,5 +1,6 @@
 ---
 import SiteLayout from './SiteLayout.astro';
+import { withBasePath } from '../lib/site';
 import type { ProjectMeta } from '../lib/projects/types';
 
 interface Props {
@@ -24,11 +25,11 @@ const title = page === 'about'
   <div class="project-subheader">
     <div class="container">
       <nav class="project-breadcrumb" aria-label="Project navigation">
-        <a href={`${base}`} class="crumb">Home</a>
+        <a href={withBasePath(base)} class="crumb">Home</a>
         <span class="crumb-sep" aria-hidden="true">/</span>
         {page === 'about' ? (
           <>
-            <a href={`${base}${project.slug}/`} class="crumb">{project.title}</a>
+            <a href={withBasePath(base, `${project.slug}/`)} class="crumb">{project.title}</a>
             <span class="crumb-sep" aria-hidden="true">/</span>
             <span class="crumb crumb--active">About</span>
           </>
@@ -38,13 +39,13 @@ const title = page === 'about'
       </nav>
       <div class="project-page-links">
         <a
-          href={`${base}${project.slug}/`}
+          href={withBasePath(base, `${project.slug}/`)}
           class:list={['page-tab', { 'page-tab--active': page === 'demo' }]}
         >
           Play
         </a>
         <a
-          href={`${base}${project.slug}/about/`}
+          href={withBasePath(base, `${project.slug}/about/`)}
           class:list={['page-tab', { 'page-tab--active': page === 'about' }]}
         >
           About

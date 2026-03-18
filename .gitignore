@@ -1,8 +1,10 @@
 node_modules/
 .agents/skills/
 .astro/
+.claude/skills/
 dist/
 coverage/
+skills-lock.json
 
 .env
 .env.*

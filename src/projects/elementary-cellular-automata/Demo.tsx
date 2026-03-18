@@ -236,7 +236,12 @@ export default function ElementaryCellularAutomataDemo() {
           role="button"
           aria-expanded={ruleMapOpen}
           tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && setRuleMapOpen((o) => !o)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') {
+              e.preventDefault();
+              setRuleMapOpen((o) => !o);
+            }
+          }}
         >
           <span className="eca-rule-map-title">
             Rule {rule} — neighborhood → output mapping

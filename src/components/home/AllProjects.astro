@@ -1,5 +1,6 @@
 ---
 import type { ProjectMeta } from '../../lib/projects/types';
+import { withBasePath } from '../../lib/site';
 
 interface Props {
   projects: ProjectMeta[];
@@ -18,7 +19,7 @@ const base = import.meta.env.BASE_URL;
     <ul class="projects-list" role="list">
       {projects.map((project) => (
         <li class="project-row">
-          <a href={`${base}${project.slug}/`} class="project-link">
+          <a href={withBasePath(base, `${project.slug}/`)} class="project-link">
             <div class="project-icon-wrap">
               <img
                 src={project.icon}

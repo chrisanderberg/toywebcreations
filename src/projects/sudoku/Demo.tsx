@@ -74,6 +74,20 @@ export default function SudokuDemo() {
     return () => clearInterval(id);
   }, [running, solved]);
 
+  useEffect(() => {
+    if (board.length === 0 || solution.length === 0) return;
+
+    const grid = cellsToGrid(board);
+    const nextSolved = isSolved(grid, solution);
+
+    setConflicts(findConflicts(grid));
+    setSolved(nextSolved);
+
+    if (nextSolved) {
+      setRunning(false);
+    }
+  }, [board, solution]);
+
   const formatTime = (s: number) => {
     const m = Math.floor(s / 60).toString().padStart(2, '0');
     const sec = (s % 60).toString().padStart(2, '0');
@@ -100,19 +114,10 @@ export default function SudokuDemo() {
           cell.notes.clear();
         }
 
-        const newGrid = cellsToGrid(next);
-        const newConflicts = findConflicts(newGrid);
-        setConflicts(newConflicts);
-
-        if (isSolved(newGrid, solution)) {
-          setSolved(true);
-          setRunning(false);
-        }
-
         return next;
       });
     },
-    [notesMode, solution]
+    [notesMode]
   );
 
   const handleKeyDown = useCallback(
@@ -153,13 +158,6 @@ export default function SudokuDemo() {
       const next = prev.map((r) => r.map((c) => ({ ...c, notes: new Set(c.notes) })));
       next[row][col].value = solution[row][col];
       next[row][col].notes.clear();
-      const newGrid = cellsToGrid(next);
-      const newConflicts = findConflicts(newGrid);
-      setConflicts(newConflicts);
-      if (isSolved(newGrid, solution)) {
-        setSolved(true);
-        setRunning(false);
-      }
       return next;
     });
   };

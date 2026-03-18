@@ -1,5 +1,6 @@
 ---
 import { REPO_ROOT } from '../../lib/github';
+import { withBasePath } from '../../lib/site';
 
 interface Props {
   githubLink?: string;
@@ -11,12 +12,12 @@ const base = import.meta.env.BASE_URL;
 
 <header class="site-header">
   <div class="header-inner">
-    <a href={`${base}`} class="banner" aria-label="ToyWebCreations — Home">
+    <a href={withBasePath(base)} class="banner" aria-label="ToyWebCreations — Home">
       <span class="banner-prefix">&gt;_</span><span class="banner-name">ToyWebCreations</span>
     </a>
     <nav class="header-nav" aria-label="Site navigation">
-      <a href={`${base}`} class="nav-link">Home</a>
-      <a href={`${base}about/`} class="nav-link">About</a>
+      <a href={withBasePath(base)} class="nav-link">Home</a>
+      <a href={withBasePath(base, 'about/')} class="nav-link">About</a>
       <a
         href={githubLink}
         class="nav-link nav-link--github"
