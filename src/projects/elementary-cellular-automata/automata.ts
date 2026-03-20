@@ -9,12 +9,22 @@
 /** The 8 canonical neighborhood patterns in display order (111 down to 000). */
 export const NEIGHBORHOOD_PATTERNS: number[] = [7, 6, 5, 4, 3, 2, 1, 0];
 
+function clampRule(rule: number): number {
+  if (Number.isNaN(rule)) return 0;
+  return Math.min(255, Math.max(0, Math.floor(rule)));
+}
+
+function clampDensity(density: number): number {
+  if (Number.isNaN(density)) return 0.5;
+  return Math.min(1, Math.max(0, density));
+}
+
 /**
  * Returns the output bit (0 or 1) for a given neighborhood under a rule.
  * neighborhood: integer 0–7 representing (left<<2)|(self<<1)|right
  */
 export function ruleOutput(rule: number, neighborhood: number): 0 | 1 {
-  return ((rule >> neighborhood) & 1) as 0 | 1;
+  return ((clampRule(rule) >> neighborhood) & 1) as 0 | 1;
 }
 
 /**
@@ -49,10 +59,11 @@ export function generatePattern(
   rule: number,
   numRows: number
 ): number[][] {
-  if (numRows === 0) return [];
+  const safeRows = Math.max(0, Math.floor(numRows));
+  if (safeRows === 0) return [];
 
   const grid: number[][] = [initialRow.slice()];
-  for (let i = 1; i < numRows; i++) {
+  for (let i = 1; i < safeRows; i++) {
     grid.push(evolveRow(grid[i - 1], rule));
   }
   return grid;
@@ -60,16 +71,19 @@ export function generatePattern(
 
 /** Create a seed row with a single live cell at the center. */
 export function createCenteredSeed(width: number): number[] {
-  if (width === 0) return [];
+  const safeWidth = Math.max(0, Math.floor(width));
+  if (safeWidth === 0) return [];
 
-  const row = Array.from({ length: width }, () => 0);
-  row[Math.floor(width / 2)] = 1;
+  const row = Array.from({ length: safeWidth }, () => 0);
+  row[Math.floor(safeWidth / 2)] = 1;
   return row;
 }
 
 /** Create a seed row with randomly live cells at the given density (0–1). */
 export function createRandomSeed(width: number, density = 0.5): number[] {
-  return Array.from({ length: width }, () => (Math.random() < density ? 1 : 0));
+  const safeWidth = Math.max(0, Math.floor(width));
+  const safeDensity = clampDensity(density);
+  return Array.from({ length: safeWidth }, () => (Math.random() < safeDensity ? 1 : 0));
 }
 
 /** Format a neighborhood integer (0–7) as a 3-char binary string, e.g. "101". */

@@ -357,6 +357,21 @@
   border-color: rgba(255, 100, 100, 0.4) !important;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .sudoku-loading,
+  .solved-banner {
+    animation: none;
+  }
+
+  .sudoku-cell,
+  .diff-btn,
+  .ctrl-btn,
+  .num-btn,
+  .action-btn {
+    transition: none;
+  }
+}
+
 /* --- Responsive --- */
 @media (max-width: 480px) {
   .sudoku-wrap {

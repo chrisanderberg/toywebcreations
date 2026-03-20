@@ -1,11 +1,11 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
-import { GITHUB_OWNER } from './src/lib/site';
+import { getBasePath, getSiteOrigin } from './src/lib/site';
 
 export default defineConfig({
-  site: `https://${GITHUB_OWNER}.github.io`,
-  base: '/toywebcreations',
+  site: getSiteOrigin(),
+  base: getBasePath(),
   output: 'static',
   integrations: [react(), mdx()],
 });

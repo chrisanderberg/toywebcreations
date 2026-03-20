@@ -184,7 +184,21 @@ export default function ConwayDemo() {
       }
     }
     ctx.shadowBlur = 0;
-  }, [grid, canvasWidth, canvasHeight]);
+
+    // Keyboard focus indicator
+    const [focusedRow, focusedCol] = focusedCell;
+    const focusX = focusedCol * CELL_SIZE + 0.5;
+    const focusY = focusedRow * CELL_SIZE + 0.5;
+    const focusSize = CELL_SIZE - 1;
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(127, 255, 79, 0.12)';
+    ctx.fillRect(focusX, focusY, focusSize, focusSize);
+    ctx.strokeStyle = '#c8ff9f';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(focusX, focusY, focusSize, focusSize);
+    ctx.restore();
+  }, [grid, focusedCell, canvasWidth, canvasHeight]);
 
   // --- Simulation loop ---
   useEffect(() => {
