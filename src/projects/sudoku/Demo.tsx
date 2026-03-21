@@ -156,7 +156,7 @@ export default function SudokuDemo() {
         setNotesMode((m) => !m);
       }
     },
-    [selected, setCell, setSelected]
+    [selected, setCell]
   );
 
   const handleReveal = () => {

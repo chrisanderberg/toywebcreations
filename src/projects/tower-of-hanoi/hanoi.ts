@@ -2,7 +2,6 @@
 export type PegIndex = 0 | 1 | 2;
 export type Move = readonly [PegIndex, PegIndex];
 export type Pegs = [number[], number[], number[]];
-const DEFAULT_PEGS: Pegs = [[], [], []];
 
 function validateDiscCount(n: number): void {
   if (!Number.isInteger(n) || n < 0) {
