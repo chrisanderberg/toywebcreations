@@ -1,0 +1,80 @@
+# 1D Cellular Automata
+
+An interactive explorer for all 256 elementary cellular automaton rules. Choose a rule number, pick an initial row, and watch simple local decisions build up into surprisingly complex patterns — including fractals, chaos, and stable repetition.
+
+## What is a cellular automaton?
+
+A **cellular automaton** is a system of cells arranged in a grid. Each cell has a state (here: alive = 1, dead = 0) and evolves over discrete time steps. At each step, every cell computes its next state using only its own state and the states of its immediate neighbors. The same rule applies to every cell, at every step, simultaneously.
+
+Despite this extreme simplicity, cellular automata can produce rich and unexpected behavior. The 1D elementary automata are the simplest possible case — and even here, complexity emerges.
+
+## How does this work?
+
+Each row in the visualization is one generation. The top row is the starting state (the *seed*). Each row below is computed from the row above it.
+
+Every cell in the new row looks at a window of three cells from the previous row:
+
+```
+[ left ] [ center ] [ right ]
+```
+
+Those three cells — each 0 or 1 — form a 3-bit neighborhood. There are exactly 8 possible neighborhoods:
+
+| Pattern | Binary | Decimal |
+|---------|--------|---------|
+| ■ ■ ■   | 111    | 7       |
+| ■ ■ □   | 110    | 6       |
+| ■ □ ■   | 101    | 5       |
+| ■ □ □   | 100    | 4       |
+| □ ■ ■   | 011    | 3       |
+| □ ■ □   | 010    | 2       |
+| □ □ ■   | 001    | 1       |
+| □ □ □   | 000    | 0       |
+
+A **rule** assigns each of those 8 neighborhoods an output: either 0 (dead) or 1 (alive). That's 8 independent binary choices — which means there are exactly 2⁸ = **256 possible rules**.
+
+## Why is it called "Rule 30" (or Rule 90, or Rule 110)?
+
+The rule number is the decimal value of its 8-bit output. Read the outputs for neighborhoods 7 down to 0 as binary digits — that binary number is the rule.
+
+For example, **Rule 30** (= 00011110 in binary) produces:
+
+| Neighborhood | 111 | 110 | 101 | 100 | 011 | 010 | 001 | 000 |
+|--------------|-----|-----|-----|-----|-----|-----|-----|-----|
+| Output       |  0  |  0  |  0  |  1  |  1  |  1  |  1  |  0  |
+
+Reading the outputs in order as binary digits gives `00011110` = 30 in decimal. Hence "Rule 30."
+
+The rule display panel on the project page makes this mapping concrete — you can see exactly which neighborhoods produce live cells for the current rule.
+
+## What kinds of patterns exist?
+
+Stephen Wolfram categorized the 256 rules into four rough classes:
+
+1. **Uniform** — patterns quickly settle into a uniform all-dead or all-alive state (e.g. Rule 0, Rule 255)
+2. **Stable / periodic** — simple repeating or nested structure (e.g. Rule 4, Rule 51)
+3. **Fractal / self-similar** — nested triangular patterns (e.g. Rule 90, Sierpiński triangle)
+4. **Complex / chaotic** — aperiodic, unpredictable output (e.g. Rule 30, Rule 110)
+
+Some notable rules to explore:
+
+- Wolfram's favorite example of chaotic behavior from a simple rule is **Rule 30**. Its center column is used as a pseudorandom number generator in Mathematica.
+- **Rule 90** — produces a perfect Sierpiński triangle fractal from a centered single-cell seed.
+- Turing-completeness shows up in **Rule 110**: in principle, it can compute anything a computer can.
+- Models traffic flow — **Rule 184** makes a live cell move right unless blocked.
+
+## Seed modes
+
+**Centered single-cell seed** — a single live cell in the middle of an otherwise empty row. This is the classic starting point and reveals a rule's intrinsic structure most clearly.
+
+**Random seed** — a row of randomly live/dead cells at a configurable density. This shows how the rule behaves on arbitrary input and often reveals interesting behavior hidden by the symmetric starting point.
+
+## Implementation notes
+
+The simulation grid is **200 cells wide** and computes **300 generations** per render. The pattern is regenerated immediately whenever the rule or seed changes — no incremental simulation loop is needed for a static render.
+
+**Edge behavior**: cells outside the visible row are treated as **0** (dead). This is the simplest and most common choice, and clearly visible at the edges of rules like Rule 90 — where the triangle shape ends at the boundary rather than wrapping. Wraparound edges are an alternative but complicate the visualization near boundaries.
+
+**Rendering**: the pattern is drawn onto an HTML5 Canvas element. Each cell is a 4×4 pixel block. Live cells are drawn as phosphor green with a subtle shadow blur for glow. Dead cells are left as the dark background.
+
+**Performance**: the pattern is a plain JavaScript array of rows (each an array of 0s and 1s). For a 200×300 grid (60,000 cells), computing and rendering takes under a millisecond on modern hardware — fast enough that re-renders are imperceptible.

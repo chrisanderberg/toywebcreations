@@ -1,0 +1,39 @@
+# Sudoku
+
+A classic 9×9 Sudoku puzzle, playable in the browser. Generate a new game in three difficulty levels, input numbers, use pencil notes, and check your work in real time.
+
+## How to play
+
+Fill the 9×9 grid so that every row, every column, and every 3×3 box contains the digits 1–9 exactly once. Gray cells are clues you can't edit. Enter numbers using the numpad or your keyboard.
+
+**Controls:**
+- Click a cell to select it
+- Type 1–9 to enter a number
+- Backspace / Delete or 0 to erase
+- Arrow keys to navigate
+- Press **N** to toggle notes mode
+- Use **Hint** to reveal a single cell
+- Use **Solve** to reveal the full solution (last resort)
+
+## What is Sudoku?
+
+Sudoku is a logic-based number-placement puzzle. The name comes from the Japanese abbreviation for "single number" (_suuji wa dokushin ni kagiru_). Despite its numeric appearance, it requires no arithmetic — only deductive reasoning.
+
+The standard 9×9 grid has been the dominant format since Wayne Gould's computer program popularized it in newspapers worldwide in 2004–2005. A well-formed puzzle has exactly one solution.
+
+## How it works
+
+**Puzzle generation** uses two stages:
+
+1. **Fill a complete solution**: a backtracking algorithm fills the empty 9×9 grid with a valid arrangement. At each empty cell, it tries the digits 1–9 in shuffled order, placing a number if it doesn't conflict with its row, column, or 3×3 box. If it reaches a dead end, it backtracks to the previous cell and tries the next candidate.
+
+2. **Dig holes**: to create the puzzle, cells are removed one at a time (in a random order). After each removal, a constraint-counting solver checks whether the remaining clues still have exactly one solution. If removing a cell would create ambiguity, it's put back. The process repeats until the target number of clues is reached.
+
+**Difficulty** is controlled by the number of clues left in the grid:
+- Easy: ~38 clues
+- Medium: ~30 clues
+- Hard: ~25 clues
+
+**Conflict detection** runs after every move. A cell is flagged as a conflict if its value appears more than once in the same row, column, or 3×3 box. No constraint propagation or more advanced techniques are used — detection is intentionally simple so the player does the solving.
+
+**Notes mode** stores candidate digits in individual cells without committing to a value — a standard feature of paper Sudoku where pencil marks track possibilities.

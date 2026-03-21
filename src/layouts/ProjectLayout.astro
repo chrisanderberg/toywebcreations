@@ -1,0 +1,156 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import { withBasePath } from '../lib/site';
+import type { ProjectMeta } from '../lib/projects/types';
+
+interface Props {
+  project: ProjectMeta;
+  /** 'demo' | 'about' — which sub-page we're on */
+  page?: 'demo' | 'about';
+}
+
+const { project, page = 'demo' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const title = page === 'about'
+  ? `${project.title} — About | ToyWebCreations`
+  : `${project.title} | ToyWebCreations`;
+---
+
+<SiteLayout
+  title={title}
+  description={project.description}
+  githubLink={project.sourceLink}
+>
+  <div class="project-subheader">
+    <div class="container">
+      <nav class="project-breadcrumb" aria-label="Project navigation">
+        <a href={withBasePath(base)} class="crumb">Home</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+        {page === 'about' ? (
+          <>
+            <a href={withBasePath(base, `${project.slug}/`)} class="crumb">{project.title}</a>
+            <span class="crumb-sep" aria-hidden="true">/</span>
+            <span class="crumb crumb--active">About</span>
+          </>
+        ) : (
+          <span class="crumb crumb--active">{project.title}</span>
+        )}
+      </nav>
+      <div class="project-page-links">
+        <a
+          href={withBasePath(base, `${project.slug}/`)}
+          class:list={['page-tab', { 'page-tab--active': page === 'demo' }]}
+          aria-current={page === 'demo' ? 'page' : undefined}
+        >
+          Play
+        </a>
+        <a
+          href={withBasePath(base, `${project.slug}/about/`)}
+          class:list={['page-tab', { 'page-tab--active': page === 'about' }]}
+          aria-current={page === 'about' ? 'page' : undefined}
+        >
+          About
+        </a>
+        <a
+          href={project.sourceLink}
+          class="page-tab page-tab--source"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source ↗
+        </a>
+      </div>
+    </div>
+  </div>
+  <slot />
+</SiteLayout>
+
+<style>
+  .project-subheader {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-surface);
+    padding: var(--space-3) 0;
+  }
+
+  .project-subheader .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .project-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .crumb {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color var(--transition-fast);
+  }
+
+  .crumb:hover {
+    color: var(--phosphor);
+  }
+
+  .crumb--active {
+    color: var(--phosphor-muted);
+    font-weight: 500;
+  }
+
+  .crumb-sep {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .project-page-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .page-tab {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background var(--transition-fast);
+  }
+
+  .page-tab:hover {
+    color: var(--phosphor);
+    border-color: var(--border-bright);
+    background: var(--bg-raised);
+  }
+
+  .page-tab--active {
+    color: var(--phosphor);
+    border-color: var(--border-active);
+    background: var(--bg-raised);
+  }
+
+  .page-tab--source {
+    color: var(--text-muted);
+  }
+
+  .page-tab--source:hover {
+    color: var(--phosphor-muted);
+    border-color: var(--border);
+  }
+</style>

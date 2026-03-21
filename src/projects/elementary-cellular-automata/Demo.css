@@ -1,0 +1,373 @@
+/* ===================================================================
+   1D Cellular Automata Explorer — Styles
+   =================================================================== */
+
+.eca-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* --- Control bar --- */
+.eca-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+}
+
+/* --- Rule section --- */
+.eca-rule-section {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.eca-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.eca-rule-display {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  color: var(--phosphor);
+  text-shadow: var(--glow-text-md);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  min-width: 3ch;
+  text-align: right;
+}
+
+.eca-rule-input {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-bright);
+  color: var(--phosphor);
+  padding: 4px 8px;
+  border-radius: 3px;
+  width: 5ch;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.eca-rule-input::-webkit-outer-spin-button,
+.eca-rule-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.eca-rule-input:focus {
+  outline: none;
+  border-color: var(--phosphor-dim);
+  box-shadow: var(--glow-sm);
+}
+
+.eca-rule-slider {
+  width: 120px;
+  accent-color: var(--phosphor);
+  cursor: pointer;
+}
+
+/* --- Preset rule buttons --- */
+.eca-presets {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.preset-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: 4px 8px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: color 150ms, border-color 150ms, background 150ms;
+  white-space: nowrap;
+}
+.preset-btn:hover {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: var(--phosphor-bg-subtle);
+}
+.preset-btn.active {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: var(--phosphor-bg-light);
+  text-shadow: var(--glow-text-sm);
+}
+.preset-btn:focus-visible {
+  outline: none;
+  border-color: var(--phosphor-dim);
+  box-shadow: var(--glow-sm);
+  color: var(--phosphor);
+}
+
+/* --- Seed / action controls --- */
+.eca-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.eca-seed-tabs {
+  display: flex;
+  border: 1px solid var(--border-bright);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.seed-tab {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
+  background: var(--bg-surface);
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 150ms, background 150ms;
+  white-space: nowrap;
+}
+.seed-tab + .seed-tab {
+  border-left: 1px solid var(--border-bright);
+}
+.seed-tab:hover {
+  color: var(--text);
+  background: var(--bg-raised);
+}
+.seed-tab.active {
+  color: var(--phosphor);
+  background: color-mix(in srgb, var(--phosphor) 8%, transparent);
+}
+.seed-tab:focus-visible {
+  outline: none;
+  color: var(--phosphor);
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--phosphor-dim);
+}
+
+.eca-density-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.density-slider {
+  width: 64px;
+  accent-color: var(--phosphor);
+  cursor: pointer;
+}
+
+.density-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--phosphor-muted);
+  min-width: 3ch;
+}
+
+.ctrl-btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  padding: 5px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  color: var(--text-dim);
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 150ms, border-color 150ms, background 150ms;
+}
+.ctrl-btn:hover {
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  background: var(--phosphor-bg-subtle);
+}
+.ctrl-btn--primary {
+  border-color: var(--phosphor-dim);
+  color: var(--phosphor-muted);
+}
+.ctrl-btn--primary:hover {
+  color: var(--phosphor);
+  box-shadow: var(--glow-sm);
+}
+.ctrl-btn:focus-visible {
+  outline: none;
+  color: var(--phosphor);
+  border-color: var(--phosphor-dim);
+  box-shadow: var(--glow-sm);
+}
+
+/* --- Rule mapping display --- */
+.eca-rule-map-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.eca-rule-map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.eca-rule-map-header:hover {
+  background: var(--bg-raised);
+}
+.eca-rule-map-header:focus-visible {
+  outline: none;
+  background: var(--bg-raised);
+  box-shadow: inset 0 0 0 1px var(--phosphor-dim);
+}
+
+.eca-rule-map-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.eca-rule-map-toggle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  transition: color 150ms;
+}
+.eca-rule-map-header:hover .eca-rule-map-toggle {
+  color: var(--phosphor-dim);
+}
+
+.eca-rule-map-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 0.5rem 0.5rem;
+}
+
+.eca-neighborhood {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 3px;
+  transition: background 150ms;
+  min-width: 44px;
+}
+.eca-neighborhood:hover {
+  background: var(--bg-raised);
+}
+
+.eca-nb-pattern {
+  display: flex;
+  gap: 2px;
+}
+
+.eca-nb-cell {
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+  border: 1px solid var(--border-bright);
+  background: transparent;
+}
+.eca-nb-cell.on {
+  background: var(--phosphor-dim);
+  border-color: var(--phosphor-dim);
+  box-shadow: var(--glow-cell-sm);
+}
+
+.eca-nb-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.eca-nb-output {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid var(--border-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  transition: background 150ms, box-shadow 150ms;
+}
+.eca-nb-output.on {
+  background: var(--phosphor);
+  border-color: var(--phosphor);
+  color: var(--bg);
+  box-shadow: var(--glow-cell-md);
+  font-weight: 700;
+}
+.eca-nb-output.off {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+/* --- Canvas --- */
+.eca-canvas-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  background: var(--bg);
+  box-shadow: var(--glow-md);
+  line-height: 0;
+  position: relative;
+}
+
+.eca-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* --- Inline caption --- */
+.eca-caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-align: center;
+  padding: 0.4rem;
+}
+
+@media (max-width: 640px) {
+  .eca-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .eca-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+  .eca-rule-slider {
+    width: 80px;
+  }
+}

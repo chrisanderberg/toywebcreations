@@ -1,0 +1,78 @@
+# Tower of Hanoi
+
+An ancient puzzle with a deceptively elegant solution. Move a stack of discs from one peg to another — and watch a recursive algorithm do it in the minimum possible number of moves.
+
+## How to play
+
+The puzzle starts with all discs stacked on peg **A**, sorted largest at the bottom. Your goal is to move the entire stack to peg **C**.
+
+**Manual play:**
+- Click a peg to pick up its top disc
+- Click another peg to place it
+- Illegal moves are blocked automatically
+
+**Auto-Solve:**
+- Press **Auto-Solve** to watch the optimal solution animate step by step
+- Use **Pause**, **Resume**, and **Step** to control playback
+- Adjust **Speed** to slow down or speed up the animation
+- Press **Stop** to return to manual play
+
+## What is the Tower of Hanoi?
+
+The Tower of Hanoi is a mathematical puzzle invented by the French mathematician Édouard Lucas in 1883. He accompanied it with a legend: a temple in Hanoi contains a stack of 64 golden discs on a diamond peg. Priests move one disc per day according to the rules. When all 64 discs have been transferred, the world ends.
+
+If that legend were true, and the priests never made a mistake, it would take 2⁶⁴ − 1 days — roughly **50 quadrillion years**. The often-quoted **585 billion years** figure applies to making one move per second, not one move per day.
+
+## The three rules
+
+1. Only **one disc** may be moved at a time.
+2. Only the **top disc** of any peg may be moved.
+3. A **larger disc** may never be placed on top of a smaller disc.
+
+That's it. These three constraints lead to a completely determined optimal strategy.
+
+## Why does it always take `2^n - 1` moves?
+
+For `n` discs, the optimal solution always requires exactly `2^n - 1` moves. Here's the intuition:
+
+To move a stack of `n` discs from peg A to peg C, you must:
+1. Move the top `n - 1` discs from A to B *(using C as auxiliary)*
+2. Move the largest disc from A to C — **1 move**
+3. Move the `n - 1` discs from B to C *(using A as auxiliary)*
+
+Steps 1 and 3 are the same problem, just smaller. This gives the recurrence:
+
+```
+T(0) = 0
+T(n) = 2 × T(n-1) + 1
+```
+
+In closed form: `T(n) = ∑_{i=0}^{n-1} 2^i = 2^n - 1`.
+
+For 3 discs: **7 moves**. For 8 discs: **255 moves**.
+
+## How the solver works
+
+The recursive algorithm mirrors the intuition exactly:
+
+```text
+function solve(n, from, to, aux):
+  if n === 0: return
+  solve(n - 1, from, aux, to)   // move n-1 discs to auxiliary
+  move(from, to)                  // move largest disc to target
+  solve(n - 1, aux, to, from)   // move n-1 discs from auxiliary to target
+```
+
+The solver precomputes the full list of moves before animation begins, then applies them one by one. This keeps the solver logic completely separate from the rendering logic, but it also means the move list itself uses `O(2ⁿ)` space. The UI caps the puzzle at **8 discs**, which keeps the precomputed list practical for interactive use.
+
+The solver runs in `O(2ⁿ)` time, which is unavoidable — you simply can't produce the optimal solution faster than writing it down.
+
+## Implementation notes
+
+**State** is represented as an array of three arrays: `Pegs = number[][]`. Each inner array holds disc sizes for that peg, with index 0 at the bottom (largest) and the last index at the top (smallest). This makes it easy to read the top disc and apply moves immutably.
+
+**Interaction** uses a two-click model: click to select (pick up the top disc), click again to place. This works cleanly on both desktop and mobile without drag-and-drop complexity.
+
+**Animation** uses React state transitions with a CSS `animation` triggered on disc mount. Each time a disc moves to a new peg, React unmounts it from the source and mounts it on the target, triggering the landing animation. The interval-based playback is managed via `useRef` to avoid stale closure issues with `setInterval`.
+
+**Pause and step** work by simply stopping and restarting the `setInterval`. The current position in the solution array is tracked in a ref, so resuming always continues from exactly where it left off. That approach keeps playback simple, but it still carries the same exponential `O(2ⁿ)` move-list space cost, which is why the UI enforces the 8-disc maximum.

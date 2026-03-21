@@ -1,0 +1,213 @@
+/* =====================================================================
+   ToyWebCreations — Global Styles
+   ===================================================================== */
+
+@import './theme.css';
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--phosphor-dim) var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html:hover {
+  scrollbar-color: var(--phosphor-muted) var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.65;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* --- CRT Scanline Overlay --- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 120;
+}
+
+/* Subtle vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.35) 100%);
+  pointer-events: none;
+  z-index: 110;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  color: var(--phosphor);
+}
+
+h1 { font-size: var(--text-6xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+h5 { font-size: var(--text-xl); }
+h6 { font-size: var(--text-lg); }
+
+p {
+  color: var(--text);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--phosphor);
+  text-decoration: none;
+  transition: color var(--transition-fast), text-shadow var(--transition-fast);
+}
+
+a:hover {
+  color: var(--phosphor-bright);
+  text-shadow: var(--glow-text-sm);
+}
+
+:focus-visible {
+  outline: 2px solid var(--phosphor);
+  outline-offset: 3px;
+}
+
+a:focus-visible {
+  border-radius: var(--radius-sm);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+code {
+  background: var(--bg-raised);
+  color: var(--phosphor-bright);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+pre {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  overflow-x: auto;
+  color: var(--phosphor-bright);
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-sm);
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+/* --- Layout Utilities --- */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* --- Horizontal rule --- */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--space-8) 0;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--phosphor-dim);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--phosphor-muted);
+}
+
+/* --- Selection --- */
+::selection {
+  background: var(--phosphor-dim);
+  color: var(--phosphor-bright);
+}
+
+/* --- Phosphor glow utility classes --- */
+.glow-sm   { text-shadow: var(--glow-text-sm); }
+.glow-md   { text-shadow: var(--glow-text-md); }
+.glow-box  { box-shadow: var(--glow-sm); }
+.phosphor  { color: var(--phosphor); }
+
+/* --- Screen flicker on load (subtle) --- */
+@keyframes flicker {
+  0%   { opacity: 1; }
+  2%   { opacity: 0.92; }
+  4%   { opacity: 1; }
+  8%   { opacity: 0.96; }
+  10%  { opacity: 1; }
+}
+
+.flicker {
+  animation: flicker 0.15s ease-in-out 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation: none !important;
+    animation-name: none !important;
+    transition: none !important;
+  }
+
+  .flicker {
+    animation: none !important;
+  }
+}

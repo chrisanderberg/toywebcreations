@@ -1,0 +1,93 @@
+---
+---
+
+<section class="site-intro">
+  <div class="container">
+    <div class="intro-inner">
+      <h1 class="intro-headline">
+        Small projects.<br />
+        Strange ideas.<br />
+        All interactive.
+      </h1>
+      <p class="intro-body">
+        ToyWebCreations is a collection of focused, playable web experiments —
+        puzzles, simulations, generators, and visual curiosities.
+        Each one exists because it was interesting to build.
+        Pick something. Try it.
+      </p>
+      <p class="intro-scroll-hint">
+        <span class="hint-char">↓</span> scroll to browse
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .site-intro {
+    padding: var(--space-20) 0 var(--space-16);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  /* Ambient radial glow behind the headline */
+  .site-intro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse at center, rgba(57, 255, 20, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .intro-inner {
+    max-width: 640px;
+    position: relative;
+  }
+
+  .intro-headline {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 7vw, var(--text-7xl));
+    color: var(--phosphor);
+    text-shadow: var(--glow-text-md);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-8);
+  }
+
+  .intro-body {
+    font-size: var(--text-lg);
+    color: var(--text);
+    line-height: 1.75;
+    max-width: 520px;
+    margin-bottom: var(--space-10);
+  }
+
+  .intro-scroll-hint {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .hint-char {
+    animation: bounce 2s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(4px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hint-char {
+      animation: none;
+    }
+  }
+</style>
