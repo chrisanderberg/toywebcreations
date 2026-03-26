@@ -19,19 +19,19 @@ interface Props {
 }
 
 const { project } = Astro.props as Props;
-type DemoComponent = typeof SudokuDemo;
-
-const demoComponents: Record<ProjectSlug, DemoComponent> = {
-  sudoku: SudokuDemo,
-  conway: ConwayDemo,
-  "elementary-cellular-automata": ElementaryCellularAutomataDemo,
-  "tower-of-hanoi": TowerOfHanoiDemo
-};
-const DemoComponent = demoComponents[project.slug];
+const hasDemo =
+  project.slug === "sudoku" ||
+  project.slug === "conway" ||
+  project.slug === "elementary-cellular-automata" ||
+  project.slug === "tower-of-hanoi";
 ---
 
 <ProjectLayout project={project}>
   <section class="demo-shell">
-    <DemoComponent client:load />
+    {project.slug === "sudoku" && <SudokuDemo client:load />}
+    {project.slug === "conway" && <ConwayDemo client:load />}
+    {project.slug === "elementary-cellular-automata" && <ElementaryCellularAutomataDemo client:load />}
+    {project.slug === "tower-of-hanoi" && <TowerOfHanoiDemo client:load />}
+    {!hasDemo && <p>No demo available yet.</p>}
   </section>
 </ProjectLayout>
