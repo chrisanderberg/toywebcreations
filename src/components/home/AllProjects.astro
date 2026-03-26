@@ -1,0 +1,99 @@
+---
+import type { ProjectMeta } from "../../lib/projects/types";
+import { assetUrl } from "../../lib/assetUrl";
+
+interface Props {
+  projects: ProjectMeta[];
+}
+
+const { projects } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<section class="all-projects" aria-labelledby="all-heading">
+  <h2 id="all-heading" class="all-projects__heading">All projects</h2>
+  <ul class="all-projects__list">
+    {
+      projects.map((p) => (
+        <li>
+          <a class="all-projects__row" href={`${base}${p.slug}/`}>
+            <img
+              class="all-projects__icon"
+              src={assetUrl(p.icon)}
+              alt=""
+              width={48}
+              height={48}
+              loading="lazy"
+            />
+            <span class="all-projects__text">
+              <span class="all-projects__title">{p.title}</span>
+              {p.description ? <span class="all-projects__desc">{p.description}</span> : null}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .all-projects__heading {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .all-projects__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .all-projects__row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.12s ease;
+  }
+
+  .all-projects__row:hover {
+    background: color-mix(in srgb, var(--color-bg-elevated) 80%, transparent);
+  }
+
+  .all-projects__icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    object-fit: cover;
+  }
+
+  .all-projects__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .all-projects__title {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .all-projects__desc {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.35;
+  }
+</style>

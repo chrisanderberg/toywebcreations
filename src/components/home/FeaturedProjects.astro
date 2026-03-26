@@ -1,0 +1,103 @@
+---
+import type { ProjectMeta } from "../../lib/projects/types";
+import { assetUrl } from "../../lib/assetUrl";
+
+interface Props {
+  projects: ProjectMeta[];
+}
+
+const { projects } = Astro.props;
+const featured = projects.filter((p) => p.featured);
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<section class="featured" aria-labelledby="featured-heading">
+  <h2 id="featured-heading" class="featured__heading">Featured</h2>
+  <ul class="featured__grid">
+    {
+      featured.map((p) => (
+        <li>
+          <a class="featured__card" href={`${base}${p.slug}/`}>
+            <img
+              class="featured__cover"
+              src={assetUrl(p.coverImage)}
+              alt=""
+              width={640}
+              height={360}
+              loading="lazy"
+            />
+            <span class="featured__title">{p.title}</span>
+            {p.description ? <span class="featured__desc">{p.description}</span> : null}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .featured {
+    margin-bottom: 3.5rem;
+  }
+
+  .featured__heading {
+    margin: 0 0 1.25rem;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .featured__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .featured__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-elevated);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  .featured__card:hover {
+    border-color: var(--color-accent-dim);
+    box-shadow: var(--glow-accent);
+    transform: translateY(-2px);
+  }
+
+  .featured__cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+  }
+
+  .featured__title {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .featured__desc {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+</style>

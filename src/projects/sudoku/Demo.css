@@ -1,0 +1,123 @@
+.sudoku-demo {
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+.sudoku-demo__hint {
+  color: var(--color-text-muted, #7a9a86);
+  font-size: 0.92rem;
+  max-width: 36rem;
+  margin: 0 0 1rem;
+}
+
+.sudoku-demo__hint kbd {
+  display: inline-block;
+  padding: 0.08em 0.35em;
+  border: 1px solid var(--color-border, rgba(61, 255, 138, 0.22));
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.sudoku-demo__grid-wrap {
+  outline: none;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+.sudoku-demo__grid-wrap:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent, #3dff8a);
+  border-radius: 6px;
+}
+
+.sudoku-demo__grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(2rem, 1fr));
+  gap: 0;
+  max-width: min(100%, 22rem);
+  border: 2px solid var(--color-accent-dim, #1a8f4a);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.sudoku-demo__cell {
+  aspect-ratio: 1;
+  border: 1px solid rgba(61, 255, 138, 0.15);
+  background: var(--color-bg-elevated, #111916);
+  color: var(--color-text, #c8e6d0);
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-family: inherit;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.sudoku-demo__cell:nth-child(9n + 3),
+.sudoku-demo__cell:nth-child(9n + 6) {
+  border-right-width: 2px;
+  border-right-color: var(--color-accent-dim, #1a8f4a);
+}
+
+.sudoku-demo__cell:nth-child(n + 19):nth-child(-n + 27),
+.sudoku-demo__cell:nth-child(n + 46):nth-child(-n + 54) {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--color-accent-dim, #1a8f4a);
+}
+
+.sudoku-demo__cell--fixed {
+  color: var(--color-accent, #3dff8a);
+  font-weight: 700;
+}
+
+.sudoku-demo__cell--selected {
+  background: rgba(61, 255, 138, 0.12);
+}
+
+.sudoku-demo__cell--conflict:not(.sudoku-demo__cell--fixed) {
+  background: rgba(255, 80, 80, 0.18);
+  color: #ffb4b4;
+}
+
+.sudoku-demo__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sudoku-demo__numpad {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.sudoku-demo__num {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border, rgba(61, 255, 138, 0.22));
+  border-radius: 4px;
+  background: var(--color-bg-elevated, #111916);
+  color: var(--color-accent, #3dff8a);
+  cursor: pointer;
+}
+
+.sudoku-demo__num:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.sudoku-demo__reset {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-accent-dim, #1a8f4a);
+  background: transparent;
+  color: var(--color-text, #c8e6d0);
+  cursor: pointer;
+}
+
+.sudoku-demo__reset:hover {
+  border-color: var(--color-accent, #3dff8a);
+  color: var(--color-accent, #3dff8a);
+}

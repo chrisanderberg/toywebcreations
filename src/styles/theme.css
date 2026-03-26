@@ -1,0 +1,14 @@
+:root {
+  --color-bg: #0a0f0c;
+  --color-bg-elevated: #111916;
+  --color-text: #c8e6d0;
+  --color-text-muted: #7a9a86;
+  --color-accent: #3dff8a;
+  --color-accent-dim: #1a8f4a;
+  --color-border: rgba(61, 255, 138, 0.22);
+  --glow-accent: 0 0 18px rgba(61, 255, 138, 0.35);
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --radius: 6px;
+  --max-content: 72rem;
+}

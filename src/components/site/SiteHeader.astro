@@ -1,0 +1,84 @@
+---
+interface Props {
+  githubHref: string;
+}
+
+const { githubHref } = Astro.props;
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.endsWith("/") ? baseRaw : `${baseRaw}/`;
+const homeHref = base;
+const aboutHref = `${base}about/`;
+
+function withTrailingSlash(p: string): string {
+  return p.endsWith("/") ? p : `${p}/`;
+}
+
+const path = withTrailingSlash(Astro.url.pathname);
+const onHome = path === withTrailingSlash(base);
+const onAbout = path === withTrailingSlash(`${base}about/`);
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href={homeHref}>ToyWebCreations</a>
+    <nav class="site-header__nav" aria-label="Site">
+      <a href={homeHref} aria-current={onHome ? "page" : undefined}>Home</a>
+      <a href={aboutHref} aria-current={onAbout ? "page" : undefined}>About</a>
+      <a href={githubHref} target="_blank" rel="noopener noreferrer">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .site-header__inner {
+    max-width: var(--max-content);
+    margin: 0 auto;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .site-header__brand {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--color-accent);
+    text-shadow: var(--glow-accent);
+  }
+
+  .site-header__brand:hover {
+    color: var(--color-text);
+  }
+
+  .site-header__nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .site-header__nav a {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--color-text-muted);
+  }
+
+  .site-header__nav a:hover,
+  .site-header__nav a[aria-current="page"] {
+    color: var(--color-accent);
+  }
+</style>

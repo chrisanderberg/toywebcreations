@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+import SiteHeader from "../components/site/SiteHeader.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  githubHref: string;
+}
+
+const { title, description = "Interactive web toys and experiments.", githubHref } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" href={`${base}favicon.ico`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader githubHref={githubHref} />
+    <main class="site-main">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  .site-main {
+    max-width: var(--max-content);
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+</style>

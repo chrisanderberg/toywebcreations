@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0f0c" />
+      <stop offset="100%" style="stop-color:#111916" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.2" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)" />
+  <g transform="translate(200 40)" filter="url(#glow)">
+    <rect x="0" y="0" width="240" height="240" fill="none" stroke="#1a8f4a" stroke-width="3" />
+    <g stroke="#3dff8a" stroke-width="1.2" opacity="0.85">
+      <line x1="80" y1="0" x2="80" y2="240" />
+      <line x1="160" y1="0" x2="160" y2="240" />
+      <line x1="0" y1="80" x2="240" y2="80" />
+      <line x1="0" y1="160" x2="240" y2="160" />
+    </g>
+    <g stroke="#3dff8a" stroke-width="0.5" opacity="0.35">
+      <line x1="26.67" y1="0" x2="26.67" y2="240" />
+      <line x1="53.33" y1="0" x2="53.33" y2="240" />
+      <line x1="106.67" y1="0" x2="106.67" y2="240" />
+      <line x1="133.33" y1="0" x2="133.33" y2="240" />
+      <line x1="186.67" y1="0" x2="186.67" y2="240" />
+      <line x1="213.33" y1="0" x2="213.33" y2="240" />
+      <line x1="0" y1="26.67" x2="240" y2="26.67" />
+      <line x1="0" y1="53.33" x2="240" y2="53.33" />
+      <line x1="0" y1="106.67" x2="240" y2="106.67" />
+      <line x1="0" y1="133.33" x2="240" y2="133.33" />
+      <line x1="0" y1="186.67" x2="240" y2="186.67" />
+      <line x1="0" y1="213.33" x2="240" y2="213.33" />
+    </g>
+    <text x="120" y="280" text-anchor="middle" fill="#3dff8a" font-family="JetBrains Mono, monospace" font-size="22" font-weight="700">9×9</text>
+  </g>
+</svg>

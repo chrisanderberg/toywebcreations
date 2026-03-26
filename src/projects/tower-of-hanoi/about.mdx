@@ -1,0 +1,23 @@
+# Tower of Hanoi
+
+The **Tower of Hanoi** puzzle has three pegs and a stack of discs of different sizes, usually largest on the bottom. The goal is to move the entire stack to another peg.
+
+## Rules
+
+- Move **one disc at a time**.
+- Only the **top** disc on a peg can move.
+- A disc may never sit **on top of a smaller** disc.
+
+## Why 2ⁿ − 1 moves?
+
+The smallest disc has to “visit” every peg in a fixed rhythm; the next-smallest waits for gaps in that pattern. A clean proof uses **recursion**: to move n discs from A to C using B, you must move n−1 off the largest, slide the largest once, then move the n−1 pile on top. That gives T(n) = 2T(n−1) + 1, which solves to **2ⁿ − 1**.
+
+## How auto-solve works
+
+The same recursive idea produces the moves directly: move n−1 out of the way, move the bottom disc, then move n−1 on top. This demo plays that sequence with a short delay between steps.
+
+## Playing here
+
+Click a peg to **pick up** its top disc, then another peg to **place** it. Illegal targets are ignored. You can change the number of discs, **reset**, or run **auto-solve** (with pause/stop).
+
+Source lives under `src/projects/tower-of-hanoi/` in the repository.

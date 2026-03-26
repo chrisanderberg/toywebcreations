@@ -1,0 +1,40 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { repoRootUrl } from "../lib/github";
+---
+
+<SiteLayout
+  title="About — ToyWebCreations"
+  description="What ToyWebCreations is and why it exists."
+  githubHref={repoRootUrl()}
+>
+  <article class="about">
+    <h1>About ToyWebCreations</h1>
+    <p>
+      ToyWebCreations is a small portfolio of interactive web projects: puzzles, simulations, and
+      visual experiments you can try in the browser. Each project has a short write-up explaining
+      the idea and how it works.
+    </p>
+    <p>
+      The site is static, fast, and built to stay fun to browse—more arcade cabinet than corporate
+      brochure.
+    </p>
+    <p>
+      Source for the whole site lives on <a href={repoRootUrl()} target="_blank" rel="noopener noreferrer"
+        >GitHub</a
+      >.
+    </p>
+  </article>
+</SiteLayout>
+
+<style>
+  .about {
+    max-width: 40rem;
+  }
+
+  .about h1 {
+    margin-top: 0;
+    color: var(--color-accent);
+    text-shadow: var(--glow-accent);
+  }
+</style>

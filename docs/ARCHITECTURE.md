@@ -8,7 +8,8 @@ This document defines how the codebase should be organized to support that.
 
 ## 2. Core architectural decisions
 - Framework: Astro
-- Deployment target: GitHub Pages
+- Integrations: `@astrojs/react` for interactive project demos (islands), `@astrojs/mdx` for project About pages
+- Deployment target: GitHub Pages (see `site` + `base` in `astro.config.mjs` for project-site URLs)
 - Rendering target: static output
 - Runtime model: no backend required for core functionality
 - Site shell: shared Astro layouts/components

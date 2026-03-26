@@ -1,0 +1,15 @@
+# Sudoku
+
+A familiar **constraint puzzle**: fill a 9×9 grid so every row, column, and 3×3 box contains the digits 1–9 exactly once.
+
+## What this demo does
+
+You get a classic seed grid. Tap or click a cell, type a digit, or use the on-screen number row. Given clues stay fixed. If you place a digit that clashes with Sudoku rules, both cells light up so you can spot mistakes quickly—without auto-solving the puzzle for you.
+
+## How it works (implementation)
+
+The board is a flat array of 81 numbers. A separate boolean mask marks which cells came from the puzzle file. After each edit, the app scans rows, columns, and boxes for duplicate values and highlights every cell involved in a conflict.
+
+## Source
+
+See the `sudoku` folder under `src/projects/` in the site repository.

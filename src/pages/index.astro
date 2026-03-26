@@ -1,0 +1,16 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import SiteIntro from "../components/home/SiteIntro.astro";
+import FeaturedProjects from "../components/home/FeaturedProjects.astro";
+import AllProjects from "../components/home/AllProjects.astro";
+import { getProjects } from "../lib/projects/registry";
+import { repoRootUrl } from "../lib/github";
+
+const projects = getProjects();
+---
+
+<SiteLayout title="ToyWebCreations" githubHref={repoRootUrl()}>
+  <SiteIntro />
+  <FeaturedProjects projects={projects} />
+  <AllProjects projects={projects} />
+</SiteLayout>

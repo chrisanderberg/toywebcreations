@@ -1,0 +1,47 @@
+---
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import { getProjects } from "../../lib/projects/registry";
+import type { ProjectMeta } from "../../lib/projects/types";
+import SudokuDemo from "../../projects/sudoku/Demo";
+import ConwayDemo from "../../projects/conway/Demo";
+import ElementaryCellularAutomataDemo from "../../projects/elementary-cellular-automata/Demo";
+import TowerOfHanoiDemo from "../../projects/tower-of-hanoi/Demo";
+
+const DEMO_SLUGS = new Set([
+  "sudoku",
+  "conway",
+  "elementary-cellular-automata",
+  "tower-of-hanoi"
+]);
+
+export function getStaticPaths() {
+  return getProjects().map((project) => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+}
+
+interface Props {
+  project: ProjectMeta;
+}
+
+const { project } = Astro.props;
+const slug = project.slug;
+if (!DEMO_SLUGS.has(slug)) {
+  throw new Error(`No demo registered for slug "${slug}"`);
+}
+---
+
+<ProjectLayout project={project} variant="demo">
+  {
+    slug === "sudoku" ? (
+      <SudokuDemo client:load />
+    ) : slug === "conway" ? (
+      <ConwayDemo client:load />
+    ) : slug === "elementary-cellular-automata" ? (
+      <ElementaryCellularAutomataDemo client:load />
+    ) : (
+      <TowerOfHanoiDemo client:load />
+    )
+  }
+</ProjectLayout>

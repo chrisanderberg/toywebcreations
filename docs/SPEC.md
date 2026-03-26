@@ -3,7 +3,8 @@
 ## 1. Overview
 ToyWebCreations is a static portfolio site for small interactive web projects:
 puzzles, simulations, generators, visual experiments, and other focused toy-like
-experiences.
+experiences. Shipped examples include Sudoku, Conway's Game of Life, a 1D elementary
+cellular automata explorer, and Tower of Hanoi (manual play plus auto-solve).
 
 The site is not a blog. It is a hub for playable demos, plus a short About page
 for the site itself and a short About page for each individual project.
@@ -192,13 +193,13 @@ Each project entry must support:
 - `title`
 - `description`
 - `featured`
-- `coverImage`
+- `coverImage` (featured cards)
+- `icon` (compact all-projects list)
 - `sourceLink`
 
 Usage:
 - featured grid uses `coverImage`, `title`, and optionally `description`
-- all-projects list uses a small image/icon, `title`, and optionally
-  `description`
+- all-projects list uses `icon`, `title`, and optionally `description`
 
 MVP does not require:
 - tags,

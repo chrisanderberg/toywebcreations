@@ -1,0 +1,19 @@
+# 1D Cellular Automata Explorer
+
+An **elementary cellular automaton** is a single row of cells, each either on (1) or off (0). To get the next row, every cell looks at itself and its **left and right neighbors**—three bits, which makes eight possible neighborhoods.
+
+## Why 256 rules?
+
+Each neighborhood can turn into either 0 or 1. That is eight independent choices, so there are **2⁸ = 256** different rules. Wolfram numbers them **0–255**: read the eight outputs as bits from neighborhood `111` down to `000`, and treat that as a binary number.
+
+## What you see here
+
+The top line is the **seed**. Each row below is the **next generation**. We use **fixed-zero edges**: cells outside the visible row count as 0, so the pattern can fade at the sides.
+
+Try famous rules like **30** (chaotic), **90** (Sierpiński-like), **110** (Turing-complete in principle), or **184** (traffic-like).
+
+## Implementation notes
+
+The core loop maps each triple `(left, center, right)` to an index 0–7, then reads one bit from the rule number. The picture is drawn on a **canvas** so large grids stay responsive.
+
+See the `elementary-cellular-automata` folder under `src/projects/` in the repository for source.
