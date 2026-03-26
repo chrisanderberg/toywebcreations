@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="gc" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#050807"/>
+      <stop offset="100%" style="stop-color:#0f1a14"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#gc)"/>
+  <g fill="#3dff9a" opacity="0.85">
+    <rect x="248" y="120" width="14" height="14"/>
+    <rect x="276" y="120" width="14" height="14"/>
+    <rect x="304" y="120" width="14" height="14"/>
+    <rect x="262" y="148" width="14" height="14"/>
+    <rect x="290" y="148" width="14" height="14"/>
+    <rect x="318" y="148" width="14" height="14"/>
+    <rect x="276" y="176" width="14" height="14"/>
+    <rect x="304" y="176" width="14" height="14"/>
+    <rect x="332" y="176" width="14" height="14"/>
+    <rect x="458" y="200" width="14" height="14"/>
+    <rect x="486" y="200" width="14" height="14"/>
+    <rect x="472" y="228" width="14" height="14"/>
+  </g>
+  <text x="400" y="410" text-anchor="middle" fill="#1f8f55" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="0.15em">GAME OF LIFE</text>
+</svg>

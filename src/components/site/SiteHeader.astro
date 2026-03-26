@@ -1,0 +1,147 @@
+---
+import { getRepoRootUrl } from '../../lib/github';
+
+interface Props {
+  githubUrl?: string;
+  pathname: string;
+}
+
+const { githubUrl = getRepoRootUrl(), pathname } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const trail = pathname.replace(/\/$/, '') || '/';
+const baseTrail = base.replace(/\/$/, '') || '/';
+const isHome = trail === baseTrail;
+const isAbout = trail === `${baseTrail}/about` || trail.endsWith('/about');
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href={base}>
+      <span class="site-header__brand-mark" aria-hidden="true"></span>
+      <span class="site-header__brand-text">ToyWebCreations</span>
+    </a>
+    <nav class="site-header__nav" aria-label="Site">
+      <a class="site-header__link" href={base} aria-current={isHome ? 'page' : undefined}>
+        Home
+      </a>
+      <a
+        class="site-header__link"
+        href={`${base}about/`}
+        aria-current={isAbout ? 'page' : undefined}
+      >
+        About
+      </a>
+      <a class="site-header__link site-header__link--github" href={githubUrl} rel="noopener noreferrer">
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--color-bg-deep) 88%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .site-header__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0.85rem clamp(1.25rem, 4vw, 2rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+  }
+
+  .site-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-phosphor);
+    text-decoration: none;
+    text-shadow: var(--shadow-glow-sm);
+  }
+
+  .site-header__brand:hover {
+    color: var(--color-text);
+  }
+
+  .site-header__brand-mark {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 2px;
+    background: var(--color-phosphor);
+    box-shadow: var(--shadow-glow-md);
+    animation: pulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.65;
+      transform: scale(0.92);
+    }
+  }
+
+  .site-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .site-header__link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid transparent;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      text-shadow 0.2s ease;
+  }
+
+  .site-header__link:hover {
+    color: var(--color-phosphor);
+    text-shadow: var(--shadow-glow-sm);
+  }
+
+  .site-header__link:focus-visible {
+    outline: 2px solid var(--color-phosphor);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .site-header__link--github {
+    color: var(--color-phosphor-dim);
+  }
+
+  .site-header__link--github:hover {
+    color: var(--color-phosphor);
+  }
+
+  .site-header__link[aria-current='page'] {
+    color: var(--color-phosphor);
+    border-bottom-color: var(--color-border);
+    text-shadow: var(--shadow-glow-sm);
+  }
+</style>

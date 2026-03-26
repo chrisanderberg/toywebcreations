@@ -1,0 +1,25 @@
+:root {
+  color-scheme: dark;
+
+  --color-bg-deep: #060a08;
+  --color-bg-raised: #0c1410;
+  --color-bg-panel: #0f1a14;
+  --color-phosphor: #3dff9a;
+  --color-phosphor-dim: #1f8f55;
+  --color-phosphor-muted: #2a5c40;
+  --color-text: #dff7e8;
+  --color-text-muted: #8fb39c;
+  --color-border: rgba(61, 255, 154, 0.22);
+  --color-glow: rgba(61, 255, 154, 0.35);
+
+  --font-display: 'Rajdhani', system-ui, sans-serif;
+  --font-body: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --shadow-glow-sm: 0 0 12px var(--color-glow);
+  --shadow-glow-md: 0 0 28px rgba(61, 255, 154, 0.25);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --space-section: clamp(2.5rem, 6vw, 5rem);
+  --content-max: 72rem;
+}

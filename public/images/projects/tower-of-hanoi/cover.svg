@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="th" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#060a08"/>
+      <stop offset="100%" style="stop-color:#0f1a14"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#th)"/>
+  <g transform="translate(400 240)">
+    <rect x="-180" y="68" width="360" height="10" rx="2" fill="#2a5c40"/>
+    <rect x="-118" y="-40" width="6" height="108" fill="#1f8f55" opacity="0.9"/>
+    <rect x="-3" y="-40" width="6" height="108" fill="#1f8f55" opacity="0.7"/>
+    <rect x="112" y="-40" width="6" height="108" fill="#1f8f55" opacity="0.7"/>
+    <rect x="-95" y="48" width="90" height="12" rx="2" fill="#3dff9a" opacity="0.35" stroke="#3dff9a" stroke-width="1"/>
+    <rect x="-70" y="32" width="65" height="12" rx="2" fill="#3dff9a" opacity="0.45" stroke="#3dff9a" stroke-width="1"/>
+    <rect x="-55" y="16" width="40" height="12" rx="2" fill="#3dff9a" opacity="0.55" stroke="#3dff9a" stroke-width="1"/>
+  </g>
+  <text x="400" y="400" text-anchor="middle" fill="#1f8f55" font-family="IBM Plex Mono, monospace" font-size="20" letter-spacing="0.18em">TOWER OF HANOI</text>
+</svg>

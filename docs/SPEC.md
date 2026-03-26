@@ -8,6 +8,9 @@ experiences.
 The site is not a blog. It is a hub for playable demos, plus a short About page
 for the site itself and a short About page for each individual project.
 
+Example project types include logic puzzles (e.g. Sudoku), simulations (e.g. Conway's Game of Life,
+Tower of Hanoi), and rule-based visualizations (e.g. elementary 1D cellular automata).
+
 Primary domain: `https://toywebcreations.dev`
 
 ## 2. Purpose
@@ -193,12 +196,12 @@ Each project entry must support:
 - `description`
 - `featured`
 - `coverImage`
+- `icon` (small image for the compact list; not assumed to match `coverImage`)
 - `sourceLink`
 
 Usage:
 - featured grid uses `coverImage`, `title`, and optionally `description`
-- all-projects list uses a small image/icon, `title`, and optionally
-  `description`
+- all-projects list uses `icon`, `title`, and optionally `description`
 
 MVP does not require:
 - tags,

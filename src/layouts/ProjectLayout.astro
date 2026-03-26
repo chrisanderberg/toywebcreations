@@ -1,0 +1,92 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import type { ProjectMeta } from '../lib/projects/types';
+
+interface Props {
+  project: ProjectMeta;
+  variant?: 'demo' | 'about';
+}
+
+const { project, variant = 'demo' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const documentTitle = variant === 'about' ? `About · ${project.title}` : project.title;
+---
+
+<SiteLayout title={documentTitle} description={project.description} githubUrl={project.sourceLink}>
+  <div class="project-shell">
+    <nav class="project-shell__crumb" aria-label="Project">
+      {
+        variant === 'demo' ? (
+          <>
+            <a class="project-shell__about-link" href={`${base}${project.slug}/about/`}>
+              About this project
+            </a>
+            <span class="project-shell__slug" aria-hidden="true">/</span>
+            <span class="project-shell__title">{project.title}</span>
+          </>
+        ) : (
+          <>
+            <a class="project-shell__about-link" href={`${base}${project.slug}/`}>Play demo</a>
+            <span class="project-shell__slug" aria-hidden="true">/</span>
+            <span class="project-shell__title">About · {project.title}</span>
+          </>
+        )
+      }
+    </nav>
+    <div class="project-shell__stage">
+      <slot />
+    </div>
+  </div>
+</SiteLayout>
+
+<style>
+  .project-shell {
+    padding-top: clamp(1rem, 3vw, 1.75rem);
+  }
+
+  .project-shell__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-shell__about-link {
+    color: var(--color-phosphor-dim);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      text-shadow 0.2s ease;
+  }
+
+  .project-shell__about-link:hover {
+    color: var(--color-phosphor);
+    text-shadow: var(--shadow-glow-sm);
+    border-bottom-color: var(--color-border);
+  }
+
+  .project-shell__slug {
+    color: var(--color-phosphor-muted);
+    opacity: 0.6;
+  }
+
+  .project-shell__title {
+    color: var(--color-text-muted);
+  }
+
+  .project-shell__stage {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: linear-gradient(165deg, var(--color-bg-panel) 0%, var(--color-bg-raised) 100%);
+    box-shadow: var(--shadow-glow-md);
+    padding: clamp(1rem, 3vw, 1.75rem);
+    min-height: 12rem;
+  }
+</style>

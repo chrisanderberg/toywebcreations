@@ -1,0 +1,21 @@
+# 1D Cellular Automata Explorer
+
+A **one-dimensional cellular automaton** is a row of cells, each either **on (1)** or **off (0)**. The next row is computed from the current row by looking at small **neighborhoods** — here, three cells: **left**, **center**, and **right**.
+
+## Neighborhoods and rules
+
+For each cell, the triple `(left, center, right)` can be read as a 3-bit number from **0** (000) to **7** (111). An **elementary** rule decides, for each of those eight patterns, whether the cell below is **0** or **1**.
+
+That is eight independent yes/no choices → **2^8 = 256** possible rules, usually numbered **0–255**. The rule number is the bit pattern of those eight outputs, with neighborhood **7 (111)** as the most significant bit and **0 (000)** as the least significant.
+
+## What you might see
+
+Different rules produce different “textures”: steady states, simple repetition, structured chaos, or intricate nested patterns (Rule **30** and **110** are famous examples). This explorer fixes cells outside the grid as **0**, so the edges stay quiet unless the rule injects activity inward.
+
+## Implementation notes
+
+- The grid is built **all at once** in memory (`generatePattern`) and drawn to a **canvas** for crisp pixels.
+- **Centered** mode starts with a single live cell in the middle; **Random** uses a density-controlled coin flip per cell.
+- **Regenerate** rebuilds the initial row; **Randomize** switches to random mode and rolls a new seed.
+
+Use the **GitHub** link in the site header on this project’s pages — it opens the `src/projects/elementary-cellular-automata/` folder in the repository.

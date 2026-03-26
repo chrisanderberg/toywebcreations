@@ -1,0 +1,58 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { getProjects } from '../../lib/projects/registry';
+import type { ProjectMeta } from '../../lib/projects/types';
+import SudokuAbout from '../../projects/sudoku/about.mdx';
+import ConwayAbout from '../../projects/conway/about.mdx';
+import TowerOfHanoiAbout from '../../projects/tower-of-hanoi/about.mdx';
+import ElementaryCellularAutomataAbout from '../../projects/elementary-cellular-automata/about.mdx';
+
+export function getStaticPaths() {
+  return getProjects().map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const aboutBySlug = {
+  sudoku: SudokuAbout,
+  conway: ConwayAbout,
+  'tower-of-hanoi': TowerOfHanoiAbout,
+  'elementary-cellular-automata': ElementaryCellularAutomataAbout,
+} as const;
+
+const { project }: { project: ProjectMeta } = Astro.props;
+const AboutDoc = aboutBySlug[project.slug as keyof typeof aboutBySlug];
+const base = import.meta.env.BASE_URL;
+---
+
+<ProjectLayout project={project} variant="about">
+  <article class="project-about prose">
+    {AboutDoc ? <AboutDoc /> : <p>Writeup not found.</p>}
+    <p class="project-about__back">
+      <a href={`${base}${project.slug}/`}>← Back to {project.title}</a>
+    </p>
+  </article>
+</ProjectLayout>
+
+<style>
+  .project-about {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-panel);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    max-width: 48rem;
+  }
+
+  .project-about :global(h1) {
+    margin-top: 0;
+  }
+
+  .project-about__back {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+</style>

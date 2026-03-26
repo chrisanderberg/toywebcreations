@@ -1,0 +1,120 @@
+.sudoku-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-family: var(--font-mono);
+  color: var(--color-text);
+}
+
+.sudoku-demo__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+}
+
+.sudoku-demo__btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-deep);
+  color: var(--color-phosphor-dim);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sudoku-demo__btn:hover:not(:disabled) {
+  color: var(--color-phosphor);
+  border-color: rgba(61, 255, 154, 0.45);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.sudoku-demo__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sudoku-demo__hint {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.sudoku-demo__grid-wrap {
+  overflow: auto;
+  max-width: 100%;
+}
+
+.sudoku-demo__grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(2.15rem, 1fr));
+  gap: 0;
+  width: min(100%, 22rem);
+  border: 1px solid rgba(61, 255, 154, 0.35);
+  box-shadow: 0 0 24px rgba(61, 255, 154, 0.12);
+}
+
+.sudoku-demo__cell {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid rgba(61, 255, 154, 0.12);
+  background: var(--color-bg-deep);
+  color: var(--color-text);
+  font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.sudoku-demo__cell--thick-right {
+  border-right-width: 2px;
+  border-right-color: rgba(61, 255, 154, 0.35);
+}
+
+.sudoku-demo__cell--thick-bottom {
+  border-bottom-width: 2px;
+  border-bottom-color: rgba(61, 255, 154, 0.35);
+}
+
+.sudoku-demo__cell--given {
+  color: var(--color-phosphor);
+  font-weight: 600;
+  background: rgba(61, 255, 154, 0.06);
+}
+
+.sudoku-demo__cell--selected {
+  box-shadow: inset 0 0 0 2px var(--color-phosphor);
+  z-index: 1;
+}
+
+.sudoku-demo__cell--error {
+  color: #ff6b6b;
+  text-shadow: 0 0 8px rgba(255, 107, 107, 0.45);
+}
+
+.sudoku-demo__cell:focus-visible {
+  outline: 2px solid var(--color-phosphor);
+  outline-offset: -2px;
+}
+
+.sudoku-demo__status {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  min-height: 1.25rem;
+}
+
+.sudoku-demo__status--ok {
+  color: var(--color-phosphor-dim);
+}

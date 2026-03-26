@@ -1,0 +1,50 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { getProjects } from '../../lib/projects/registry';
+import type { ProjectMeta } from '../../lib/projects/types';
+import SudokuDemo from '../../projects/sudoku/Demo';
+import ConwayDemo from '../../projects/conway/Demo';
+import TowerOfHanoiDemo from '../../projects/tower-of-hanoi/Demo';
+import ElementaryCellularAutomataDemo from '../../projects/elementary-cellular-automata/Demo';
+
+export function getStaticPaths() {
+  return getProjects().map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project }: { project: ProjectMeta } = Astro.props;
+---
+
+<ProjectLayout project={project}>
+  {
+    project.slug === 'sudoku' ? (
+      <SudokuDemo client:load />
+    ) : project.slug === 'conway' ? (
+      <ConwayDemo client:load />
+    ) : project.slug === 'tower-of-hanoi' ? (
+      <TowerOfHanoiDemo client:load />
+    ) : project.slug === 'elementary-cellular-automata' ? (
+      <ElementaryCellularAutomataDemo client:load />
+    ) : (
+      <p class="demo-missing">
+        No demo registered for <strong>{project.slug}</strong>.
+      </p>
+    )
+  }
+</ProjectLayout>
+
+<style>
+  .demo-missing {
+    font-family: var(--font-mono);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  :global(.demo-placeholder) {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,167 @@
+---
+import type { ProjectMeta } from '../../lib/projects/types';
+
+interface Props {
+  projects: ProjectMeta[];
+}
+
+const { projects } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="all-projects" aria-labelledby="all-projects-heading">
+  <div class="all-projects__head">
+    <h2 id="all-projects-heading" class="all-projects__title">All projects</h2>
+    <p class="all-projects__sub">The full list — compact, scannable, still a little phosphor.</p>
+  </div>
+  <ul class="all-projects__list">
+    {
+      projects.map((project, index) => (
+        <li class="all-projects__row" style={`--stagger: ${index * 0.04}s`}>
+          <a class="all-projects__link" href={`${base}${project.slug}/`}>
+            <span class="all-projects__icon-wrap">
+              <img src={project.icon} alt="" width="64" height="64" loading="lazy" decoding="async" />
+            </span>
+            <span class="all-projects__text">
+              <span class="all-projects__name">{project.title}</span>
+              {project.description ? (
+                <span class="all-projects__desc">{project.description}</span>
+              ) : null}
+            </span>
+            <span class="all-projects__chev" aria-hidden="true">
+              →
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .all-projects {
+    padding-bottom: var(--space-section);
+  }
+
+  .all-projects__head {
+    margin-bottom: 1.25rem;
+  }
+
+  .all-projects__title {
+    margin: 0 0 0.35rem;
+    font-size: 1.15rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .all-projects__sub {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
+  .all-projects__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-bg-panel) 92%, transparent);
+    overflow: hidden;
+  }
+
+  .all-projects__row {
+    animation: row-in 0.55s ease-out both;
+    animation-delay: calc(0.08s + var(--stagger, 0s));
+  }
+
+  @keyframes row-in {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .all-projects__row + .all-projects__row {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .all-projects__link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem 1.25rem;
+    padding: 0.85rem 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      background 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .all-projects__link:hover {
+    background: rgba(61, 255, 154, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(61, 255, 154, 0.12);
+  }
+
+  .all-projects__link:focus-visible {
+    outline: 2px solid var(--color-phosphor);
+    outline-offset: -2px;
+  }
+
+  .all-projects__icon-wrap {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+    box-shadow: 0 0 12px rgba(61, 255, 154, 0.08);
+  }
+
+  .all-projects__icon-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .all-projects__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .all-projects__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--color-text);
+  }
+
+  .all-projects__desc {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+  }
+
+  .all-projects__chev {
+    font-family: var(--font-mono);
+    color: var(--color-phosphor-muted);
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .all-projects__link:hover .all-projects__chev {
+    color: var(--color-phosphor);
+    transform: translateX(3px);
+  }
+</style>

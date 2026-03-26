@@ -1,0 +1,19 @@
+# Sudoku
+
+**Sudoku** is a logic puzzle played on a 9×9 grid divided into nine 3×3 boxes. The goal is to fill every cell with digits **1–9** so that each row, column, and box contains each digit exactly once.
+
+## Why it is here
+
+This project is a browser-native take on the classic puzzle: quick to open, easy to try a few cells, and entirely local — no accounts or saves required unless you want them later.
+
+## How solving works (beginner-friendly)
+
+- Start with the **given** numbers; they never change.
+- For an empty cell, ask: which digits are **already used** in its row, column, and box? Whatever is left is a **candidate**.
+- When only one candidate remains, place it. Repeat, looking for **naked singles** (one candidate in a cell) and **hidden singles** (only one cell in a unit can hold a digit).
+
+## Implementation notes
+
+The playable page uses a React island on this route only, so the rest of the site stays lightweight. Generation and validation run in the browser; specifics live in the source under `src/projects/sudoku/`.
+
+Use the **GitHub** link in the site header on this project’s pages — it opens the `src/projects/sudoku/` folder in the repository.

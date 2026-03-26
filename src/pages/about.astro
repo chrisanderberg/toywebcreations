@@ -1,0 +1,48 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { getRepoRootUrl } from '../lib/github';
+---
+
+<SiteLayout
+  title="About"
+  description="What ToyWebCreations is and why it exists."
+  githubUrl={getRepoRootUrl()}
+>
+  <article class="about prose">
+    <h1>About ToyWebCreations</h1>
+    <p>
+      ToyWebCreations is a static portfolio of small interactive web projects: puzzles, simulations,
+      generators, and other focused experiments you can try in the browser.
+    </p>
+    <p>
+      It exists to keep those toys in one memorable place — for hiring folks who want to see what
+      you ship, and for developers who want a quick concept plus source.
+    </p>
+    <p>
+      The home page lists everything that is live. Each project has a playable page and a short
+      About writeup. The <strong>GitHub</strong> link in the header points at this site’s repository;
+      on a project page, it opens that project’s folder in the repo.
+    </p>
+    <p>
+      There is no blog in the MVP: learning notes live next to the demos, not in a separate feed.
+    </p>
+  </article>
+</SiteLayout>
+
+<style>
+  .about {
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    animation: rise 0.75s ease-out 0.05s both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

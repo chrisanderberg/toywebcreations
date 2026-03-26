@@ -1,0 +1,17 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import SiteIntro from '../components/home/SiteIntro.astro';
+import FeaturedProjects from '../components/home/FeaturedProjects.astro';
+import AllProjects from '../components/home/AllProjects.astro';
+import { getProjects } from '../lib/projects/registry';
+import { getRepoRootUrl } from '../lib/github';
+
+const all = getProjects();
+const featured = all.filter((p) => p.featured);
+---
+
+<SiteLayout title="ToyWebCreations" githubUrl={getRepoRootUrl()}>
+  <SiteIntro />
+  <FeaturedProjects projects={featured} />
+  <AllProjects projects={all} />
+</SiteLayout>

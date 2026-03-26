@@ -1,0 +1,24 @@
+# Conway's Game of Life
+
+**Conway's Game of Life** is a cellular automaton: a grid of cells that are either **alive** or **dead**, updating in discrete steps by simple rules.
+
+## Rules (on a finite grid)
+
+Each step, every cell looks at its eight neighbors:
+
+1. **Underpopulation:** a live cell with fewer than two live neighbors dies.
+2. **Stasis:** a live cell with two or three live neighbors survives.
+3. **Overcrowding:** a live cell with more than three live neighbors dies.
+4. **Reproduction:** a dead cell with exactly three live neighbors becomes alive.
+
+This demo uses a **toroidal** grid: edges wrap, so patterns can scroll smoothly off one side and reappear on the other.
+
+## Why it is here
+
+It is a tiny playground for emergence — complex motion from trivial rules — and a good excuse to draw a fast grid in the browser.
+
+## Implementation notes
+
+The simulation state lives in React state; stepping and autoplay use `requestAnimationFrame` or timed intervals with a capped grid size for performance. See `src/projects/conway/` for the exact approach.
+
+Use the **GitHub** link in the site header on this project’s pages — it opens the `src/projects/conway/` folder in the repository.

@@ -1,0 +1,83 @@
+---
+---
+
+<section class="site-intro" aria-labelledby="site-intro-heading">
+  <p class="site-intro__eyebrow">Interactive web toys</p>
+  <h1 id="site-intro-heading" class="site-intro__title">ToyWebCreations</h1>
+  <p class="site-intro__lede">
+    Small puzzles, simulations, and experiments you can play in the browser — built as a portfolio
+    you can actually <em>use</em>, not just scroll past.
+  </p>
+  <p class="site-intro__meta">
+    Each project opens on its own route with source linked from the header. No accounts, no backend
+    required for the demos — just HTML, CSS, and a little client-side logic.
+  </p>
+</section>
+
+<style>
+  .site-intro {
+    padding: clamp(2.25rem, 9vw, 4.5rem) 0 var(--space-section);
+    max-width: 38rem;
+    position: relative;
+  }
+
+  .site-intro::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 2rem;
+    width: 4px;
+    height: min(70%, 12rem);
+    background: linear-gradient(180deg, var(--color-phosphor), transparent);
+    border-radius: 2px;
+    opacity: 0.55;
+    box-shadow: var(--shadow-glow-sm);
+    pointer-events: none;
+  }
+
+  .site-intro__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-phosphor-dim);
+    margin: 0 0 0.75rem;
+    animation: rise 0.7s ease-out both;
+  }
+
+  .site-intro__title {
+    margin: 0 0 1rem;
+    animation: rise 0.75s ease-out 0.05s both;
+  }
+
+  .site-intro__lede {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+    color: var(--color-text-muted);
+    animation: rise 0.8s ease-out 0.1s both;
+  }
+
+  .site-intro__lede em {
+    color: var(--color-phosphor);
+    font-style: italic;
+  }
+
+  .site-intro__meta {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    opacity: 0.92;
+    animation: rise 0.85s ease-out 0.15s both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
