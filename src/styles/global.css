@@ -183,6 +183,26 @@ hr {
 .glow-box  { box-shadow: var(--glow-sm); }
 .phosphor  { color: var(--phosphor); }
 
+/* --- Card image skeleton shimmer --- */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.card-image-wrap {
+  background: linear-gradient(90deg,
+    var(--bg-raised) 25%,
+    var(--bg-surface) 50%,
+    var(--bg-raised) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-image-wrap { animation: none; }
+}
+
 /* --- Screen flicker on load (subtle) --- */
 @keyframes flicker {
   0%   { opacity: 1; }
