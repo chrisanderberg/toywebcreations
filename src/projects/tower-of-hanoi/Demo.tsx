@@ -43,7 +43,7 @@ function discColors(size: number, n: number) {
   return {
     bg: `hsl(35, ${sat}%, ${bgL}%)`,
     border: `hsl(35, 100%, ${bdrL}%)`,
-    liftedGlow: `0 0 18px hsla(115, 100%, 65%, 0.75), 0 0 6px hsla(115, 100%, 80%, 0.9)`,
+    liftedGlow: `0 0 18px hsla(35, 100%, 65%, 0.75), 0 0 6px hsla(35, 100%, 80%, 0.9)`,
   };
 }
 

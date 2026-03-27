@@ -267,7 +267,8 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
       document.querySelectorAll('.filter-btn').forEach(b =>
         b.classList.toggle('filter-btn--active', b === btn));
       document.querySelectorAll('[data-tags]').forEach(card => {
-        const tags = (card as HTMLElement).dataset.tags?.split(',') ?? [];
+        const rawTags = (card as HTMLElement).dataset.tags?.trim() ?? '';
+        const tags = rawTags ? rawTags.split(',').map(value => value.trim()).filter(Boolean) : [];
         (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag!)) ? '' : 'none';
       });
     });
