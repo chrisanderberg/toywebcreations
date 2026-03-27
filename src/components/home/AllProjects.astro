@@ -273,29 +273,59 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
 </noscript>
 
 <script>
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tag = (btn as HTMLElement).dataset.tag;
-      document.querySelectorAll('.filter-btn').forEach(b =>
-        b.classList.toggle('filter-btn--active', b === btn));
-      document.querySelectorAll('[data-tags]').forEach(card => {
-        const tags = (card as HTMLElement).dataset.tags?.split(',') ?? [];
-        (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag!)) ? '' : 'none';
-      });
-    });
-  });
+  const initAllProjects = () => {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.project-card');
 
-  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const items = document.querySelectorAll('.project-card');
-  if (mq.matches) {
-    items.forEach(el => el.classList.add('is-visible'));
-  } else {
-    const io = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    buttons.forEach((button) => {
+      button.onclick = () => {
+        const activeTag = button.dataset.tag ?? 'all';
+
+        buttons.forEach((candidate) => {
+          candidate.classList.toggle('filter-btn--active', candidate === button);
+        });
+
+        cards.forEach((card) => {
+          const rawTags = card.dataset.tags?.trim() ?? '';
+          const tags = rawTags
+            ? rawTags
+                .split(',')
+                .map((tag) => tag.trim())
+                .filter(Boolean)
+            : [];
+
+          card.style.display =
+            activeTag === 'all' || tags.length === 0 || tags.includes(activeTag) ? '' : 'none';
+        });
+      };
+    });
+
+    cards.forEach((card) => {
+      card.classList.remove('is-visible');
+    });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach((card) => {
+        card.classList.add('is-visible');
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
       }),
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
-    items.forEach(el => io.observe(el));
-  }
+
+    cards.forEach((card) => {
+      observer.observe(card);
+    });
+  };
+
+  document.addEventListener('astro:page-load', initAllProjects);
+  initAllProjects();
 </script>
