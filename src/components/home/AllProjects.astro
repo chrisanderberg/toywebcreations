@@ -28,7 +28,7 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
       {projects.map((project, index) => (
         <a href={withBasePath(base, `${project.slug}/`)} class="project-card" aria-label={project.title}
            data-tags={project.tags?.join(',') ?? ''}
-           style={`animation-delay: ${index * 0.07}s`}>
+           style={`--reveal-delay: ${index * 0.07}s`}>
           <div class="project-icon-wrap">
             <img
               src={project.icon}
@@ -109,6 +109,7 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
       box-shadow var(--transition-base),
       transform var(--transition-base),
       opacity 0.4s ease;
+    transition-delay: var(--reveal-delay, 0s);
   }
 
   .project-card:hover {
@@ -226,10 +227,6 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
     transform: translateY(0);
   }
 
-  .project-card:nth-child(2) { transition-delay: 0.07s; }
-  .project-card:nth-child(3) { transition-delay: 0.14s; }
-  .project-card:nth-child(4) { transition-delay: 0.21s; }
-
   .card-meta {
     display: flex;
     align-items: center;
@@ -328,5 +325,4 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
   };
 
   document.addEventListener('astro:page-load', initAllProjects);
-  initAllProjects();
 </script>
