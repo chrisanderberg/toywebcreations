@@ -23,10 +23,10 @@ const PRESET_RULES = [
   { label: 'Rule 184', value: 184 },
 ];
 
-// Phosphor palette
-const COLOR_LIVE = '#39ff14';
-const COLOR_DEAD = '#0c130c';
-const COLOR_LIVE_GLOW = 'rgba(57, 255, 20, 0.55)';
+// Glassmorphism palette
+const COLOR_LIVE = '#3B82F6';
+const COLOR_DEAD = '#0C1220';
+const COLOR_LIVE_GLOW = 'rgba(59, 130, 246, 0.4)';
 
 // --- Component ---
 

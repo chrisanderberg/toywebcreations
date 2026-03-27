@@ -44,7 +44,7 @@
   font-family: var(--font-display);
   font-size: var(--text-xl);
   color: var(--phosphor);
-  text-shadow: var(--glow-text-sm);
+  text-shadow: none;
   letter-spacing: 0.06em;
   line-height: 1;
   min-width: 5ch;
@@ -73,18 +73,18 @@
   flex-shrink: 0;
 }
 .play-btn:hover {
-  box-shadow: var(--glow-md);
-  background: rgba(57, 255, 20, 0.08);
+  box-shadow: var(--shadow-md);
+  background: rgba(59, 130, 246, 0.08);
   border-color: var(--phosphor);
 }
 .play-btn.running {
   border-color: var(--phosphor);
-  box-shadow: var(--glow-sm);
+  box-shadow: var(--shadow-sm);
   animation: play-pulse 2s ease-in-out infinite;
 }
 @keyframes play-pulse {
-  0%, 100% { box-shadow: var(--glow-sm); }
-  50%       { box-shadow: var(--glow-md); }
+  0%, 100% { box-shadow: var(--shadow-sm); }
+  50%       { box-shadow: var(--shadow-md); }
 }
 
 .ctrl-btn-sm {
@@ -162,7 +162,7 @@
 .tool-btn.active {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.07);
+  background: rgba(59, 130, 246, 0.07);
 }
 
 /* --- Canvas --- */
@@ -171,8 +171,8 @@
   overflow-x: auto;
   border: 1px solid var(--border-bright);
   border-radius: 4px;
-  background: #0c130c;
-  box-shadow: var(--glow-md);
+  background: #0C1220;
+  box-shadow: var(--shadow-md);
   line-height: 0;
 }
 
@@ -188,7 +188,7 @@
 .conway-canvas:focus-visible {
   outline: 2px solid var(--phosphor-dim);
   outline-offset: -2px;
-  box-shadow: inset 0 0 0 1px var(--phosphor-dim), var(--glow-sm);
+  box-shadow: inset 0 0 0 1px var(--phosphor-dim),var(--shadow-sm);
 }
 
 .conway-status {
@@ -237,7 +237,7 @@
 .pattern-btn:hover {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.06);
+  background: rgba(59, 130, 246, 0.06);
 }
 
 @media (max-width: 600px) {

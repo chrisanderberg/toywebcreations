@@ -42,7 +42,7 @@
   font-family: var(--font-display);
   font-size: var(--text-4xl);
   color: var(--phosphor);
-  text-shadow: var(--glow-text-md);
+  text-shadow: none;
   letter-spacing: 0.04em;
   line-height: 1;
   min-width: 3ch;
@@ -69,7 +69,7 @@
 .eca-rule-input:focus {
   outline: none;
   border-color: var(--phosphor-dim);
-  box-shadow: var(--glow-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .eca-rule-slider {
@@ -108,12 +108,12 @@
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
   background: var(--phosphor-bg-light);
-  text-shadow: var(--glow-text-sm);
+  text-shadow: none;
 }
 .preset-btn:focus-visible {
   outline: none;
   border-color: var(--phosphor-dim);
-  box-shadow: var(--glow-sm);
+  box-shadow: var(--shadow-sm);
   color: var(--phosphor);
 }
 
@@ -206,13 +206,13 @@
 }
 .ctrl-btn--primary:hover {
   color: var(--phosphor);
-  box-shadow: var(--glow-sm);
+  box-shadow: var(--shadow-sm);
 }
 .ctrl-btn:focus-visible {
   outline: none;
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  box-shadow: var(--glow-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 /* --- Rule mapping display --- */
@@ -295,7 +295,7 @@
 .eca-nb-cell.on {
   background: var(--phosphor-dim);
   border-color: var(--phosphor-dim);
-  box-shadow: var(--glow-cell-sm);
+  box-shadow: var(--cell-highlight-sm);
 }
 
 .eca-nb-arrow {
@@ -320,7 +320,7 @@
   background: var(--phosphor);
   border-color: var(--phosphor);
   color: var(--bg);
-  box-shadow: var(--glow-cell-md);
+  box-shadow: var(--cell-highlight-md);
   font-weight: 700;
 }
 .eca-nb-output.off {
@@ -335,7 +335,7 @@
   border: 1px solid var(--border-bright);
   border-radius: 4px;
   background: var(--bg);
-  box-shadow: var(--glow-md);
+  box-shadow: var(--shadow-md);
   line-height: 0;
   position: relative;
 }
