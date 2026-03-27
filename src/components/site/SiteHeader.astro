@@ -8,9 +8,15 @@ interface Props {
 
 const { githubLink = REPO_ROOT } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const path = Astro.url.pathname;
-const isHome  = path === base || path === `${base}/` || path === '/';
-const isAbout = path.includes('/about');
+const normalizePath = (value: string) => {
+  const trimmed = value.replace(/\/+$/, '');
+  return trimmed === '' ? '/' : trimmed;
+};
+const normalizedBase = normalizePath(base);
+const normalizedPath = normalizePath(Astro.url.pathname);
+const isHome = normalizedPath === normalizedBase;
+const aboutPath = normalizedBase === '/' ? '/about' : `${normalizedBase}/about`;
+const isAbout = normalizedPath === aboutPath || normalizedPath.startsWith(`${aboutPath}/`);
 ---
 
 <header class="site-header" transition:name="site-header" transition:persist>

@@ -107,8 +107,8 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
       background var(--transition-base),
       border-color var(--transition-base),
       box-shadow var(--transition-base),
-      transform var(--transition-base);
-    animation: glassReveal 0.4s ease-out both;
+      transform var(--transition-base),
+      opacity 0.4s ease;
   }
 
   .project-card:hover {

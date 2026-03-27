@@ -270,6 +270,15 @@ const isNew = (d?: string) => !!d && (Date.now() - new Date(d).getTime()) < 90 *
   }
 </style>
 
+<noscript>
+  <style>
+    .featured-card {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</noscript>
+
 <script>
   const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
   const cards = document.querySelectorAll('.featured-card');
