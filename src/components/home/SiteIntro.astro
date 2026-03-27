@@ -24,45 +24,73 @@
 
 <style>
   .site-intro {
-    padding: var(--space-20) 0 var(--space-16);
-    border-bottom: 1px solid var(--border);
+    padding: var(--space-24) 0 var(--space-20);
+    border-bottom: none;
     position: relative;
+    text-align: center;
   }
 
-  /* Ambient radial glow behind the headline */
+  .site-intro .container {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Soft blue ambient light */
   .site-intro::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -80px;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse at center, rgba(57, 255, 20, 0.06) 0%, transparent 70%);
+    width: 800px;
+    height: 500px;
+    background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.10) 0%, rgba(99, 102, 241, 0.04) 45%, transparent 70%);
     pointer-events: none;
   }
 
   .intro-inner {
-    max-width: 640px;
+    max-width: 680px;
+    width: 100%;
     position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    padding: var(--space-12) var(--space-12) var(--space-10);
+    overflow: hidden;
+    text-align: center;
+  }
+
+  /* Glass shimmer highlight */
+  .intro-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none;
   }
 
   .intro-headline {
     font-family: var(--font-display);
     font-size: clamp(2.8rem, 7vw, var(--text-7xl));
-    color: var(--phosphor);
-    text-shadow: var(--glow-text-md);
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: none;
+    font-weight: 700;
     line-height: 1.05;
-    letter-spacing: 0.02em;
-    margin-bottom: var(--space-8);
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-10);
   }
 
   .intro-body {
     font-size: var(--text-lg);
     color: var(--text);
     line-height: 1.75;
-    max-width: 520px;
-    margin-bottom: var(--space-10);
+    max-width: 480px;
+    margin: 0 auto var(--space-10);
+    text-align: center;
   }
 
   .intro-scroll-hint {
@@ -72,6 +100,7 @@
     letter-spacing: 0.1em;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-2);
   }
 

@@ -26,6 +26,11 @@ html:hover {
 
 body {
   background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(59, 130, 246, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+    linear-gradient(160deg, #0C1220 0%, #111827 40%, #0C1220 70%, #0F172A 100%);
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -37,39 +42,51 @@ body {
   overflow-x: hidden;
 }
 
-/* --- CRT Scanline Overlay --- */
+/* Floating gradient orb — top left */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.08) 2px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
+  top: -200px;
+  left: -100px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.10) 0%, rgba(37, 99, 235, 0.04) 50%, transparent 70%);
   pointer-events: none;
-  z-index: 120;
+  z-index: 0;
 }
 
-/* Subtle vignette */
+/* Floating gradient orb — bottom right */
 body::after {
   content: '';
   position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.35) 100%);
+  bottom: -150px;
+  right: -150px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(59, 130, 246, 0.03) 50%, transparent 70%);
   pointer-events: none;
-  z-index: 110;
+  z-index: 0;
+}
+
+/* Card entrance animation */
+@keyframes glassReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.15;
-  letter-spacing: 0.04em;
-  color: var(--phosphor);
+  letter-spacing: -0.02em;
+  color: var(--text);
 }
 
 h1 { font-size: var(--text-6xl); }
@@ -85,18 +102,17 @@ p {
 }
 
 a {
-  color: var(--phosphor);
+  color: var(--phosphor-bright);
   text-decoration: none;
   transition: color var(--transition-fast), text-shadow var(--transition-fast);
 }
 
 a:hover {
-  color: var(--phosphor-bright);
-  text-shadow: var(--glow-text-sm);
+  color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--phosphor);
+  outline: 2px solid var(--phosphor-bright);
   outline-offset: 3px;
 }
 
@@ -119,11 +135,13 @@ code {
 
 pre {
   background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-bright);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-5);
   overflow-x: auto;
-  color: var(--phosphor-bright);
+  color: var(--text);
 }
 
 pre code {
@@ -159,7 +177,7 @@ hr {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -174,26 +192,33 @@ hr {
 /* --- Selection --- */
 ::selection {
   background: var(--phosphor-dim);
-  color: var(--phosphor-bright);
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* --- Phosphor glow utility classes --- */
-.glow-sm   { text-shadow: var(--glow-text-sm); }
-.glow-md   { text-shadow: var(--glow-text-md); }
-.glow-box  { box-shadow: var(--glow-sm); }
-.phosphor  { color: var(--phosphor); }
+/* --- Utility classes --- */
+.glow-sm   { text-shadow: none; }
+.glow-md   { text-shadow: none; }
+.glow-box  { box-shadow: var(--shadow-sm); }
+.phosphor  { color: var(--phosphor-bright); }
 
-/* --- Screen flicker on load (subtle) --- */
-@keyframes flicker {
-  0%   { opacity: 1; }
-  2%   { opacity: 0.92; }
-  4%   { opacity: 1; }
-  8%   { opacity: 0.96; }
-  10%  { opacity: 1; }
+/* --- Card image skeleton shimmer --- */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
 }
 
-.flicker {
-  animation: flicker 0.15s ease-in-out 1;
+.card-image-wrap {
+  background: linear-gradient(90deg,
+    var(--bg-raised) 25%,
+    var(--bg-surface) 50%,
+    var(--bg-raised) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-image-wrap { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -205,9 +230,5 @@ hr {
     animation: none !important;
     animation-name: none !important;
     transition: none !important;
-  }
-
-  .flicker {
-    animation: none !important;
   }
 }

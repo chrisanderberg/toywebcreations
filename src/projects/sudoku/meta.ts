@@ -10,4 +10,8 @@ export const meta: ProjectMeta = {
   coverImage: assetPath('images/projects/sudoku/cover.svg'),
   icon: assetPath('images/projects/sudoku/icon.svg'),
   sourceLink: projectSourceLink('sudoku'),
+  addedDate: '2024-06-01',
+  playTime: '10–30 min',
+  difficulty: 3,
+  tags: ['puzzle', 'logic'],
 };

@@ -8,6 +8,8 @@ interface Props {
 
 const { projects } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const isNew = (d?: string) => !!d && (Date.now() - new Date(d).getTime()) < 90 * 86400000;
+const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
 ---
 
 <section class="all-projects-section">
@@ -16,33 +18,43 @@ const base = import.meta.env.BASE_URL;
       <span class="heading-prefix">02</span>
       All Projects
     </h2>
-    <ul class="projects-list" role="list">
-      {projects.map((project) => (
-        <li class="project-row">
-          <a href={withBasePath(base, `${project.slug}/`)} class="project-link">
-            <div class="project-icon-wrap">
-              <img
-                src={project.icon}
-                alt=""
-                class="project-icon"
-                loading="lazy"
-                decoding="async"
-                width="48"
-                height="48"
-                aria-hidden="true"
-              />
-            </div>
-            <div class="project-info">
-              <span class="project-title">{project.title}</span>
-              {project.description && (
-                <span class="project-desc">{project.description}</span>
-              )}
-            </div>
-            <span class="project-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
+    <div class="filter-bar" role="group" aria-label="Filter by tag">
+      <button class="filter-btn filter-btn--active" data-tag="all">All</button>
+      {allTags.map(tag => (
+        <button class="filter-btn" data-tag={tag}>{tag}</button>
       ))}
-    </ul>
+    </div>
+    <div class="projects-grid">
+      {projects.map((project, index) => (
+        <a href={withBasePath(base, `${project.slug}/`)} class="project-card" aria-label={project.title}
+           data-tags={project.tags?.join(',') ?? ''}
+           style={`animation-delay: ${index * 0.07}s`}>
+          <div class="project-icon-wrap">
+            <img
+              src={project.icon}
+              alt=""
+              class="project-icon"
+              loading="lazy"
+              decoding="async"
+              width="52"
+              height="52"
+              aria-hidden="true"
+            />
+          </div>
+          <div class="project-info">
+            <span class="project-title">{project.title}</span>
+            {project.description && (
+              <span class="project-desc">{project.description}</span>
+            )}
+            <div class="card-meta">
+              {isNew(project.addedDate) && <span class="badge-new">New</span>}
+              {project.playTime && <span class="chip">⏱ {project.playTime}</span>}
+            </div>
+          </div>
+          <span class="project-arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -55,10 +67,12 @@ const base = import.meta.env.BASE_URL;
     font-family: var(--font-display);
     font-size: var(--text-4xl);
     color: var(--phosphor);
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-10);
     display: flex;
     align-items: baseline;
     gap: var(--space-4);
+    justify-content: center;
+    text-align: center;
   }
 
   .heading-prefix {
@@ -70,49 +84,62 @@ const base = import.meta.env.BASE_URL;
     top: -4px;
   }
 
-  .projects-list {
-    list-style: none;
-    border-top: 1px solid var(--border);
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
   }
 
-  .project-row {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .project-link {
+  .project-card {
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    padding: var(--space-4) var(--space-2);
+    padding: var(--space-5) var(--space-6);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
     text-decoration: none;
     transition:
-      background var(--transition-fast),
-      padding-left var(--transition-fast);
-    border-radius: var(--radius-sm);
+      background var(--transition-base),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base),
+      transform var(--transition-base);
+    animation: glassReveal 0.4s ease-out both;
   }
 
-  .project-link:hover {
-    background: var(--bg-raised);
-    padding-left: var(--space-4);
+  .project-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(255, 255, 255, 0.22);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
   }
 
-  .project-link:hover .project-title {
-    color: var(--phosphor);
-    text-shadow: var(--glow-text-sm);
+  .project-card:hover .project-title {
+    color: var(--phosphor-bright);
   }
 
-  .project-link:hover .project-arrow {
-    color: var(--phosphor);
+  .project-card:hover .project-arrow {
+    color: var(--phosphor-bright);
     transform: translateX(4px);
   }
 
   .project-icon-wrap {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     flex-shrink: 0;
-    background: var(--bg-raised);
-    border: 1px solid var(--border-bright);
-    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 12px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -139,15 +166,13 @@ const base = import.meta.env.BASE_URL;
     font-weight: 500;
     color: var(--text);
     letter-spacing: 0.02em;
-    transition: color var(--transition-fast), text-shadow var(--transition-fast);
+    transition: color var(--transition-fast);
   }
 
   .project-desc {
     font-size: var(--text-sm);
     color: var(--text-dim);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.5;
   }
 
   .project-arrow {
@@ -156,4 +181,112 @@ const base = import.meta.env.BASE_URL;
     flex-shrink: 0;
     transition: color var(--transition-fast), transform var(--transition-fast);
   }
+
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: var(--space-1) var(--space-3);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    color: var(--phosphor);
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .filter-btn--active {
+    color: var(--phosphor-bright);
+    border-color: var(--phosphor-dim);
+    background: rgba(59, 130, 246, 0.15);
+  }
+
+  .project-card {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .project-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-card:nth-child(2) { transition-delay: 0.07s; }
+  .project-card:nth-child(3) { transition-delay: 0.14s; }
+  .project-card:nth-child(4) { transition-delay: 0.21s; }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-1);
+    flex-wrap: wrap;
+  }
+
+  .badge-new {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    background: var(--phosphor);
+    padding: 0px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = (btn as HTMLElement).dataset.tag;
+      document.querySelectorAll('.filter-btn').forEach(b =>
+        b.classList.toggle('filter-btn--active', b === btn));
+      document.querySelectorAll('[data-tags]').forEach(card => {
+        const tags = (card as HTMLElement).dataset.tags?.split(',') ?? [];
+        (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag!)) ? '' : 'none';
+      });
+    });
+  });
+
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const items = document.querySelectorAll('.project-card');
+  if (mq.matches) {
+    items.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    items.forEach(el => io.observe(el));
+  }
+</script>

@@ -1,47 +1,58 @@
 /* =====================================================================
    ToyWebCreations — Design Tokens
-   Phosphor / CRT aesthetic
+   Soft Glassmorphism aesthetic
    ===================================================================== */
 
 :root {
-  /* --- Color: Phosphor Green Palette --- */
-  --phosphor:         #39ff14;
-  --phosphor-bright:  #7fff4f;
-  --phosphor-dim:     #1a8c0a;
-  --phosphor-muted:   #2db81d;
-  --phosphor-faint:   #0d420a;
+  /* --- Color: Accent Palette --- */
+  --phosphor:         #3B82F6;
+  --phosphor-bright:  #60A5FA;
+  --phosphor-dim:     #2563EB;
+  --phosphor-muted:   #93C5FD;
+  --phosphor-faint:   #1E3A5F;
+
+  /* --- Color: Warm Accent --- */
+  --accent-warm:        #F59E0B;
+  --accent-warm-bright: #FBBF24;
+  --accent-warm-dim:    #D97706;
 
   /* --- Color: Backgrounds --- */
-  --bg:               #070c07;
-  --bg-surface:       #0c130c;
-  --bg-raised:        #111a11;
-  --bg-overlay:       #162116;
-  --phosphor-bg-subtle: rgba(57, 255, 20, 0.06);
-  --phosphor-bg-light:  rgba(57, 255, 20, 0.1);
+  --bg:               #0C1220;
+  --bg-surface:       rgba(255, 255, 255, 0.06);
+  --bg-raised:        rgba(255, 255, 255, 0.10);
+  --bg-overlay:       rgba(255, 255, 255, 0.14);
+  --phosphor-bg-subtle: rgba(59, 130, 246, 0.08);
+  --phosphor-bg-light:  rgba(59, 130, 246, 0.14);
 
   /* --- Color: Text --- */
-  --text:             #c8e8c9;
-  --text-dim:         #6b9b6c;
-  --text-muted:       #3d5e3e;
-  --text-inverse:     #070c07;
+  --text:             rgba(255, 255, 255, 0.87);
+  --text-dim:         rgba(255, 255, 255, 0.55);
+  --text-muted:       rgba(255, 255, 255, 0.30);
+  --text-inverse:     #0C1220;
 
   /* --- Color: Borders --- */
-  --border:           #1a3a1a;
-  --border-bright:    #2d622d;
-  --border-active:    var(--phosphor-dim);
+  --border:           rgba(255, 255, 255, 0.08);
+  --border-bright:    rgba(255, 255, 255, 0.15);
+  --border-active:    rgba(59, 130, 246, 0.5);
 
-  /* --- Glow --- */
-  --glow-sm:          0 0 8px rgba(57, 255, 20, 0.4);
-  --glow-md:          0 0 16px rgba(57, 255, 20, 0.3), 0 0 32px rgba(57, 255, 20, 0.15);
-  --glow-lg:          0 0 24px rgba(57, 255, 20, 0.5), 0 0 48px rgba(57, 255, 20, 0.2), 0 0 80px rgba(57, 255, 20, 0.1);
-  --glow-text-sm:     0 0 6px rgba(57, 255, 20, 0.6);
-  --glow-text-md:     0 0 10px rgba(57, 255, 20, 0.7), 0 0 20px rgba(57, 255, 20, 0.3);
-  --glow-cell-sm:     0 0 4px rgba(57, 255, 20, 0.4);
-  --glow-cell-md:     0 0 8px rgba(57, 255, 20, 0.7);
+  /* --- Glass Shadows (clean elevation, no colored glow) --- */
+  --shadow-sm:        0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md:        0 4px 24px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.15);
+  --shadow-lg:        0 8px 40px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  /* --- Glass Surface Tokens --- */
+  --glass-border-top:   rgba(255, 255, 255, 0.18);
+  --glass-border:       rgba(255, 255, 255, 0.10);
+  --glass-surface:      rgba(255, 255, 255, 0.06);
+  --glass-surface-hover: rgba(255, 255, 255, 0.10);
+
+  /* --- Cell Highlight (ring, no spread glow) --- */
+  --cell-highlight-sm:  0 0 0 1px rgba(59, 130, 246, 0.3);
+  --cell-highlight-md:  0 0 0 2px rgba(59, 130, 246, 0.4);
 
   /* --- Typography --- */
-  --font-display:     'VT323', monospace;
-  --font-body:        'Outfit', system-ui, sans-serif;
+  --font-display:     'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:        'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono:        'JetBrains Mono', 'Fira Code', monospace;
 
   /* --- Type Scale --- */
@@ -72,9 +83,9 @@
   --space-24:  6rem;
 
   /* --- Border radius --- */
-  --radius-sm:  2px;
-  --radius-md:  4px;
-  --radius-lg:  8px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
 
   /* --- Transitions --- */
   --transition-fast:  150ms ease;
