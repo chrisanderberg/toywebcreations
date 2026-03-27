@@ -94,6 +94,27 @@ captures the requirements that should guide implementation and review.
 - Ensure the header remains usable on small screens and important actions remain
   easy to tap.
 
+## Implementation structure
+- Prefer one Astro app at the repo root unless the project grows enough that a
+  multi-package structure is clearly justified.
+- Keep a shared site shell for layout, header, navigation, and common styling.
+- Use a central project registry for homepage rendering and route generation.
+- Prefer per-project modules that own their own interactive implementation and
+  About content.
+- Keep route-level code separation so each project loads only what it needs.
+- Prefer a repository shape roughly like:
+  - `AGENTS.md`, `PROJECT.md`, `REQUIREMENTS.md`
+  - `public/` for shared public assets
+  - `src/components/` for shared site and page components
+  - `src/layouts/` for site and project layouts
+  - `src/lib/projects/` for project registry and shared project types
+  - `src/pages/` for top-level and slug-based routes
+  - `src/projects/<slug>/` for project-specific code and content
+  - `src/styles/` for global and theme styles
+- If project-specific logic grows large enough, split it into focused modules
+  inside the relevant `src/projects/<slug>/` directory rather than pushing it
+  into a global site-wide bundle.
+
 ## Candidate promotions to hard requirements
 - None yet.
 

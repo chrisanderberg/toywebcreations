@@ -139,15 +139,12 @@ them as part of the same site family.
 - `PROJECT.md` defines the product, goals, audience, and information
   architecture.
 - `REQUIREMENTS.md` defines the active implementation contract, including
-  design requirements.
-- `docs/ARCHITECTURE.md` remains the deeper implementation-structure reference.
+  design and implementation-structure requirements.
 
 ## How to use this file
 - Read this file first to understand what the product is, who it serves, and
   what shape it should have.
 - Read `REQUIREMENTS.md` next for the active implementation contract.
-- Use `docs/ARCHITECTURE.md` when a task needs deeper implementation-structure
-  detail than belongs in this top-level project brief.
 
 ## Scope guidance
 - Treat `PROJECT.md` as the place for stable project description, goals, scope,

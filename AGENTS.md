@@ -4,19 +4,16 @@
 - This file defines how agents should operate in this worktree.
 - Read `PROJECT.md` for project context, goals, and product shape.
 - Read `REQUIREMENTS.md` for the active implementation contract.
-- Use `docs/ARCHITECTURE.md` for deeper implementation-structure reference when needed.
 
 ## Source of truth
 - Direct user instructions win.
 - `REQUIREMENTS.md` governs active implementation constraints and tradeoffs.
 - `PROJECT.md` governs stable project description, goals, and domain framing.
-- `docs/ARCHITECTURE.md` governs deeper implementation structure.
 
 If these documents conflict:
 1. direct user instructions win
 2. `REQUIREMENTS.md` wins for active implementation constraints
 3. `PROJECT.md` wins for project framing and goals
-4. `docs/ARCHITECTURE.md` wins for deeper implementation structure
 
 ## Requirement handling
 - Hard requirements are binding. Do not violate them unless the human explicitly changes or waives them.
@@ -32,8 +29,7 @@ If these documents conflict:
 
 ## Documentation maintenance
 - Update `PROJECT.md` when the stable description, goals, or project framing changes.
-- Update `REQUIREMENTS.md` when active constraints or implementation guidance change.
-- Update `docs/ARCHITECTURE.md` when implementation structure or technical assumptions change.
+- Update `REQUIREMENTS.md` when active constraints, design guidance, or implementation-structure guidance change.
 
 ## Execution rules
 - If something is not specified, do not guess silently. Surface the gap or make the narrowest safe assumption, and record that assumption in `REQUIREMENTS.md` under `Open questions` or an `Assumptions` section if one is needed.
