@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
-  <rect width="640" height="360" fill="#070c07"/>
+  <rect width="640" height="360" fill="#FAFAF5"/>
   <!-- Scanlines -->
   <pattern id="scan" x="0" y="0" width="2" height="4" patternUnits="userSpaceOnUse">
-    <rect width="2" height="2" fill="rgba(0,0,0,0.12)"/>
+    <rect width="2" height="2" fill="rgba(0,0,0,0)"/>
   </pattern>
   <rect width="640" height="360" fill="url(#scan)"/>
 
@@ -10,39 +10,39 @@
   <g transform="translate(195, 30)">
     <!-- 9x9 grid cells, each 32x32 -->
     <!-- Fill a few cells with numbers for preview -->
-    <rect x="0" y="0" width="288" height="288" fill="none" stroke="#1a3a1a" stroke-width="0.5"/>
+    <rect x="0" y="0" width="288" height="288" fill="none" stroke="#E0DFD5" stroke-width="0.5"/>
 
     <!-- Thin grid lines -->
-    <line x1="32" y1="0" x2="32" y2="288" stroke="#1a3a1a" stroke-width="0.5"/>
-    <line x1="64" y1="0" x2="64" y2="288" stroke="#1a3a1a" stroke-width="0.5"/>
+    <line x1="32" y1="0" x2="32" y2="288" stroke="#E0DFD5" stroke-width="0.5"/>
+    <line x1="64" y1="0" x2="64" y2="288" stroke="#E0DFD5" stroke-width="0.5"/>
     <line x1="96" y1="0" x2="96" y2="288" stroke="#2d622d" stroke-width="1.5"/>
-    <line x1="128" y1="0" x2="128" y2="288" stroke="#1a3a1a" stroke-width="0.5"/>
-    <line x1="160" y1="0" x2="160" y2="288" stroke="#1a3a1a" stroke-width="0.5"/>
+    <line x1="128" y1="0" x2="128" y2="288" stroke="#E0DFD5" stroke-width="0.5"/>
+    <line x1="160" y1="0" x2="160" y2="288" stroke="#E0DFD5" stroke-width="0.5"/>
     <line x1="192" y1="0" x2="192" y2="288" stroke="#2d622d" stroke-width="1.5"/>
-    <line x1="224" y1="0" x2="224" y2="288" stroke="#1a3a1a" stroke-width="0.5"/>
-    <line x1="256" y1="0" x2="256" y2="288" stroke="#1a3a1a" stroke-width="0.5"/>
+    <line x1="224" y1="0" x2="224" y2="288" stroke="#E0DFD5" stroke-width="0.5"/>
+    <line x1="256" y1="0" x2="256" y2="288" stroke="#E0DFD5" stroke-width="0.5"/>
 
-    <line x1="0" y1="32" x2="288" y2="32" stroke="#1a3a1a" stroke-width="0.5"/>
-    <line x1="0" y1="64" x2="288" y2="64" stroke="#1a3a1a" stroke-width="0.5"/>
+    <line x1="0" y1="32" x2="288" y2="32" stroke="#E0DFD5" stroke-width="0.5"/>
+    <line x1="0" y1="64" x2="288" y2="64" stroke="#E0DFD5" stroke-width="0.5"/>
     <line x1="0" y1="96" x2="288" y2="96" stroke="#2d622d" stroke-width="1.5"/>
-    <line x1="0" y1="128" x2="288" y2="128" stroke="#1a3a1a" stroke-width="0.5"/>
-    <line x1="0" y1="160" x2="288" y2="160" stroke="#1a3a1a" stroke-width="0.5"/>
+    <line x1="0" y1="128" x2="288" y2="128" stroke="#E0DFD5" stroke-width="0.5"/>
+    <line x1="0" y1="160" x2="288" y2="160" stroke="#E0DFD5" stroke-width="0.5"/>
     <line x1="0" y1="192" x2="288" y2="192" stroke="#2d622d" stroke-width="1.5"/>
-    <line x1="0" y1="224" x2="288" y2="224" stroke="#1a3a1a" stroke-width="0.5"/>
-    <line x1="0" y1="256" x2="288" y2="256" stroke="#1a3a1a" stroke-width="0.5"/>
+    <line x1="0" y1="224" x2="288" y2="224" stroke="#E0DFD5" stroke-width="0.5"/>
+    <line x1="0" y1="256" x2="288" y2="256" stroke="#E0DFD5" stroke-width="0.5"/>
 
     <!-- Outer border -->
-    <rect x="0" y="0" width="288" height="288" fill="none" stroke="#1a8c0a" stroke-width="2"/>
+    <rect x="0" y="0" width="288" height="288" fill="none" stroke="#457B9D" stroke-width="2"/>
 
     <!-- Selected cell highlight -->
-    <rect x="64" y="64" width="32" height="32" fill="rgba(57,255,20,0.15)" stroke="#39ff14" stroke-width="1.5"/>
+    <rect x="64" y="64" width="32" height="32" fill="rgba(230,57,70,0.15)" stroke="#E63946" stroke-width="1.5"/>
 
     <!-- Peer cells highlight -->
-    <rect x="0" y="64" width="32" height="32" fill="rgba(57,255,20,0.05)"/>
-    <rect x="32" y="64" width="32" height="32" fill="rgba(57,255,20,0.05)"/>
-    <rect x="96" y="64" width="192" height="32" fill="rgba(57,255,20,0.04)"/>
-    <rect x="64" y="0" width="32" height="64" fill="rgba(57,255,20,0.04)"/>
-    <rect x="64" y="96" width="32" height="192" fill="rgba(57,255,20,0.04)"/>
+    <rect x="0" y="64" width="32" height="32" fill="rgba(230,57,70,0.05)"/>
+    <rect x="32" y="64" width="32" height="32" fill="rgba(230,57,70,0.05)"/>
+    <rect x="96" y="64" width="192" height="32" fill="rgba(230,57,70,0.04)"/>
+    <rect x="64" y="0" width="32" height="64" fill="rgba(230,57,70,0.04)"/>
+    <rect x="64" y="96" width="32" height="192" fill="rgba(230,57,70,0.04)"/>
 
     <!-- Some given numbers -->
     <defs>
@@ -51,7 +51,7 @@
         <feComposite in="SourceGraphic" in2="blur" operator="over"/>
       </filter>
     </defs>
-    <g font-family="monospace" font-size="18" text-anchor="middle" dominant-baseline="central" fill="#39ff14" filter="url(#glow)">
+    <g font-family="monospace" font-size="18" text-anchor="middle" dominant-baseline="central" fill="#E63946" filter="url(#glow)">
       <text x="16" y="16">5</text>
       <text x="48" y="16">3</text>
       <text x="112" y="16">7</text>
@@ -80,5 +80,5 @@
   </g>
 
   <!-- Title -->
-  <text x="320" y="338" font-family="monospace" font-size="13" text-anchor="middle" fill="#1a8c0a" letter-spacing="4">SUDOKU</text>
+  <text x="320" y="338" font-family="monospace" font-size="13" text-anchor="middle" fill="#457B9D" letter-spacing="4">SUDOKU</text>
 </svg>

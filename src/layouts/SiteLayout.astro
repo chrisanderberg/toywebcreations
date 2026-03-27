@@ -1,5 +1,6 @@
 ---
 import SiteHeader from '../components/site/SiteHeader.astro';
+import { ClientRouter } from 'astro:transitions';
 import { withBasePath } from '../lib/site';
 import '../styles/global.css';
 
@@ -27,17 +28,19 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=VT323&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <link rel="icon" type="image/svg+xml" href={withBasePath(import.meta.env.BASE_URL, 'favicon.svg')} />
+    <ClientRouter />
   </head>
-  <body class="flicker">
+  <body>
     <SiteHeader githubLink={githubLink} />
-    <main>
+    <main transition:name="main-content" transition:animate="slide">
       <slot />
     </main>
     <footer class="site-footer">
       <div class="container">
+        <span class="footer-geo" aria-hidden="true"></span>
         <span class="footer-text">ToyWebCreations</span>
         <span class="footer-sep">·</span>
         <span class="footer-text">Built with Astro</span>
@@ -52,7 +55,7 @@ const {
   }
 
   .site-footer {
-    border-top: 1px solid var(--border);
+    border-top: 3px solid var(--border-bright);
     padding: var(--space-5) 0;
     margin-top: var(--space-16);
   }
@@ -63,11 +66,21 @@ const {
     gap: var(--space-3);
   }
 
+  .footer-geo {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: var(--phosphor);
+    flex-shrink: 0;
+  }
+
   .footer-text {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: var(--text-xs);
+    font-weight: 700;
     color: var(--text-muted);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .footer-sep {

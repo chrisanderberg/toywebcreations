@@ -23,10 +23,10 @@ const PRESET_RULES = [
   { label: 'Rule 184', value: 184 },
 ];
 
-// Phosphor palette
-const COLOR_LIVE = '#39ff14';
-const COLOR_DEAD = '#0c130c';
-const COLOR_LIVE_GLOW = 'rgba(57, 255, 20, 0.55)';
+// Bauhaus palette
+const COLOR_LIVE = '#E63946';
+const COLOR_DEAD = '#FAFAF5';
+const COLOR_LIVE_GLOW = 'rgba(230, 57, 70, 0.0)';
 
 // --- Component ---
 

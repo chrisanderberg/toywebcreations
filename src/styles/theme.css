@@ -1,47 +1,47 @@
 /* =====================================================================
    ToyWebCreations — Design Tokens
-   Phosphor / CRT aesthetic
+   Bauhaus / Geometric aesthetic
    ===================================================================== */
 
 :root {
-  /* --- Color: Phosphor Green Palette --- */
-  --phosphor:         #39ff14;
-  --phosphor-bright:  #7fff4f;
-  --phosphor-dim:     #1a8c0a;
-  --phosphor-muted:   #2db81d;
-  --phosphor-faint:   #0d420a;
+  /* --- Color: Primary Palette --- */
+  --phosphor:         #E63946;
+  --phosphor-bright:  #FF4D5A;
+  --phosphor-dim:     #457B9D;
+  --phosphor-muted:   #F4A261;
+  --phosphor-faint:   #264653;
 
   /* --- Color: Backgrounds --- */
-  --bg:               #070c07;
-  --bg-surface:       #0c130c;
-  --bg-raised:        #111a11;
-  --bg-overlay:       #162116;
-  --phosphor-bg-subtle: rgba(57, 255, 20, 0.06);
-  --phosphor-bg-light:  rgba(57, 255, 20, 0.1);
+  --bg:               #FAFAF5;
+  --bg-surface:       #FFFFFF;
+  --bg-raised:        #F0F0E8;
+  --bg-overlay:       #E8E8DD;
+  --phosphor-bg-subtle: rgba(230, 57, 70, 0.06);
+  --phosphor-bg-light:  rgba(230, 57, 70, 0.10);
 
   /* --- Color: Text --- */
-  --text:             #c8e8c9;
-  --text-dim:         #6b9b6c;
-  --text-muted:       #3d5e3e;
-  --text-inverse:     #070c07;
+  --text:             #1D3557;
+  --text-dim:         #457B9D;
+  --text-muted:       #A0AABB;
+  --text-inverse:     #FAFAF5;
 
   /* --- Color: Borders --- */
-  --border:           #1a3a1a;
-  --border-bright:    #2d622d;
-  --border-active:    var(--phosphor-dim);
+  --border:           #E0DFD5;
+  --border-bright:    #1D3557;
+  --border-active:    var(--phosphor);
 
-  /* --- Glow --- */
-  --glow-sm:          0 0 8px rgba(57, 255, 20, 0.4);
-  --glow-md:          0 0 16px rgba(57, 255, 20, 0.3), 0 0 32px rgba(57, 255, 20, 0.15);
-  --glow-lg:          0 0 24px rgba(57, 255, 20, 0.5), 0 0 48px rgba(57, 255, 20, 0.2), 0 0 80px rgba(57, 255, 20, 0.1);
-  --glow-text-sm:     0 0 6px rgba(57, 255, 20, 0.6);
-  --glow-text-md:     0 0 10px rgba(57, 255, 20, 0.7), 0 0 20px rgba(57, 255, 20, 0.3);
-  --glow-cell-sm:     0 0 4px rgba(57, 255, 20, 0.4);
-  --glow-cell-md:     0 0 8px rgba(57, 255, 20, 0.7);
+  /* --- Shadows (hard offset, no blur) --- */
+  --glow-sm:          3px 3px 0 rgba(29, 53, 87, 0.15);
+  --glow-md:          5px 5px 0 rgba(29, 53, 87, 0.12);
+  --glow-lg:          8px 8px 0 rgba(29, 53, 87, 0.10);
+  --glow-text-sm:     none;
+  --glow-text-md:     none;
+  --glow-cell-sm:     2px 2px 0 rgba(29, 53, 87, 0.2);
+  --glow-cell-md:     3px 3px 0 rgba(29, 53, 87, 0.25);
 
   /* --- Typography --- */
-  --font-display:     'VT323', monospace;
-  --font-body:        'Outfit', system-ui, sans-serif;
+  --font-display:     'Space Grotesk', system-ui, sans-serif;
+  --font-body:        'DM Sans', system-ui, sans-serif;
   --font-mono:        'JetBrains Mono', 'Fira Code', monospace;
 
   /* --- Type Scale --- */
@@ -72,9 +72,9 @@
   --space-24:  6rem;
 
   /* --- Border radius --- */
-  --radius-sm:  2px;
-  --radius-md:  4px;
-  --radius-lg:  8px;
+  --radius-sm:  0px;
+  --radius-md:  0px;
+  --radius-lg:  0px;
 
   /* --- Transitions --- */
   --transition-fast:  150ms ease;

@@ -3,21 +3,28 @@
 
 <section class="site-intro">
   <div class="container">
-    <div class="intro-inner">
-      <h1 class="intro-headline">
-        Small projects.<br />
-        Strange ideas.<br />
-        All interactive.
-      </h1>
-      <p class="intro-body">
-        ToyWebCreations is a collection of focused, playable web experiments —
-        puzzles, simulations, generators, and visual curiosities.
-        Each one exists because it was interesting to build.
-        Pick something. Try it.
-      </p>
-      <p class="intro-scroll-hint">
-        <span class="hint-char">↓</span> scroll to browse
-      </p>
+    <div class="intro-grid">
+      <div class="intro-inner">
+        <h1 class="intro-headline">
+          Small projects.<br />
+          Strange ideas.<br />
+          All interactive.
+        </h1>
+        <p class="intro-body">
+          ToyWebCreations is a collection of focused, playable web experiments —
+          puzzles, simulations, generators, and visual curiosities.
+          Each one exists because it was interesting to build.
+          Pick something. Try it.
+        </p>
+        <p class="intro-scroll-hint">
+          <span class="hint-char">↓</span> scroll to browse
+        </p>
+      </div>
+      <div class="intro-geo" aria-hidden="true">
+        <div class="geo-circle"></div>
+        <div class="geo-rect"></div>
+        <div class="geo-triangle"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -25,36 +32,33 @@
 <style>
   .site-intro {
     padding: var(--space-20) 0 var(--space-16);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 4px solid var(--border-bright);
     position: relative;
+    overflow: hidden;
   }
 
-  /* Ambient radial glow behind the headline */
-  .site-intro::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse at center, rgba(57, 255, 20, 0.06) 0%, transparent 70%);
-    pointer-events: none;
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: var(--space-10);
+    align-items: center;
   }
 
   .intro-inner {
-    max-width: 640px;
     position: relative;
   }
 
   .intro-headline {
     font-family: var(--font-display);
-    font-size: clamp(2.8rem, 7vw, var(--text-7xl));
-    color: var(--phosphor);
-    text-shadow: var(--glow-text-md);
-    line-height: 1.05;
-    letter-spacing: 0.02em;
+    font-size: clamp(3rem, 8vw, var(--text-7xl));
+    font-weight: 700;
+    color: var(--text);
+    text-shadow: none;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
     margin-bottom: var(--space-8);
+    border-left: 5px solid var(--phosphor);
+    padding-left: var(--space-6);
   }
 
   .intro-body {
@@ -63,6 +67,7 @@
     line-height: 1.75;
     max-width: 520px;
     margin-bottom: var(--space-10);
+    padding-left: calc(var(--space-6) + 5px);
   }
 
   .intro-scroll-hint {
@@ -73,6 +78,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
+    padding-left: calc(var(--space-6) + 5px);
   }
 
   .hint-char {
@@ -80,9 +86,58 @@
     display: inline-block;
   }
 
+  /* Geometric composition */
+  .intro-geo {
+    position: relative;
+    height: 280px;
+  }
+
+  .geo-circle {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--phosphor);
+    top: 0;
+    right: 0;
+  }
+
+  .geo-rect {
+    position: absolute;
+    width: 100px;
+    height: 72px;
+    background: var(--phosphor-dim);
+    bottom: 50px;
+    left: 0;
+  }
+
+  .geo-triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
+    border-bottom: 92px solid var(--phosphor-muted);
+    bottom: 0;
+    right: 48px;
+  }
+
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50%       { transform: translateY(4px); }
+  }
+
+  @media (max-width: 768px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+    }
+    .intro-geo {
+      display: none;
+    }
+    .intro-body,
+    .intro-scroll-hint {
+      padding-left: calc(var(--space-6) + 5px);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
