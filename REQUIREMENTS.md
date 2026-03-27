@@ -42,7 +42,7 @@ captures the requirements that should guide implementation and review.
 - Prefer a cool, memorable experience over sterile portfolio conventions, while
   keeping the site simple and performant.
 - Preserve the default site identity as dark, phosphor, CRT-influenced, and
-  retro-terminal inspired without turning the site into a literal terminal
+  retro-terminal-inspired without turning the site into a literal terminal
   emulator.
 - Preserve clear cross-site continuity even when individual projects diverge
   visually.
