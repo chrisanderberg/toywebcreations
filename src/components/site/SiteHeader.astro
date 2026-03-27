@@ -8,16 +8,20 @@ interface Props {
 
 const { githubLink = REPO_ROOT } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const path = Astro.url.pathname;
+const isHome  = path === base || path === `${base}/` || path === '/';
+const isAbout = path.includes('/about');
 ---
 
-<header class="site-header">
+<header class="site-header" transition:name="site-header" transition:persist>
   <div class="header-inner">
     <a href={withBasePath(base)} class="banner" aria-label="ToyWebCreations — Home">
-      <span class="banner-prefix">&gt;_</span><span class="banner-name">ToyWebCreations</span>
+      <span class="banner-name">Toy<span class="banner-accent">Web</span>Creations</span>
     </a>
+    <span class="header-divider" aria-hidden="true"></span>
     <nav class="header-nav" aria-label="Site navigation">
-      <a href={withBasePath(base)} class="nav-link">Home</a>
-      <a href={withBasePath(base, 'about/')} class="nav-link">About</a>
+      <a href={withBasePath(base)} class={`nav-link${isHome ? ' nav-link--active' : ''}`} aria-current={isHome ? 'page' : undefined}>Home</a>
+      <a href={withBasePath(base, 'about/')} class={`nav-link${isAbout ? ' nav-link--active' : ''}`} aria-current={isAbout ? 'page' : undefined}>About</a>
       <a
         href={githubLink}
         class="nav-link nav-link--github"
@@ -39,11 +43,22 @@ const base = import.meta.env.BASE_URL;
     position: sticky;
     top: 0;
     z-index: 100;
-    height: var(--header-height);
-    background: rgba(7, 12, 7, 0.92);
-    border-bottom: 1px solid var(--border-bright);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    height: 72px;
+    background: var(--bg-surface);
+    border-bottom: 3px solid var(--border-bright);
+    overflow: visible;
+  }
+
+  /* Red accent stripe below the header */
+  .site-header::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--phosphor);
+    z-index: 101;
   }
 
   .header-inner {
@@ -59,27 +74,30 @@ const base = import.meta.env.BASE_URL;
 
   .banner {
     font-family: var(--font-display);
-    font-size: var(--text-2xl);
-    color: var(--phosphor);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--text);
     text-decoration: none;
     white-space: nowrap;
-    letter-spacing: 0.06em;
-    transition: text-shadow var(--transition-fast);
+    letter-spacing: -0.02em;
     line-height: 1;
+    transition: color var(--transition-fast);
   }
 
   .banner:hover {
-    text-shadow: var(--glow-text-md);
+    color: var(--text);
+  }
+
+  .banner-accent {
     color: var(--phosphor);
   }
 
-  .banner-prefix {
-    color: var(--phosphor-dim);
-    margin-right: 0.2em;
-  }
-
-  .banner:hover .banner-prefix {
-    color: var(--phosphor-muted);
+  .header-divider {
+    width: 3px;
+    height: 28px;
+    background: var(--phosphor);
+    flex-shrink: 0;
+    display: block;
   }
 
   .header-nav {
@@ -89,21 +107,21 @@ const base = import.meta.env.BASE_URL;
   }
 
   .nav-link {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: var(--text-sm);
-    font-weight: 500;
+    font-weight: 700;
     color: var(--text-dim);
     text-decoration: none;
     padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    border: 1px solid transparent;
+    border-radius: 0;
+    border: 2px solid transparent;
+    border-bottom-color: transparent;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition:
       color var(--transition-fast),
       border-color var(--transition-fast),
-      background var(--transition-fast),
-      text-shadow var(--transition-fast);
+      background var(--transition-fast);
     display: flex;
     align-items: center;
     gap: var(--space-1);
@@ -111,20 +129,24 @@ const base = import.meta.env.BASE_URL;
 
   .nav-link:hover {
     color: var(--phosphor);
-    border-color: var(--border-bright);
-    background: var(--bg-raised);
-    text-shadow: var(--glow-text-sm);
+    border-bottom-color: var(--phosphor);
+    background: transparent;
+  }
+
+  .nav-link--active {
+    color: var(--phosphor);
+    border-bottom-color: var(--phosphor);
   }
 
   .nav-link--github {
     color: var(--text-dim);
-    border-color: var(--border);
-    background: var(--bg-surface);
+    border: 2px solid var(--border-bright);
+    background: var(--bg);
   }
 
   .nav-link--github:hover {
     color: var(--phosphor);
-    border-color: var(--phosphor-dim);
+    border-color: var(--phosphor);
     box-shadow: var(--glow-sm);
   }
 
@@ -134,12 +156,13 @@ const base = import.meta.env.BASE_URL;
     flex-shrink: 0;
   }
 
-  /* Responsive: collapse nav labels on very small screens */
   @media (max-width: 480px) {
     .banner {
       font-size: var(--text-xl);
     }
-
+    .header-divider {
+      display: none;
+    }
     .nav-link {
       padding: var(--space-2);
       font-size: var(--text-xs);

@@ -89,19 +89,19 @@
 .status-badge--playing {
   color: var(--phosphor-muted);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.05);
+  background: rgba(230, 57, 70, 0.05);
 }
 
 .status-badge--solving {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.08);
+  background: rgba(230, 57, 70, 0.08);
   animation: badge-pulse 1.8s ease-in-out infinite;
 }
 
 @keyframes badge-pulse {
   0%, 100% { box-shadow: none; }
-  50%       { box-shadow: 0 0 8px rgba(57, 255, 20, 0.3); }
+  50%       { box-shadow: 0 0 8px rgba(230, 57, 70, 0.3); }
 }
 
 .status-badge--paused {
@@ -113,7 +113,7 @@
 .status-badge--solved {
   color: var(--phosphor);
   border-color: var(--phosphor-muted);
-  background: rgba(57, 255, 20, 0.1);
+  background: rgba(230, 57, 70, 0.1);
   text-shadow: var(--glow-text-sm);
 }
 
@@ -131,7 +131,7 @@
   height: 100%;
   background: var(--phosphor-dim);
   transition: width 200ms linear;
-  box-shadow: 0 0 6px rgba(57, 255, 20, 0.5);
+  box-shadow: 0 0 6px rgba(230, 57, 70, 0.5);
 }
 
 /* ── Hint text ──────────────────────────────────────────────────────── */
@@ -191,17 +191,17 @@
 }
 
 .peg-zone--selectable:hover {
-  background: rgba(57, 255, 20, 0.04);
+  background: rgba(230, 57, 70, 0.04);
 }
 
 .peg-zone--target {
   cursor: pointer;
-  background: rgba(57, 255, 20, 0.06);
+  background: rgba(230, 57, 70, 0.06);
 }
 
 .peg-zone--target .peg-stem {
   background: linear-gradient(to bottom, var(--phosphor-muted), var(--phosphor-dim));
-  box-shadow: 0 0 14px rgba(57, 255, 20, 0.45);
+  box-shadow: 0 0 14px rgba(230, 57, 70, 0.45);
 }
 
 .peg-zone--selected {
@@ -210,7 +210,7 @@
 
 .peg-zone--selected .peg-stem {
   background: var(--phosphor);
-  box-shadow: 0 0 16px rgba(57, 255, 20, 0.6);
+  box-shadow: 0 0 16px rgba(230, 57, 70, 0.6);
 }
 
 .peg-zone--invalid {
@@ -245,7 +245,7 @@
   background: linear-gradient(to bottom, var(--phosphor-dim), #0d3a0a);
   border-radius: 2px 2px 0 0;
   z-index: 0;
-  box-shadow: 0 0 7px rgba(57, 255, 20, 0.2);
+  box-shadow: 0 0 7px rgba(230, 57, 70, 0.2);
 }
 
 /* Disc stack — anchored to bottom of disc-area, grows upward */
@@ -299,7 +299,7 @@
   height: 7px;
   background: linear-gradient(to right, transparent, var(--phosphor-dim), transparent);
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(57, 255, 20, 0.25);
+  box-shadow: 0 0 8px rgba(230, 57, 70, 0.25);
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -322,7 +322,7 @@
   justify-content: center;
   gap: 0.75rem;
   padding: 0.65rem 1rem;
-  background: rgba(57, 255, 20, 0.07);
+  background: rgba(230, 57, 70, 0.07);
   border: 1px solid var(--phosphor-dim);
   border-radius: var(--radius-md);
   box-shadow: var(--glow-sm);
@@ -422,7 +422,7 @@
 .disc-btn--active {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.08);
+  background: rgba(230, 57, 70, 0.08);
   box-shadow: var(--glow-sm);
 }
 
@@ -475,7 +475,7 @@
 .speed-btn--active {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.07);
+  background: rgba(230, 57, 70, 0.07);
 }
 
 /* Action buttons */
@@ -509,13 +509,13 @@
 }
 
 .action-btn--solve {
-  background: rgba(57, 255, 20, 0.07);
+  background: rgba(230, 57, 70, 0.07);
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
 }
 
 .action-btn--solve:hover:not(:disabled) {
-  background: rgba(57, 255, 20, 0.13);
+  background: rgba(230, 57, 70, 0.13);
   border-color: var(--phosphor);
   box-shadow: var(--glow-sm);
 }
@@ -534,7 +534,7 @@
 .action-btn--pause.active {
   color: var(--phosphor);
   border-color: var(--phosphor-dim);
-  background: rgba(57, 255, 20, 0.07);
+  background: rgba(230, 57, 70, 0.07);
 }
 
 .action-btn--step {

@@ -15,13 +15,13 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--phosphor-dim) var(--bg);
+  scrollbar-color: var(--border-bright) var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 html:hover {
-  scrollbar-color: var(--phosphor-muted) var(--bg);
+  scrollbar-color: var(--phosphor-dim) var(--bg);
 }
 
 body {
@@ -37,39 +37,26 @@ body {
   overflow-x: hidden;
 }
 
-/* --- CRT Scanline Overlay --- */
+/* Geometric grid overlay */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.08) 2px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
+  background-image:
+    linear-gradient(rgba(29, 53, 87, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 53, 87, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
   pointer-events: none;
   z-index: 120;
-}
-
-/* Subtle vignette */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.35) 100%);
-  pointer-events: none;
-  z-index: 110;
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: 0.04em;
-  color: var(--phosphor);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text);
 }
 
 h1 { font-size: var(--text-6xl); }
@@ -87,12 +74,11 @@ p {
 a {
   color: var(--phosphor);
   text-decoration: none;
-  transition: color var(--transition-fast), text-shadow var(--transition-fast);
+  transition: color var(--transition-fast);
 }
 
 a:hover {
   color: var(--phosphor-bright);
-  text-shadow: var(--glow-text-sm);
 }
 
 :focus-visible {
@@ -111,7 +97,7 @@ code, pre {
 
 code {
   background: var(--bg-raised);
-  color: var(--phosphor-bright);
+  color: var(--phosphor);
   padding: 0.1em 0.4em;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
@@ -119,11 +105,11 @@ code {
 
 pre {
   background: var(--bg-surface);
-  border: 1px solid var(--border-bright);
+  border: 2px solid var(--border-bright);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-5);
   overflow-x: auto;
-  color: var(--phosphor-bright);
+  color: var(--text);
 }
 
 pre code {
@@ -148,7 +134,7 @@ img, video {
 /* --- Horizontal rule --- */
 hr {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 3px solid var(--border-bright);
   margin: var(--space-8) 0;
 }
 
@@ -163,37 +149,44 @@ hr {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--phosphor-dim);
-  border-radius: 4px;
+  background: var(--border-bright);
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--phosphor-muted);
+  background: var(--phosphor-dim);
 }
 
 /* --- Selection --- */
 ::selection {
-  background: var(--phosphor-dim);
-  color: var(--phosphor-bright);
+  background: var(--phosphor);
+  color: var(--text-inverse);
 }
 
-/* --- Phosphor glow utility classes --- */
-.glow-sm   { text-shadow: var(--glow-text-sm); }
-.glow-md   { text-shadow: var(--glow-text-md); }
+/* --- Utility classes --- */
+.glow-sm   { box-shadow: var(--glow-sm); }
+.glow-md   { box-shadow: var(--glow-md); }
 .glow-box  { box-shadow: var(--glow-sm); }
 .phosphor  { color: var(--phosphor); }
 
-/* --- Screen flicker on load (subtle) --- */
-@keyframes flicker {
-  0%   { opacity: 1; }
-  2%   { opacity: 0.92; }
-  4%   { opacity: 1; }
-  8%   { opacity: 0.96; }
-  10%  { opacity: 1; }
+/* --- Card image skeleton shimmer --- */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
 }
 
-.flicker {
-  animation: flicker 0.15s ease-in-out 1;
+.card-image-wrap {
+  background: linear-gradient(90deg,
+    var(--bg-raised) 25%,
+    var(--bg-surface) 50%,
+    var(--bg-raised) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-image-wrap { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -205,9 +198,5 @@ hr {
     animation: none !important;
     animation-name: none !important;
     transition: none !important;
-  }
-
-  .flicker {
-    animation: none !important;
   }
 }

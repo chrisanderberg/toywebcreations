@@ -6,4 +6,8 @@ export interface ProjectMeta {
   coverImage: string;
   icon: string;
   sourceLink: string;
+  addedDate?: string;
+  playTime?: string;
+  difficulty?: 1 | 2 | 3;
+  tags?: string[];
 }

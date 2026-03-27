@@ -8,6 +8,8 @@ interface Props {
 
 const { projects } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const isNew = (d?: string) => !!d && (Date.now() - new Date(d).getTime()) < 90 * 86400000;
+const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
 ---
 
 <section class="all-projects-section">
@@ -16,33 +18,43 @@ const base = import.meta.env.BASE_URL;
       <span class="heading-prefix">02</span>
       All Projects
     </h2>
-    <ul class="projects-list" role="list">
-      {projects.map((project) => (
-        <li class="project-row">
-          <a href={withBasePath(base, `${project.slug}/`)} class="project-link">
-            <div class="project-icon-wrap">
-              <img
-                src={project.icon}
-                alt=""
-                class="project-icon"
-                loading="lazy"
-                decoding="async"
-                width="48"
-                height="48"
-                aria-hidden="true"
-              />
-            </div>
-            <div class="project-info">
-              <span class="project-title">{project.title}</span>
-              {project.description && (
-                <span class="project-desc">{project.description}</span>
-              )}
-            </div>
-            <span class="project-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
+    <hr class="section-rule" aria-hidden="true" />
+    <div class="filter-bar" role="group" aria-label="Filter by tag">
+      <button class="filter-btn filter-btn--active" data-tag="all">All</button>
+      {allTags.map(tag => (
+        <button class="filter-btn" data-tag={tag}>{tag}</button>
       ))}
-    </ul>
+    </div>
+    <div class="projects-grid">
+      {projects.map((project, index) => (
+        <a href={withBasePath(base, `${project.slug}/`)} class="project-tile" aria-label={project.title} data-tags={project.tags?.join(',') ?? ''}>
+          <span class="tile-number">{String(index + 1).padStart(2, '0')}</span>
+          <div class="tile-icon-wrap">
+            <img
+              src={project.icon}
+              alt=""
+              class="tile-icon"
+              loading="lazy"
+              decoding="async"
+              width="56"
+              height="56"
+              aria-hidden="true"
+            />
+          </div>
+          <div class="tile-info">
+            <span class="tile-title">{project.title}</span>
+            {project.description && (
+              <span class="tile-desc">{project.description}</span>
+            )}
+            <div class="card-meta">
+              {isNew(project.addedDate) && <span class="badge-new">New</span>}
+              {project.playTime && <span class="chip">⏱ {project.playTime}</span>}
+            </div>
+          </div>
+          <span class="tile-arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -54,78 +66,96 @@ const base = import.meta.env.BASE_URL;
   .section-heading {
     font-family: var(--font-display);
     font-size: var(--text-4xl);
-    color: var(--phosphor);
-    margin-bottom: var(--space-8);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: var(--space-6);
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: var(--space-4);
+    border-left: 5px solid var(--phosphor-dim);
+    padding-left: var(--space-4);
   }
 
   .heading-prefix {
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
+    font-size: var(--text-xs);
+    background: var(--phosphor-dim);
+    color: #fff;
+    padding: 2px 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .section-rule {
+    border: none;
+    height: 4px;
+    background: var(--phosphor-dim);
+    width: 120px;
+    margin-bottom: var(--space-8);
+    margin-left: calc(var(--space-4) + 5px);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+
+  .project-tile {
     position: relative;
-    top: -4px;
-  }
-
-  .projects-list {
-    list-style: none;
-    border-top: 1px solid var(--border);
-  }
-
-  .project-row {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .project-link {
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    padding: var(--space-4) var(--space-2);
+    padding: var(--space-5) var(--space-5) var(--space-5) var(--space-5);
+    border: 2px solid var(--border-bright);
+    background: var(--bg-surface);
+    box-shadow: 4px 4px 0 var(--border-bright);
     text-decoration: none;
+    overflow: hidden;
     transition:
-      background var(--transition-fast),
-      padding-left var(--transition-fast);
-    border-radius: var(--radius-sm);
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-fast);
   }
 
-  .project-link:hover {
-    background: var(--bg-raised);
-    padding-left: var(--space-4);
+  .project-tile:hover {
+    border-color: var(--phosphor);
+    box-shadow: 6px 6px 0 var(--phosphor);
+    transform: translate(-2px, -2px);
   }
 
-  .project-link:hover .project-title {
+  .tile-number {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    font-weight: 700;
     color: var(--phosphor);
-    text-shadow: var(--glow-text-sm);
+    opacity: 0.12;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
   }
 
-  .project-link:hover .project-arrow {
-    color: var(--phosphor);
-    transform: translateX(4px);
-  }
-
-  .project-icon-wrap {
-    width: 48px;
-    height: 48px;
+  .tile-icon-wrap {
+    width: 56px;
+    height: 56px;
     flex-shrink: 0;
     background: var(--bg-raised);
-    border: 1px solid var(--border-bright);
-    border-radius: var(--radius-md);
+    border: 2px solid var(--border-bright);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .project-icon {
+  .tile-icon {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  .project-info {
+  .tile-info {
     flex: 1;
     min-width: 0;
     display: flex;
@@ -133,27 +163,140 @@ const base = import.meta.env.BASE_URL;
     gap: var(--space-1);
   }
 
-  .project-title {
-    font-family: var(--font-body);
+  .tile-title {
+    font-family: var(--font-display);
     font-size: var(--text-base);
-    font-weight: 500;
+    font-weight: 700;
     color: var(--text);
-    letter-spacing: 0.02em;
-    transition: color var(--transition-fast), text-shadow var(--transition-fast);
+    letter-spacing: 0.01em;
+    transition: color var(--transition-fast);
   }
 
-  .project-desc {
+  .project-tile:hover .tile-title {
+    color: var(--phosphor);
+  }
+
+  .tile-desc {
     font-size: var(--text-sm);
     color: var(--text-dim);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.5;
   }
 
-  .project-arrow {
+  .tile-arrow {
     font-size: var(--text-lg);
     color: var(--text-muted);
     flex-shrink: 0;
     transition: color var(--transition-fast), transform var(--transition-fast);
   }
+
+  .project-tile:hover .tile-arrow {
+    color: var(--phosphor);
+    transform: translateX(4px);
+  }
+
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--text-muted);
+    background: transparent;
+    border: 2px solid var(--border-bright);
+    padding: var(--space-1) var(--space-3);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    color: var(--phosphor);
+    border-color: var(--phosphor-dim);
+  }
+
+  .filter-btn--active {
+    color: var(--bg);
+    border-color: var(--phosphor);
+    background: var(--phosphor);
+  }
+
+  .project-tile {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .project-tile.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-tile:nth-child(2) { transition-delay: 0.07s; }
+  .project-tile:nth-child(3) { transition-delay: 0.14s; }
+  .project-tile:nth-child(4) { transition-delay: 0.21s; }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-1);
+    flex-wrap: wrap;
+  }
+
+  .badge-new {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--phosphor);
+    padding: 0px 5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = (btn as HTMLElement).dataset.tag;
+      document.querySelectorAll('.filter-btn').forEach(b =>
+        b.classList.toggle('filter-btn--active', b === btn));
+      document.querySelectorAll('[data-tags]').forEach(card => {
+        const tags = (card as HTMLElement).dataset.tags?.split(',') ?? [];
+        (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag!)) ? '' : 'none';
+      });
+    });
+  });
+
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const items = document.querySelectorAll('.project-tile');
+  if (mq.matches) {
+    items.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    items.forEach(el => io.observe(el));
+  }
+</script>

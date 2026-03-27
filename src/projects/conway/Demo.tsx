@@ -148,11 +148,11 @@ export default function ConwayDemo() {
     if (!ctx) return;
 
     // Background
-    ctx.fillStyle = '#0c130c';
+    ctx.fillStyle = '#FAFAF5';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // Grid lines (subtle)
-    ctx.strokeStyle = 'rgba(26, 58, 26, 0.6)';
+    ctx.strokeStyle = 'rgba(224, 223, 213, 0.8)';
     ctx.lineWidth = 0.5;
     for (let r = 0; r <= DEFAULT_ROWS; r++) {
       ctx.beginPath();
@@ -176,10 +176,10 @@ export default function ConwayDemo() {
         const size = CELL_SIZE - 2;
 
         // Glow effect
-        ctx.shadowColor = 'rgba(57, 255, 20, 0.6)';
-        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
 
-        ctx.fillStyle = '#39ff14';
+        ctx.fillStyle = '#E63946';
         ctx.fillRect(x, y, size, size);
       }
     }
@@ -192,9 +192,9 @@ export default function ConwayDemo() {
     const focusSize = CELL_SIZE - 1;
 
     ctx.save();
-    ctx.fillStyle = 'rgba(127, 255, 79, 0.12)';
+    ctx.fillStyle = 'rgba(230, 57, 70, 0.12)';
     ctx.fillRect(focusX, focusY, focusSize, focusSize);
-    ctx.strokeStyle = '#c8ff9f';
+    ctx.strokeStyle = '#FF4D5A';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(focusX, focusY, focusSize, focusSize);
     ctx.restore();

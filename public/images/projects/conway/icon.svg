@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <rect width="48" height="48" fill="#0c130c" rx="4"/>
+  <rect width="48" height="48" fill="#FAFAF5"/>
   <!-- Mini glider on cell grid -->
   <pattern id="g2" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-    <rect width="8" height="8" fill="none" stroke="rgba(26,58,26,0.6)" stroke-width="0.5"/>
+    <rect width="8" height="8" fill="none" stroke="rgba(200,198,188,0.8)" stroke-width="0.5"/>
   </pattern>
   <rect x="4" y="4" width="40" height="40" fill="url(#g2)"/>
   <!-- Glider pattern (5 cells) -->
-  <g fill="#39ff14">
+  <g fill="#E63946">
     <rect x="16" y="8" width="7" height="7"/>
     <rect x="24" y="16" width="7" height="7"/>
     <rect x="8" y="24" width="7" height="7"/>
