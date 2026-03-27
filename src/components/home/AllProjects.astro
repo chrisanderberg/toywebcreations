@@ -263,6 +263,15 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
   }
 </style>
 
+<noscript>
+  <style>
+    .project-card {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
+</noscript>
+
 <script>
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
