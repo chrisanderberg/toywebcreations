@@ -294,6 +294,7 @@ const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
                 .filter(Boolean)
             : [];
 
+          // Keep untagged projects visible so filtering does not hide unfinished metadata.
           card.style.display =
             activeTag === 'all' || tags.length === 0 || tags.includes(activeTag) ? '' : 'none';
         });
