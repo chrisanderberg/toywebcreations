@@ -8,16 +8,23 @@ interface Props {
 
 const { githubLink = REPO_ROOT } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const path = Astro.url.pathname;
+const isHome  = path === base || path === `${base}/` || path === '/';
+const isAbout = path.includes('/about');
 ---
 
-<header class="site-header">
+<header class="site-header" transition:name="site-header" transition:persist>
   <div class="header-inner">
+    <nav class="header-nav header-nav--left" aria-label="Site navigation">
+      <a href={withBasePath(base)} class={`nav-link${isHome ? ' nav-link--active' : ''}`} aria-current={isHome ? 'page' : undefined}>Home</a>
+      <a href={withBasePath(base, 'about/')} class={`nav-link${isAbout ? ' nav-link--active' : ''}`} aria-current={isAbout ? 'page' : undefined}>About</a>
+    </nav>
     <a href={withBasePath(base)} class="banner" aria-label="ToyWebCreations — Home">
-      <span class="banner-prefix">&gt;_</span><span class="banner-name">ToyWebCreations</span>
+      <span class="banner-rule" aria-hidden="true"></span>
+      <span class="banner-name">ToyWebCreations</span>
+      <span class="banner-rule" aria-hidden="true"></span>
     </a>
-    <nav class="header-nav" aria-label="Site navigation">
-      <a href={withBasePath(base)} class="nav-link">Home</a>
-      <a href={withBasePath(base, 'about/')} class="nav-link">About</a>
+    <nav class="header-nav header-nav--right" aria-label="External links">
       <a
         href={githubLink}
         class="nav-link nav-link--github"
@@ -39,9 +46,9 @@ const base = import.meta.env.BASE_URL;
     position: sticky;
     top: 0;
     z-index: 100;
-    height: var(--header-height);
-    background: rgba(7, 12, 7, 0.92);
-    border-bottom: 1px solid var(--border-bright);
+    height: 52px;
+    background: rgba(26, 21, 16, 0.95);
+    border-bottom: 1px solid var(--border);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
@@ -53,57 +60,60 @@ const base = import.meta.env.BASE_URL;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
+    justify-content: center;
+    gap: var(--space-8);
   }
 
   .banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
     font-family: var(--font-display);
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
+    font-weight: 300;
     color: var(--phosphor);
     text-decoration: none;
     white-space: nowrap;
-    letter-spacing: 0.06em;
-    transition: text-shadow var(--transition-fast);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     line-height: 1;
+    transition: color var(--transition-fast);
   }
 
   .banner:hover {
-    text-shadow: var(--glow-text-md);
-    color: var(--phosphor);
+    color: var(--phosphor-bright);
   }
 
-  .banner-prefix {
-    color: var(--phosphor-dim);
-    margin-right: 0.2em;
-  }
-
-  .banner:hover .banner-prefix {
-    color: var(--phosphor-muted);
+  .banner-rule {
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--phosphor-dim);
+    flex-shrink: 0;
   }
 
   .header-nav {
     display: flex;
     align-items: center;
     gap: var(--space-1);
+    flex: 1;
+  }
+
+  .header-nav--right {
+    justify-content: flex-end;
   }
 
   .nav-link {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
     font-weight: 500;
-    color: var(--text-dim);
+    color: var(--text-muted);
     text-decoration: none;
     padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    border: 1px solid transparent;
-    letter-spacing: 0.05em;
+    border: none;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    transition:
-      color var(--transition-fast),
-      border-color var(--transition-fast),
-      background var(--transition-fast),
-      text-shadow var(--transition-fast);
+    transition: color var(--transition-fast);
     display: flex;
     align-items: center;
     gap: var(--space-1);
@@ -111,38 +121,44 @@ const base = import.meta.env.BASE_URL;
 
   .nav-link:hover {
     color: var(--phosphor);
-    border-color: var(--border-bright);
-    background: var(--bg-raised);
-    text-shadow: var(--glow-text-sm);
+  }
+
+  .nav-link--active {
+    color: var(--phosphor);
+    text-decoration: underline;
+    text-decoration-color: var(--phosphor-dim);
+    text-underline-offset: 3px;
   }
 
   .nav-link--github {
-    color: var(--text-dim);
-    border-color: var(--border);
-    background: var(--bg-surface);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: var(--space-1) var(--space-3);
   }
 
   .nav-link--github:hover {
     color: var(--phosphor);
-    border-color: var(--phosphor-dim);
-    box-shadow: var(--glow-sm);
+    border-color: var(--border-bright);
   }
 
   .github-icon {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     flex-shrink: 0;
   }
 
-  /* Responsive: collapse nav labels on very small screens */
-  @media (max-width: 480px) {
-    .banner {
-      font-size: var(--text-xl);
+  @media (max-width: 640px) {
+    .header-inner {
+      gap: var(--space-4);
     }
-
+    .banner-rule {
+      display: none;
+    }
+    .banner {
+      font-size: var(--text-base);
+    }
     .nav-link {
-      padding: var(--space-2);
-      font-size: var(--text-xs);
+      padding: var(--space-1) var(--space-2);
     }
   }
 </style>

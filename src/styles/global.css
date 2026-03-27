@@ -35,41 +35,52 @@ body {
   min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
+  animation: warm-fade-in 0.5s ease-out 1;
 }
 
-/* --- CRT Scanline Overlay --- */
+/* Film grain overlay */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.08) 2px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  opacity: 0.07;
   pointer-events: none;
   z-index: 120;
 }
 
-/* Subtle vignette */
+/* Warm vignette — stronger, warm-toned edges */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.35) 100%);
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(26, 21, 16, 0.65) 100%);
   pointer-events: none;
   z-index: 110;
+}
+
+/* Warm page-load fade */
+@keyframes warm-fade-in {
+  from {
+    opacity: 0.7;
+    filter: sepia(0.4) brightness(0.75);
+  }
+  to {
+    opacity: 1;
+    filter: sepia(0) brightness(1);
+  }
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.15;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: var(--phosphor);
+  text-shadow: var(--text-deboss);
 }
 
 h1 { font-size: var(--text-6xl); }
@@ -92,7 +103,9 @@ a {
 
 a:hover {
   color: var(--phosphor-bright);
-  text-shadow: var(--glow-text-sm);
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 165, 116, 0.3);
+  text-underline-offset: 3px;
 }
 
 :focus-visible {
@@ -123,7 +136,7 @@ pre {
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-5);
   overflow-x: auto;
-  color: var(--phosphor-bright);
+  color: var(--text);
 }
 
 pre code {
@@ -145,10 +158,13 @@ img, video {
   padding: 0 var(--space-6);
 }
 
-/* --- Horizontal rule --- */
+/* --- Horizontal rule — double-line vintage ornament --- */
 hr {
   border: none;
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  height: 3px;
+  background: transparent;
   margin: var(--space-8) 0;
 }
 
@@ -174,26 +190,44 @@ hr {
 /* --- Selection --- */
 ::selection {
   background: var(--phosphor-dim);
-  color: var(--phosphor-bright);
+  color: var(--text);
 }
 
-/* --- Phosphor glow utility classes --- */
-.glow-sm   { text-shadow: var(--glow-text-sm); }
-.glow-md   { text-shadow: var(--glow-text-md); }
-.glow-box  { box-shadow: var(--glow-sm); }
+/* --- Utility classes --- */
+.glow-sm   { text-shadow: var(--text-deboss); }
+.glow-md   { text-shadow: var(--text-deboss-strong); }
+.glow-box  { box-shadow: var(--shadow-sm); }
 .phosphor  { color: var(--phosphor); }
 
-/* --- Screen flicker on load (subtle) --- */
-@keyframes flicker {
-  0%   { opacity: 1; }
-  2%   { opacity: 0.92; }
-  4%   { opacity: 1; }
-  8%   { opacity: 0.96; }
-  10%  { opacity: 1; }
+/* --- Card image skeleton shimmer --- */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
 }
 
-.flicker {
-  animation: flicker 0.15s ease-in-out 1;
+.card-image-wrap {
+  background: linear-gradient(90deg,
+    var(--bg-raised) 25%,
+    var(--bg-surface) 50%,
+    var(--bg-raised) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-image-wrap { animation: none; }
+}
+
+/* --- View Transitions: film-dissolve --- */
+@keyframes film-dissolve-out {
+  from { opacity: 1; filter: sepia(0); }
+  to   { opacity: 0; filter: sepia(0.5); }
+}
+
+@keyframes film-dissolve-in {
+  from { opacity: 0; filter: sepia(0.5); }
+  to   { opacity: 1; filter: sepia(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -201,13 +235,13 @@ hr {
     scroll-behavior: auto;
   }
 
+  body {
+    animation: none !important;
+  }
+
   *, *::before, *::after {
     animation: none !important;
     animation-name: none !important;
     transition: none !important;
-  }
-
-  .flicker {
-    animation: none !important;
   }
 }

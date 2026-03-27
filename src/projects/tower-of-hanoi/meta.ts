@@ -10,4 +10,8 @@ export const meta: ProjectMeta = {
   coverImage: assetPath('images/projects/tower-of-hanoi/cover.svg'),
   icon: assetPath('images/projects/tower-of-hanoi/icon.svg'),
   sourceLink: projectSourceLink('tower-of-hanoi'),
+  addedDate: '2024-09-01',
+  playTime: '5–15 min',
+  difficulty: 2,
+  tags: ['puzzle', 'logic'],
 };

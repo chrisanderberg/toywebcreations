@@ -10,4 +10,8 @@ export const meta: ProjectMeta = {
   coverImage: assetPath('images/projects/elementary-cellular-automata/cover.svg'),
   icon: assetPath('images/projects/elementary-cellular-automata/icon.svg'),
   sourceLink: projectSourceLink('elementary-cellular-automata'),
+  addedDate: '2025-01-01',
+  playTime: '2–5 min',
+  difficulty: 1,
+  tags: ['simulation', 'visual'],
 };

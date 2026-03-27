@@ -1,47 +1,51 @@
 /* =====================================================================
    ToyWebCreations — Design Tokens
-   Phosphor / CRT aesthetic
+   Retro Warm / Analog aesthetic
    ===================================================================== */
 
 :root {
-  /* --- Color: Phosphor Green Palette --- */
-  --phosphor:         #39ff14;
-  --phosphor-bright:  #7fff4f;
-  --phosphor-dim:     #1a8c0a;
-  --phosphor-muted:   #2db81d;
-  --phosphor-faint:   #0d420a;
+  /* --- Color: Warm Amber Palette --- */
+  --phosphor:         #D4A574;
+  --phosphor-bright:  #E8C19A;
+  --phosphor-dim:     #8B6914;
+  --phosphor-muted:   #B8860B;
+  --phosphor-faint:   #5C4A1E;
 
   /* --- Color: Backgrounds --- */
-  --bg:               #070c07;
-  --bg-surface:       #0c130c;
-  --bg-raised:        #111a11;
-  --bg-overlay:       #162116;
-  --phosphor-bg-subtle: rgba(57, 255, 20, 0.06);
-  --phosphor-bg-light:  rgba(57, 255, 20, 0.1);
+  --bg:               #1A1510;
+  --bg-surface:       #221C14;
+  --bg-raised:        #2C2418;
+  --bg-overlay:       #362C1E;
+  --phosphor-bg-subtle: rgba(212, 165, 116, 0.06);
+  --phosphor-bg-light:  rgba(212, 165, 116, 0.10);
 
   /* --- Color: Text --- */
-  --text:             #c8e8c9;
-  --text-dim:         #6b9b6c;
-  --text-muted:       #3d5e3e;
-  --text-inverse:     #070c07;
+  --text:             #F5E6D0;
+  --text-dim:         #BFA882;
+  --text-muted:       #7A6B52;
+  --text-inverse:     #1A1510;
 
   /* --- Color: Borders --- */
-  --border:           #1a3a1a;
-  --border-bright:    #2d622d;
+  --border:           #3A3020;
+  --border-bright:    #5C4A30;
   --border-active:    var(--phosphor-dim);
 
-  /* --- Glow --- */
-  --glow-sm:          0 0 8px rgba(57, 255, 20, 0.4);
-  --glow-md:          0 0 16px rgba(57, 255, 20, 0.3), 0 0 32px rgba(57, 255, 20, 0.15);
-  --glow-lg:          0 0 24px rgba(57, 255, 20, 0.5), 0 0 48px rgba(57, 255, 20, 0.2), 0 0 80px rgba(57, 255, 20, 0.1);
-  --glow-text-sm:     0 0 6px rgba(57, 255, 20, 0.6);
-  --glow-text-md:     0 0 10px rgba(57, 255, 20, 0.7), 0 0 20px rgba(57, 255, 20, 0.3);
-  --glow-cell-sm:     0 0 4px rgba(57, 255, 20, 0.4);
-  --glow-cell-md:     0 0 8px rgba(57, 255, 20, 0.7);
+  /* --- Print / Analog Shadows --- */
+  --shadow-sm:        0 1px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md:        0 2px 8px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-lg:        0 4px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25);
+
+  /* --- Letterpress / Deboss (text feels pressed into surface) --- */
+  --text-deboss:        1px 1px 0 rgba(0, 0, 0, 0.3);
+  --text-deboss-strong: 1px 1px 0 rgba(0, 0, 0, 0.45), -0.5px -0.5px 0 rgba(245, 230, 208, 0.08);
+
+  /* --- Cell Accent (border ring, no glow spread) --- */
+  --cell-accent:        rgba(212, 165, 116, 0.25);
+  --cell-accent-strong: rgba(212, 165, 116, 0.4);
 
   /* --- Typography --- */
-  --font-display:     'VT323', monospace;
-  --font-body:        'Outfit', system-ui, sans-serif;
+  --font-display:     'Fraunces', serif;
+  --font-body:        'Source Sans 3', system-ui, sans-serif;
   --font-mono:        'JetBrains Mono', 'Fira Code', monospace;
 
   /* --- Type Scale --- */
@@ -72,9 +76,9 @@
   --space-24:  6rem;
 
   /* --- Border radius --- */
-  --radius-sm:  2px;
-  --radius-md:  4px;
-  --radius-lg:  8px;
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
 
   /* --- Transitions --- */
   --transition-fast:  150ms ease;

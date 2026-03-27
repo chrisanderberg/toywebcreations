@@ -10,4 +10,8 @@ export const meta: ProjectMeta = {
   coverImage: assetPath('images/projects/conway/cover.svg'),
   icon: assetPath('images/projects/conway/icon.svg'),
   sourceLink: projectSourceLink('conway'),
+  addedDate: '2024-06-01',
+  playTime: '2–5 min',
+  difficulty: 1,
+  tags: ['simulation', 'visual'],
 };

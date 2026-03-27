@@ -9,6 +9,7 @@
         Strange ideas.<br />
         All interactive.
       </h1>
+      <hr class="intro-rule" aria-hidden="true" />
       <p class="intro-body">
         ToyWebCreations is a collection of focused, playable web experiments —
         puzzles, simulations, generators, and visual curiosities.
@@ -27,42 +28,48 @@
     padding: var(--space-20) 0 var(--space-16);
     border-bottom: 1px solid var(--border);
     position: relative;
+    text-align: center;
   }
 
-  /* Ambient radial glow behind the headline */
-  .site-intro::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse at center, rgba(57, 255, 20, 0.06) 0%, transparent 70%);
-    pointer-events: none;
+  .site-intro .container {
+    display: flex;
+    justify-content: center;
   }
 
   .intro-inner {
-    max-width: 640px;
+    max-width: 600px;
+    width: 100%;
     position: relative;
+    text-align: center;
   }
 
   .intro-headline {
     font-family: var(--font-display);
-    font-size: clamp(2.8rem, 7vw, var(--text-7xl));
+    font-size: clamp(2.6rem, 6.5vw, var(--text-7xl));
+    font-weight: 300;
     color: var(--phosphor);
-    text-shadow: var(--glow-text-md);
-    line-height: 1.05;
+    text-shadow: var(--text-deboss-strong);
+    line-height: 1.1;
     letter-spacing: 0.02em;
-    margin-bottom: var(--space-8);
+    margin-bottom: 0;
+  }
+
+  .intro-rule {
+    border: none;
+    width: 80px;
+    height: 1px;
+    background: var(--phosphor-dim);
+    margin: var(--space-8) auto;
   }
 
   .intro-body {
     font-size: var(--text-lg);
+    font-style: italic;
     color: var(--text);
     line-height: 1.75;
-    max-width: 520px;
-    margin-bottom: var(--space-10);
+    max-width: 460px;
+    margin: 0 auto var(--space-10);
+    text-align: center;
   }
 
   .intro-scroll-hint {
@@ -72,17 +79,18 @@
     letter-spacing: 0.1em;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-2);
   }
 
   .hint-char {
-    animation: bounce 2s ease-in-out infinite;
+    animation: fadePulse 2.5s ease-in-out infinite;
     display: inline-block;
   }
 
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(4px); }
+  @keyframes fadePulse {
+    0%, 100% { opacity: 1; transform: translateY(0); }
+    50%       { opacity: 0.4; transform: translateY(3px); }
   }
 
   @media (prefers-reduced-motion: reduce) {
