@@ -8,41 +8,53 @@ interface Props {
 
 const { projects } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const isNew = (d?: string) => !!d && (Date.now() - new Date(d).getTime()) < 90 * 86400000;
+const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
 ---
 
 <section class="all-projects-section">
   <div class="container">
-    <h2 class="section-heading">
-      <span class="heading-prefix">02</span>
-      All Projects
-    </h2>
-    <ul class="projects-list" role="list">
-      {projects.map((project) => (
-        <li class="project-row">
-          <a href={withBasePath(base, `${project.slug}/`)} class="project-link">
-            <div class="project-icon-wrap">
-              <img
-                src={project.icon}
-                alt=""
-                class="project-icon"
-                loading="lazy"
-                decoding="async"
-                width="48"
-                height="48"
-                aria-hidden="true"
-              />
-            </div>
-            <div class="project-info">
-              <span class="project-title">{project.title}</span>
-              {project.description && (
-                <span class="project-desc">{project.description}</span>
-              )}
-            </div>
-            <span class="project-arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
+    <h2 class="section-heading">Catalog</h2>
+    <p class="section-ornament">❦</p>
+    <div class="filter-bar" role="group" aria-label="Filter by tag">
+      <button class="filter-btn filter-btn--active" data-tag="all">All</button>
+      {allTags.map(tag => (
+        <button class="filter-btn" data-tag={tag}>{tag}</button>
       ))}
-    </ul>
+    </div>
+    <div class="projects-columns">
+      <ul class="projects-list" role="list">
+        {projects.map((project) => (
+          <li class="project-row" data-tags={project.tags?.join(',') ?? ''}>
+            <a href={withBasePath(base, `${project.slug}/`)} class="project-link">
+              <div class="project-icon-wrap">
+                <img
+                  src={project.icon}
+                  alt=""
+                  class="project-icon"
+                  loading="lazy"
+                  decoding="async"
+                  width="40"
+                  height="40"
+                  aria-hidden="true"
+                />
+              </div>
+              <div class="project-info">
+                <span class="project-title">{project.title}</span>
+                {project.description && (
+                  <span class="project-desc">{project.description}</span>
+                )}
+                <div class="card-meta">
+                  {isNew(project.addedDate) && <span class="badge-new">New</span>}
+                  {project.playTime && <span class="chip">⏱ {project.playTime}</span>}
+                </div>
+              </div>
+              <span class="project-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -53,37 +65,43 @@ const base = import.meta.env.BASE_URL;
 
   .section-heading {
     font-family: var(--font-display);
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
+    font-weight: 300;
     color: var(--phosphor);
-    margin-bottom: var(--space-8);
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: var(--space-3);
   }
 
-  .heading-prefix {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    position: relative;
-    top: -4px;
+  .section-ornament {
+    font-size: var(--text-xl);
+    color: var(--phosphor-dim);
+    text-align: center;
+    margin-bottom: var(--space-8);
+    line-height: 1;
+  }
+
+  .projects-columns {
+    column-count: 2;
+    column-gap: var(--space-10);
+    column-rule: 1px solid var(--border);
   }
 
   .projects-list {
     list-style: none;
-    border-top: 1px solid var(--border);
   }
 
   .project-row {
     border-bottom: 1px solid var(--border);
+    break-inside: avoid;
   }
 
   .project-link {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
-    padding: var(--space-4) var(--space-2);
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-2);
     text-decoration: none;
     transition:
       background var(--transition-fast),
@@ -93,12 +111,11 @@ const base = import.meta.env.BASE_URL;
 
   .project-link:hover {
     background: var(--bg-raised);
-    padding-left: var(--space-4);
+    padding-left: var(--space-3);
   }
 
   .project-link:hover .project-title {
     color: var(--phosphor);
-    text-shadow: var(--glow-text-sm);
   }
 
   .project-link:hover .project-arrow {
@@ -107,12 +124,12 @@ const base = import.meta.env.BASE_URL;
   }
 
   .project-icon-wrap {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
     background: var(--bg-raised);
     border: 1px solid var(--border-bright);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -123,6 +140,7 @@ const base = import.meta.env.BASE_URL;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: sepia(0.2) saturate(0.8);
   }
 
   .project-info {
@@ -130,30 +148,142 @@ const base = import.meta.env.BASE_URL;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: 2px;
   }
 
   .project-title {
-    font-family: var(--font-body);
+    font-family: var(--font-display);
     font-size: var(--text-base);
-    font-weight: 500;
+    font-weight: 300;
+    font-style: italic;
     color: var(--text);
     letter-spacing: 0.02em;
-    transition: color var(--transition-fast), text-shadow var(--transition-fast);
+    transition: color var(--transition-fast);
   }
 
   .project-desc {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--text-dim);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.4;
   }
 
   .project-arrow {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     color: var(--text-muted);
     flex-shrink: 0;
     transition: color var(--transition-fast), transform var(--transition-fast);
   }
+
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: var(--space-1) var(--space-3);
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    color: var(--phosphor);
+    border-color: var(--phosphor-dim);
+  }
+
+  .filter-btn--active {
+    color: var(--phosphor);
+    border-color: var(--phosphor-dim);
+    text-decoration: underline;
+    text-decoration-color: var(--phosphor-dim);
+    text-underline-offset: 2px;
+  }
+
+  .project-row {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease, background var(--transition-fast), padding-left var(--transition-fast);
+  }
+
+  .project-row.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-row:nth-child(2) { transition-delay: 0.07s; }
+  .project-row:nth-child(3) { transition-delay: 0.14s; }
+  .project-row:nth-child(4) { transition-delay: 0.21s; }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: 2px;
+    flex-wrap: wrap;
+  }
+
+  .badge-new {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--bg);
+    background: var(--phosphor-dim);
+    padding: 0px 5px;
+    border-radius: 1px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  @media (max-width: 640px) {
+    .projects-columns {
+      column-count: 1;
+    }
+  }
 </style>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = (btn as HTMLElement).dataset.tag;
+      document.querySelectorAll('.filter-btn').forEach(b =>
+        b.classList.toggle('filter-btn--active', b === btn));
+      document.querySelectorAll('[data-tags]').forEach(card => {
+        const tags = (card as HTMLElement).dataset.tags?.split(',') ?? [];
+        (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag!)) ? '' : 'none';
+      });
+    });
+  });
+
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const items = document.querySelectorAll('.project-row');
+  if (mq.matches) {
+    items.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    items.forEach(el => io.observe(el));
+  }
+</script>

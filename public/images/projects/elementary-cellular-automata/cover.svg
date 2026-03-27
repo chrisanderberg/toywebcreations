@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
-  <rect width="640" height="360" fill="#070c07"/>
+  <rect width="640" height="360" fill="#1A1510"/>
 
   <!-- Scanline texture -->
   <pattern id="scan" x="0" y="0" width="2" height="4" patternUnits="userSpaceOnUse">
@@ -20,7 +20,7 @@
 
   <!-- Rule 90  21 rows from single centered cell (SierpiDski triangle)
        41 cells wide, cell size 12px, top-left at (74, 20) -->
-  <g fill="#39ff14" filter="url(#glow)">
+  <g fill="#D4A574" filter="url(#glow)">
     <!-- Row 0 -->
     <rect x="315" y="21" width="10" height="10"/>
     <!-- Row 1 -->
@@ -148,6 +148,6 @@
   </g>
 
   <!-- Labels -->
-  <text x="320" y="304" font-family="monospace" font-size="10" text-anchor="middle" fill="#1a8c0a" letter-spacing="4" opacity="0.8">RULE 90  SIERPICSKI TRIANGLE</text>
-  <text x="320" y="336" font-family="monospace" font-size="14" text-anchor="middle" fill="#2db81d" letter-spacing="3">1D CELLULAR AUTOMATA</text>
+  <text x="320" y="304" font-family="monospace" font-size="10" text-anchor="middle" fill="#8B6914" letter-spacing="4" opacity="0.8">RULE 90  SIERPICSKI TRIANGLE</text>
+  <text x="320" y="336" font-family="monospace" font-size="14" text-anchor="middle" fill="#D4A574" letter-spacing="3">1D CELLULAR AUTOMATA</text>
 </svg>

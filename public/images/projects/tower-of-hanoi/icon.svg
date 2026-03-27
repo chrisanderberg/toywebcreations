@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
   <!-- Background -->
-  <rect width="48" height="48" fill="#070c07" rx="4"/>
+  <rect width="48" height="48" fill="#1A1510" rx="4"/>
 
   <!-- Peg stems (centers at x=12, 24, 36) -->
-  <rect x="11" y="6"  width="2" height="32" rx="1" fill="#1a8c0a"/>
-  <rect x="23" y="6"  width="2" height="32" rx="1" fill="#1a8c0a"/>
-  <rect x="35" y="6"  width="2" height="32" rx="1" fill="#1a8c0a"/>
+  <rect x="11" y="6"  width="2" height="32" rx="1" fill="#8B6914"/>
+  <rect x="23" y="6"  width="2" height="32" rx="1" fill="#8B6914"/>
+  <rect x="35" y="6"  width="2" height="32" rx="1" fill="#8B6914"/>
 
   <!-- Peg bases -->
-  <rect x="6"  y="38" width="12" height="3" rx="1" fill="#1a8c0a"/>
-  <rect x="18" y="38" width="12" height="3" rx="1" fill="#1a8c0a"/>
-  <rect x="30" y="38" width="12" height="3" rx="1" fill="#1a8c0a"/>
+  <rect x="6"  y="38" width="12" height="3" rx="1" fill="#8B6914"/>
+  <rect x="18" y="38" width="12" height="3" rx="1" fill="#8B6914"/>
+  <rect x="30" y="38" width="12" height="3" rx="1" fill="#8B6914"/>
 
   <!--
     4 discs stacked on peg A (x=12):
@@ -19,8 +19,8 @@
     disc 2:                   w=8,  x=8,  y=22
     disc 1 (top, smallest):   w=4,  x=10, y=16
   -->
-  <rect x="4"  y="34" width="16" height="4" rx="1" fill="#0d420a" stroke="#1a8c0a" stroke-width="0.75"/>
-  <rect x="6"  y="28" width="12" height="4" rx="1" fill="#0f5a0a" stroke="#228c0a" stroke-width="0.75"/>
-  <rect x="8"  y="22" width="8"  height="4" rx="1" fill="#137a0d" stroke="#2db81d" stroke-width="0.75"/>
-  <rect x="10" y="16" width="4"  height="4" rx="1" fill="#20c418" stroke="#7fff4f" stroke-width="0.75"/>
+  <rect x="4"  y="34" width="16" height="4" rx="1" fill="#5C4A1E" stroke="#8B6914" stroke-width="0.75"/>
+  <rect x="6"  y="28" width="12" height="4" rx="1" fill="#704A14" stroke="#A07818" stroke-width="0.75"/>
+  <rect x="8"  y="22" width="8"  height="4" rx="1" fill="#8B6014" stroke="#D4A574" stroke-width="0.75"/>
+  <rect x="10" y="16" width="4"  height="4" rx="1" fill="#E8C19A" stroke="#E8C19A" stroke-width="0.75"/>
 </svg>
