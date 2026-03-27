@@ -1,71 +1,48 @@
 # AGENTS.md
 
 ## Purpose
-- Durable repo-specific guidance for coding agents.
-- Keep this file minimal.
-- Prefer linking to authoritative docs over duplicating detail here.
+- This file defines how agents should operate in this worktree.
+- Read `PROJECT.md` for project context, goals, and product shape.
+- Read `REQUIREMENTS.md` for the active implementation contract.
+- Use `docs/ARCHITECTURE.md` for deeper implementation-structure reference when needed.
 
 ## Source of truth
-- Product/spec: `docs/SPEC.md`
-- Implementation structure: `docs/ARCHITECTURE.md`
-- Visual/design guidance: `docs/DESIGN.md`
+- Direct user instructions win.
+- `REQUIREMENTS.md` governs active implementation constraints and tradeoffs.
+- `PROJECT.md` governs stable project description, goals, and domain framing.
+- `docs/ARCHITECTURE.md` governs deeper implementation structure.
 
-If these docs conflict:
+If these documents conflict:
 1. direct user instructions win
-2. `docs/SPEC.md` governs user-visible behavior and scope
-3. `docs/ARCHITECTURE.md` governs implementation structure
-4. `docs/DESIGN.md` governs visual consistency and theming
+2. `REQUIREMENTS.md` wins for active implementation constraints
+3. `PROJECT.md` wins for project framing and goals
+4. `docs/ARCHITECTURE.md` wins for deeper implementation structure
 
-## Project constraints
-- Framework: Astro
-- Hosting target: GitHub Pages
-- Static site only
-- No backend, auth, accounts, or cloud sync for core functionality
-- Home page is the project index; there is no separate `/projects/` page
-- Site routes:
-  - `/`
-  - `/about/`
-  - `/<slug>/`
-  - `/<slug>/about/`
-
-## Global UX requirements
-Every page must include a consistent top header with:
-- ToyWebCreations banner linking to Home
-- explicit `Home` link
-- explicit `About` link
-- `GitHub` link
-
-GitHub link behavior:
-- Home page: repo root
-- Project pages: that project's subdirectory in the repo
-
-## Performance constraints
-- Do not turn the site into one giant SPA that ships all project code at once.
-- Project-specific dependencies must remain route-local.
-- Heavier dependencies should load only on the relevant project route.
-- The home page should render from lightweight project metadata, not from eager
-  imports of every project implementation.
-
-## Content conventions
-- Each project must have:
-  - a playable page at `/<slug>/`
-  - an About page at `/<slug>/about/`
-- Each project must be represented in the project registry/metadata source.
-- Each project page should link clearly to its About page.
-- Per-project writeups should explain the concept in beginner-friendly terms,
-  with deeper implementation notes where useful.
-
-## Product boundaries
-- No blog/notes section in MVP
-- No default analytics/tracking
-- No public email link requirement
-- Persistence, if used, should remain local-only
-- Default stance is no audio; exceptions are allowed for specific game-like
-  projects if obvious mute/volume controls are provided
+## Requirement handling
+- Hard requirements are binding. Do not violate them unless the human explicitly changes or waives them.
+- Soft requirements are preferred guidance. Follow them by default, but you may deviate when there is a clear task-specific reason.
+- Agents may add or refine soft requirements when they discover reusable guidance during implementation.
+- Humans may add or revise hard and soft requirements.
+- Agents must not silently create, remove, or weaken hard requirements.
+- If a soft requirement appears important enough to become mandatory, add it to the candidate promotion section in `REQUIREMENTS.md` instead of promoting it directly.
+- Durable rationale should be recorded directly with the relevant soft requirement in `REQUIREMENTS.md`.
+- Do not use `REQUIREMENTS.md` as a scratchpad or status log. Add only reusable guidance or binding constraints.
+- When requirements emerge from prototypes or examples, capture them in `REQUIREMENTS.md` in a reusable form.
+- Keep `REQUIREMENTS.md` concise and reviewable. Do not add task-specific notes that will not matter to future work.
 
 ## Documentation maintenance
-- Update `docs/SPEC.md` when user-visible behavior or scope changes.
-- Update `docs/ARCHITECTURE.md` when implementation structure or technical
-  assumptions change.
-- Update `docs/DESIGN.md` when visual system or theming rules change.
-- Add assumptions only when they materially affect implementation or review.
+- Update `PROJECT.md` when the stable description, goals, or project framing changes.
+- Update `REQUIREMENTS.md` when active constraints or implementation guidance change.
+- Update `docs/ARCHITECTURE.md` when implementation structure or technical assumptions change.
+
+## Execution rules
+- If something is not specified, do not guess silently. Surface the gap or make the narrowest safe assumption, and record that assumption in `REQUIREMENTS.md` under `Open questions` or an `Assumptions` section if one is needed.
+- Prefer parameterization over hardcoding when requirements are still evolving.
+- Keep code structure reviewable. Split large files or functions when they become difficult to understand.
+- Add brief comments only where intent or invariants are not obvious from the code.
+
+## Definition of done
+- The implementation satisfies the active hard requirements.
+- Any intentional deviation from a soft requirement is explainable.
+- Relevant tests or checks are run for the changed area.
+- Any new reusable implementation guidance discovered during the task is added to the soft requirements in `REQUIREMENTS.md`.

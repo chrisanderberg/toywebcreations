@@ -3,8 +3,9 @@
 ## 1. Purpose
 This document describes how ToyWebCreations is structured and implemented.
 
-`docs/SPEC.md` defines what the site must do.
-This document defines how the codebase should be organized to support that.
+`PROJECT.md` defines the product shape and goals.
+`REQUIREMENTS.md` defines the active implementation contract.
+This document defines how the codebase should be organized to support them.
 
 ## 2. Core architectural decisions
 - Framework: Astro
@@ -36,10 +37,10 @@ is a clear need.
 ```text
 /
 ├─ AGENTS.md
+├─ PROJECT.md
+├─ REQUIREMENTS.md
 ├─ docs/
-│  ├─ SPEC.md
-│  ├─ ARCHITECTURE.md
-│  └─ DESIGN.md
+│  └─ ARCHITECTURE.md
 ├─ public/
 │  ├─ favicon/
 │  └─ images/
