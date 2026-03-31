@@ -8,6 +8,8 @@ interface Props {
 
 const { projects } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const isNew = (d?: string) => !!d && (Date.now() - new Date(d).getTime()) < 90 * 86400000;
+const allTags = [...new Set(projects.flatMap(p => p.tags ?? []))].sort();
 ---
 
 <section class="all-projects-section">
@@ -16,9 +18,15 @@ const base = import.meta.env.BASE_URL;
       <span class="heading-prefix">02</span>
       All Projects
     </h2>
+    <div class="filter-bar" role="group" aria-label="Filter by tag">
+      <button class="filter-btn filter-btn--active" data-tag="all">All</button>
+      {allTags.map(tag => (
+        <button class="filter-btn" data-tag={tag}>{tag}</button>
+      ))}
+    </div>
     <ul class="projects-list" role="list">
       {projects.map((project) => (
-        <li class="project-row">
+        <li class="project-row" data-tags={project.tags?.join(',') ?? ''}>
           <a href={withBasePath(base, `${project.slug}/`)} class="project-link">
             <div class="project-icon-wrap">
               <img
@@ -37,6 +45,10 @@ const base = import.meta.env.BASE_URL;
               {project.description && (
                 <span class="project-desc">{project.description}</span>
               )}
+              <div class="card-meta">
+                {isNew(project.addedDate) && <span class="badge-new">New</span>}
+                {project.playTime && <span class="chip">⏱ {project.playTime}</span>}
+              </div>
             </div>
             <span class="project-arrow" aria-hidden="true">→</span>
           </a>
@@ -75,9 +87,54 @@ const base = import.meta.env.BASE_URL;
     border-top: 1px solid var(--border);
   }
 
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: var(--space-1) var(--space-3);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    color: var(--phosphor);
+    border-color: var(--phosphor-dim);
+  }
+
+  .filter-btn--active {
+    color: var(--phosphor);
+    border-color: var(--phosphor);
+    background: var(--bg-raised);
+  }
+
   .project-row {
     border-bottom: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease, background var(--transition-fast), padding-left var(--transition-fast);
   }
+
+  .project-row.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-row:nth-child(2) { transition-delay: 0.07s; }
+  .project-row:nth-child(3) { transition-delay: 0.14s; }
+  .project-row:nth-child(4) { transition-delay: 0.21s; }
 
   .project-link {
     display: flex;
@@ -156,4 +213,60 @@ const base = import.meta.env.BASE_URL;
     flex-shrink: 0;
     transition: color var(--transition-fast), transform var(--transition-fast);
   }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: 2px;
+    flex-wrap: wrap;
+  }
+
+  .badge-new {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--phosphor);
+    padding: 0px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
 </style>
+
+<script>
+  // Tag filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = (btn as HTMLElement).dataset.tag;
+      document.querySelectorAll('.filter-btn').forEach(b =>
+        b.classList.toggle('filter-btn--active', b === btn));
+      document.querySelectorAll('[data-tags]').forEach(card => {
+        const tags = (card as HTMLElement).dataset.tags?.split(',') ?? [];
+        (card as HTMLElement).style.display = (tag === 'all' || tags.includes(tag!)) ? '' : 'none';
+      });
+    });
+  });
+
+  // Scroll reveal
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const items = document.querySelectorAll('.project-row');
+  if (mq.matches) {
+    items.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    items.forEach(el => io.observe(el));
+  }
+</script>
